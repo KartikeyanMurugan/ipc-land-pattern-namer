@@ -18,7 +18,22 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "IPC Land Pattern Namer",
+  "url": "https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/",
+  "description": "Free tool that builds IPC-7351B / IPC-7251 land pattern (PCB footprint) names from datasheet dimensions.",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Any (web browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "Karthikeyan Murugan", "url": "https://github.com/KartikeyanMurugan" },
+  "license": "https://opensource.org/licenses/MIT"
+}
+</script>
 <style>
   :root {
     --paper: #f6f8f5; --grid: #e3e9e3; --panel: #ffffff; --ink: #1d2a33; --muted: #5b6862; --line: #d4dcd5;
@@ -93,6 +108,7 @@
   .checks { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
   .checks label { display: flex; align-items: center; gap: 7px; font-size: 14.5px; cursor: pointer; }
   .checks input { width: 17px; height: 17px; accent-color: var(--copper); }
+  #fields { min-height: 430px; }
   .pattern { margin-top: 10px; font: 500 12.5px/1.5 var(--mono); color: var(--muted); word-break: break-all; }
 
   /* ---------- result board ---------- */
@@ -197,7 +213,7 @@
 
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="./" aria-label="IPC Land Pattern Namer home">
+    <a class="brand" href="./">
       <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
         <rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/>
         <rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/>
