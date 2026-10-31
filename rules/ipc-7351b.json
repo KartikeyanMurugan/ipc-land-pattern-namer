@@ -1,0 +1,2469 @@
+{
+  "id": "ipc-7351b",
+  "title": "IPC-7351B / IPC-7251 (PCB Matrix 2009 summary)",
+  "fields": {
+    "pitch": {
+      "label": "Pitch",
+      "unit": "mm",
+      "use": "nom",
+      "help": "Centre-to-centre distance between adjacent pins (e)."
+    },
+    "pitchCol": {
+      "label": "Column pitch",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "pitchRow": {
+      "label": "Row pitch",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "leadSpan": {
+      "label": "Lead span (tip to tip)",
+      "unit": "mm",
+      "use": "nom",
+      "help": "Outside of lead to outside of lead (E). NOT the body width (E1)."
+    },
+    "leadSpan1": {
+      "label": "Lead span L1",
+      "unit": "mm",
+      "use": "nom",
+      "help": "Lead tip to lead tip, first direction (D)."
+    },
+    "leadSpan2": {
+      "label": "Lead span L2",
+      "unit": "mm",
+      "use": "nom",
+      "help": "Lead tip to lead tip, second direction (E)."
+    },
+    "bodyL": {
+      "label": "Body length",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "bodyW": {
+      "label": "Body width",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "bodyT": {
+      "label": "Body thickness",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "bodyDia": {
+      "label": "Body diameter",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "baseSize": {
+      "label": "Base body size",
+      "unit": "mm",
+      "use": "nom",
+      "help": "Square base of the electrolytic capacitor."
+    },
+    "height": {
+      "label": "Height (max)",
+      "unit": "mm",
+      "use": "max",
+      "help": "Maximum seated height above the board (A)."
+    },
+    "pinQty": {
+      "label": "Pin quantity",
+      "unit": "pins",
+      "type": "int"
+    },
+    "cols": {
+      "label": "Columns",
+      "unit": "",
+      "type": "int"
+    },
+    "rows": {
+      "label": "Rows",
+      "unit": "",
+      "type": "int"
+    },
+    "pinsPerRow": {
+      "label": "Pins per row",
+      "unit": "",
+      "type": "int"
+    },
+    "vias": {
+      "label": "Number of vias",
+      "unit": "",
+      "type": "int",
+      "optional": true
+    },
+    "leadWidth": {
+      "label": "Lead width / diameter (max)",
+      "unit": "mm",
+      "use": "max"
+    },
+    "leadLength": {
+      "label": "Lead length (max)",
+      "unit": "mm",
+      "use": "max"
+    },
+    "leadSpacing": {
+      "label": "Lead spacing (hole to hole)",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "land": {
+      "label": "Land (pad) diameter",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "hole": {
+      "label": "Hole diameter",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "antipad": {
+      "label": "Anti-pad diameter",
+      "unit": "mm",
+      "use": "nom",
+      "optional": true
+    },
+    "padSize": {
+      "label": "Pad size",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "padL": {
+      "label": "Pad length",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "padW": {
+      "label": "Pad width",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "maskSize": {
+      "label": "Solder mask opening",
+      "unit": "mm",
+      "use": "nom"
+    },
+    "ballType": {
+      "label": "Ball type",
+      "type": "select",
+      "options": [
+        [
+          "C",
+          "C - collapsing"
+        ],
+        [
+          "N",
+          "N - non-collapsing"
+        ]
+      ]
+    },
+    "lgaType": {
+      "label": "Lead shape",
+      "type": "select",
+      "options": [
+        [
+          "C",
+          "C - circular"
+        ],
+        [
+          "S",
+          "S - square"
+        ],
+        [
+          "R",
+          "R - rectangular"
+        ]
+      ]
+    },
+    "plating": {
+      "label": "Plating",
+      "type": "select",
+      "options": [
+        [
+          "P",
+          "P - plated"
+        ],
+        [
+          "NP",
+          "NP - non-plated"
+        ]
+      ]
+    },
+    "part": {
+      "label": "Manufacturer part / series no.",
+      "type": "text"
+    },
+    "jedecNo": {
+      "label": "JEDEC number (e.g. 220)",
+      "type": "text"
+    }
+  },
+  "families": {
+    "RESC": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Resistor, chip",
+      "kind": "SMD",
+      "prefix": "RESC",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "RESC{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "RESM": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Resistor, molded",
+      "kind": "SMD",
+      "prefix": "RESM",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "RESM{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "CAPC": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Capacitor, chip, non-polarized",
+      "kind": "SMD",
+      "prefix": "CAPC",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "CAPC{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "CAPCP": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Capacitor, chip, polarized",
+      "kind": "SMD",
+      "prefix": "CAPCP",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "CAPCP{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "CAPCWR": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Capacitor, chip, wire rectangle",
+      "kind": "SMD",
+      "prefix": "CAPCWR",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "CAPCWR{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "CAPM": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Capacitor, molded, non-polarized",
+      "kind": "SMD",
+      "prefix": "CAPM",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "CAPM{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "CAPMP": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Capacitor, molded, polarized",
+      "kind": "SMD",
+      "prefix": "CAPMP",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "CAPMP{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "INDC": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Inductor, chip",
+      "kind": "SMD",
+      "prefix": "INDC",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "INDC{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "INDM": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Inductor, molded",
+      "kind": "SMD",
+      "prefix": "INDM",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "INDM{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "INDP": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Inductor, precision wire wound",
+      "kind": "SMD",
+      "prefix": "INDP",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "INDP{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "DIOC": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Diode, chip",
+      "kind": "SMD",
+      "prefix": "DIOC",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "DIOC{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "DIOM": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Diode, molded",
+      "kind": "SMD",
+      "prefix": "DIOM",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "DIOM{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "LEDM": {
+      "group": "Chip & molded 2-terminal",
+      "name": "LED, molded",
+      "kind": "SMD",
+      "prefix": "LEDM",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "LEDM{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "FUSM": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Fuse, molded",
+      "kind": "SMD",
+      "prefix": "FUSM",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "FUSM{bodyL:c}{bodyW:c}X{height:h}"
+    },
+    "RESMELF": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Resistor, MELF",
+      "kind": "SMD",
+      "prefix": "RESMELF",
+      "fields": [
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "RESMELF{bodyL:c}{bodyDia:c}"
+    },
+    "DIOMELF": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Diode, MELF",
+      "kind": "SMD",
+      "prefix": "DIOMELF",
+      "fields": [
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "DIOMELF{bodyL:c}{bodyDia:c}"
+    },
+    "SOD": {
+      "group": "Chip & molded 2-terminal",
+      "name": "SOD diode (e.g. SOD-123)",
+      "kind": "SMD",
+      "prefix": "SOD",
+      "fields": [
+        "leadSpan",
+        "bodyW",
+        "height"
+      ],
+      "template": "SOD{leadSpan:c}{bodyW:c}X{height:h}"
+    },
+    "SODFL": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Small outline diode, flat lead",
+      "kind": "SMD",
+      "prefix": "SODFL",
+      "fields": [
+        "leadSpan",
+        "bodyW",
+        "height"
+      ],
+      "template": "SODFL{leadSpan:c}{bodyW:c}X{height:h}"
+    },
+    "CAPAE": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Capacitor, aluminium electrolytic",
+      "kind": "SMD",
+      "prefix": "CAPAE",
+      "fields": [
+        "baseSize",
+        "height"
+      ],
+      "template": "CAPAE{baseSize:h}X{height:h}"
+    },
+    "XTAL": {
+      "group": "Chip & molded 2-terminal",
+      "name": "Crystal, 2 leads",
+      "kind": "SMD",
+      "prefix": "XTAL",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "XTAL{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "CAPCAV": {
+      "group": "Chip arrays",
+      "name": "Capacitor array, concave",
+      "kind": "SMD",
+      "prefix": "CAPCAV",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "CAPCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "CAPCAF": {
+      "group": "Chip arrays",
+      "name": "Capacitor array, flat",
+      "kind": "SMD",
+      "prefix": "CAPCAF",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "CAPCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "INDCAV": {
+      "group": "Chip arrays",
+      "name": "Inductor array, concave",
+      "kind": "SMD",
+      "prefix": "INDCAV",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "INDCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "INDCAF": {
+      "group": "Chip arrays",
+      "name": "Inductor array, flat",
+      "kind": "SMD",
+      "prefix": "INDCAF",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "INDCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "RESCAV": {
+      "group": "Chip arrays",
+      "name": "Resistor array, concave",
+      "kind": "SMD",
+      "prefix": "RESCAV",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "RESCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "RESCAXE": {
+      "group": "Chip arrays",
+      "name": "Resistor array, convex, E-version",
+      "kind": "SMD",
+      "prefix": "RESCAXE",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "RESCAXE{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "RESCAXS": {
+      "group": "Chip arrays",
+      "name": "Resistor array, convex, S-version",
+      "kind": "SMD",
+      "prefix": "RESCAXS",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "RESCAXS{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "RESCAF": {
+      "group": "Chip arrays",
+      "name": "Resistor array, flat",
+      "kind": "SMD",
+      "prefix": "RESCAF",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "RESCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "OSCSC": {
+      "group": "Oscillators",
+      "name": "Oscillator, side concave",
+      "kind": "SMD",
+      "prefix": "OSCSC",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "OSCSC{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "OSCJ": {
+      "group": "Oscillators",
+      "name": "Oscillator, J-lead",
+      "kind": "SMD",
+      "prefix": "OSCJ",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "OSCJ{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "OSCL": {
+      "group": "Oscillators",
+      "name": "Oscillator, L-bend lead",
+      "kind": "SMD",
+      "prefix": "OSCL",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "OSCL{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "OSCCC": {
+      "group": "Oscillators",
+      "name": "Oscillator, corner concave",
+      "kind": "SMD",
+      "prefix": "OSCCC",
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "OSCCC{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "DIOSC": {
+      "group": "Side concave",
+      "name": "Diode, side concave",
+      "kind": "SMD",
+      "prefix": "DIOSC",
+      "qty": true,
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "DIOSC{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "LEDSC": {
+      "group": "Side concave",
+      "name": "LED, side concave",
+      "kind": "SMD",
+      "prefix": "LEDSC",
+      "qty": true,
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "LEDSC{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "SOIC": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "SOIC, 1.27 mm pitch",
+      "kind": "SMD",
+      "prefix": "SOIC",
+      "qty": true,
+      "fields": [
+        "leadSpan",
+        "height",
+        "pinQty"
+      ],
+      "template": "SOIC127P{leadSpan:h}X{height:h}"
+    },
+    "SOP": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "Small outline package (SOP / SSOP / TSSOP)",
+      "kind": "SMD",
+      "prefix": "SOP",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan",
+        "height",
+        "pinQty"
+      ],
+      "template": "SOP{pitch:h}P{leadSpan:h}X{height:h}"
+    },
+    "SOJ": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "Small outline, J-lead",
+      "kind": "SMD",
+      "prefix": "SOJ",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan",
+        "height",
+        "pinQty"
+      ],
+      "template": "SOJ{pitch:h}P{leadSpan:h}X{height:h}"
+    },
+    "SOT": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "SOT-23 / SOT-223 family",
+      "kind": "SMD",
+      "prefix": "SOT",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan",
+        "height",
+        "pinQty"
+      ],
+      "template": "SOT{pitch:h}P{leadSpan:h}X{height:h}",
+      "suffixes": [
+        "_BEC",
+        "_SGD",
+        "_213",
+        "_HS"
+      ]
+    },
+    "SOTFL": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "SOT, flat lead",
+      "kind": "SMD",
+      "prefix": "SOTFL",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan",
+        "height",
+        "pinQty"
+      ],
+      "template": "SOTFL{pitch:h}P{leadSpan:h}X{height:h}",
+      "suffixes": [
+        "_BEC",
+        "_SGD",
+        "_213",
+        "_HS"
+      ]
+    },
+    "TO": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "TO, DPAK type (e.g. TO-252)",
+      "kind": "SMD",
+      "prefix": "TO",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan",
+        "height",
+        "pinQty"
+      ],
+      "template": "TO{pitch:h}P{leadSpan:h}X{height:h}",
+      "suffixes": [
+        "_BEC",
+        "_SGD",
+        "_213",
+        "_HS"
+      ]
+    },
+    "CFP": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "Ceramic flat package",
+      "kind": "SMD",
+      "prefix": "CFP",
+      "qty": true,
+      "fields": [
+        "leadSpan",
+        "height",
+        "pinQty"
+      ],
+      "template": "CFP127P{leadSpan:h}X{height:h}"
+    },
+    "JEDEC_SOT": {
+      "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
+      "name": "JEDEC fixed name (SOT89, SOT143 ...)",
+      "kind": "SMD",
+      "prefix": "",
+      "suffix": "none",
+      "fields": [
+        "jedecName"
+      ],
+      "template": "{jedecName:u}",
+      "extraFields": {
+        "jedecName": {
+          "label": "Package",
+          "type": "select",
+          "options": [
+            [
+              "SOT89",
+              "SOT89"
+            ],
+            [
+              "SOT143",
+              "SOT143"
+            ],
+            [
+              "SOT343",
+              "SOT343"
+            ],
+            [
+              "SOT143R",
+              "SOT143R (reverse)"
+            ],
+            [
+              "SOT343R",
+              "SOT343R (reverse)"
+            ]
+          ]
+        }
+      }
+    },
+    "QFP": {
+      "group": "Quad leaded (QFP / PLCC)",
+      "name": "Quad flat package",
+      "kind": "SMD",
+      "prefix": "QFP",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan1",
+        "leadSpan2",
+        "height",
+        "pinQty"
+      ],
+      "template": "QFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+    },
+    "CQFP": {
+      "group": "Quad leaded (QFP / PLCC)",
+      "name": "Ceramic quad flat package",
+      "kind": "SMD",
+      "prefix": "CQFP",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan1",
+        "leadSpan2",
+        "height",
+        "pinQty"
+      ],
+      "template": "CQFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+    },
+    "BQFP": {
+      "group": "Quad leaded (QFP / PLCC)",
+      "name": "QFP with bumper corners, pin 1 side",
+      "kind": "SMD",
+      "prefix": "BQFP",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan1",
+        "leadSpan2",
+        "height",
+        "pinQty"
+      ],
+      "template": "BQFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+    },
+    "BQFPC": {
+      "group": "Quad leaded (QFP / PLCC)",
+      "name": "QFP with bumper corners, pin 1 centre",
+      "kind": "SMD",
+      "prefix": "BQFPC",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan1",
+        "leadSpan2",
+        "height",
+        "pinQty"
+      ],
+      "template": "BQFPC{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+    },
+    "PLCC": {
+      "group": "Quad leaded (QFP / PLCC)",
+      "name": "Plastic leaded chip carrier",
+      "kind": "SMD",
+      "prefix": "PLCC",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan1",
+        "leadSpan2",
+        "height",
+        "pinQty"
+      ],
+      "template": "PLCC{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+    },
+    "PLCCS": {
+      "group": "Quad leaded (QFP / PLCC)",
+      "name": "PLCC socket, square",
+      "kind": "SMD",
+      "prefix": "PLCCS",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "leadSpan1",
+        "leadSpan2",
+        "height",
+        "pinQty"
+      ],
+      "template": "PLCCS{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+    },
+    "QFN": {
+      "group": "No-lead (QFN / SON / LCC)",
+      "name": "Quad flat no-lead",
+      "kind": "SMD",
+      "prefix": "QFN",
+      "qty": true,
+      "thermal": true,
+      "fields": [
+        "pitch",
+        "bodyW",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "QFN{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+    },
+    "PQFN": {
+      "group": "No-lead (QFN / SON / LCC)",
+      "name": "Pull-back QFN",
+      "kind": "SMD",
+      "prefix": "PQFN",
+      "qty": true,
+      "thermal": true,
+      "fields": [
+        "pitch",
+        "bodyW",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "PQFN{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+    },
+    "SON": {
+      "group": "No-lead (QFN / SON / LCC)",
+      "name": "Small outline no-lead",
+      "kind": "SMD",
+      "prefix": "SON",
+      "qty": true,
+      "thermal": true,
+      "fields": [
+        "pitch",
+        "bodyW",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "SON{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+    },
+    "PSON": {
+      "group": "No-lead (QFN / SON / LCC)",
+      "name": "Pull-back SON",
+      "kind": "SMD",
+      "prefix": "PSON",
+      "qty": true,
+      "thermal": true,
+      "fields": [
+        "pitch",
+        "bodyW",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "PSON{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+    },
+    "LCC": {
+      "group": "No-lead (QFN / SON / LCC)",
+      "name": "Leadless ceramic chip carrier",
+      "kind": "SMD",
+      "prefix": "LCC",
+      "qty": true,
+      "thermal": false,
+      "fields": [
+        "pitch",
+        "bodyW",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "LCC{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+    },
+    "LCCS": {
+      "group": "No-lead (QFN / SON / LCC)",
+      "name": "LCC, pin 1 on side",
+      "kind": "SMD",
+      "prefix": "LCCS",
+      "qty": true,
+      "thermal": false,
+      "fields": [
+        "pitch",
+        "bodyW",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "LCCS{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+    },
+    "DFN": {
+      "group": "No-lead (QFN / SON / LCC)",
+      "name": "Dual flat no-lead",
+      "kind": "SMD",
+      "prefix": "DFN",
+      "qty": true,
+      "fields": [
+        "bodyL",
+        "bodyW",
+        "height",
+        "pinQty"
+      ],
+      "template": "DFN{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "BGA": {
+      "group": "Area array (BGA / LGA / CGA)",
+      "name": "Ball grid array",
+      "kind": "SMD",
+      "prefix": "BGA",
+      "suffix": "none",
+      "fields": [
+        "pinQty",
+        "ballType",
+        "pitch",
+        "cols",
+        "rows",
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "BGA{pinQty:i}{ballType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}",
+      "note": "BGA names carry no M/N/L suffix (nominal only)."
+    },
+    "BGA_DUAL": {
+      "group": "Area array (BGA / LGA / CGA)",
+      "name": "Ball grid array, dual pitch",
+      "kind": "SMD",
+      "prefix": "BGA",
+      "suffix": "none",
+      "fields": [
+        "pinQty",
+        "ballType",
+        "pitchCol",
+        "pitchRow",
+        "cols",
+        "rows",
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "BGA{pinQty:i}{ballType:u}{pitchCol:h}X{pitchRow:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "BGAS": {
+      "group": "Area array (BGA / LGA / CGA)",
+      "name": "Ball grid array, staggered",
+      "kind": "SMD",
+      "prefix": "BGAS",
+      "suffix": "none",
+      "fields": [
+        "pinQty",
+        "ballType",
+        "pitch",
+        "cols",
+        "rows",
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "BGAS{pinQty:i}{ballType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "LGA": {
+      "group": "Area array (BGA / LGA / CGA)",
+      "name": "Land grid array",
+      "kind": "SMD",
+      "prefix": "LGA",
+      "fields": [
+        "pinQty",
+        "lgaType",
+        "pitch",
+        "cols",
+        "rows",
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "LGA{pinQty:i}{lgaType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}"
+    },
+    "CGA": {
+      "group": "Area array (BGA / LGA / CGA)",
+      "name": "Column grid array",
+      "kind": "SMD",
+      "prefix": "CGA",
+      "qty": true,
+      "fields": [
+        "pitch",
+        "cols",
+        "rows",
+        "height",
+        "pinQty"
+      ],
+      "template": "CGA{pitch:h}P{cols:i}X{rows:i}X{height:h}"
+    },
+    "FID": {
+      "group": "Fiducials & test points",
+      "name": "Fiducial",
+      "kind": "SMD",
+      "prefix": "FID",
+      "suffix": "none",
+      "fields": [
+        "padSize",
+        "maskSize"
+      ],
+      "template": "FID{padSize:h}X{maskSize:h}"
+    },
+    "TP_SMD": {
+      "group": "Fiducials & test points",
+      "name": "Test point, round pad",
+      "kind": "SMD",
+      "prefix": "TP",
+      "suffix": "none",
+      "fields": [
+        "padSize"
+      ],
+      "template": "TP{padSize:h}"
+    },
+    "TPS_SMD": {
+      "group": "Fiducials & test points",
+      "name": "Test point, square pad",
+      "kind": "SMD",
+      "prefix": "TPS",
+      "suffix": "none",
+      "fields": [
+        "padSize"
+      ],
+      "template": "TPS{padSize:h}"
+    },
+    "TPR_SMD": {
+      "group": "Fiducials & test points",
+      "name": "Test point, rectangular pad",
+      "kind": "SMD",
+      "prefix": "TP",
+      "suffix": "none",
+      "fields": [
+        "padL",
+        "padW"
+      ],
+      "template": "TP{padL:h}X{padW:h}"
+    },
+    "RESAD": {
+      "group": "Through-hole axial / radial",
+      "name": "Resistor, axial, horizontal",
+      "kind": "THT",
+      "prefix": "RESAD",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "RESAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "RESADV": {
+      "group": "Through-hole axial / radial",
+      "name": "Resistor, axial, vertical",
+      "kind": "THT",
+      "prefix": "RESADV",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "RESADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "RESAR": {
+      "group": "Through-hole axial / radial",
+      "name": "Resistor, axial rectangular",
+      "kind": "THT",
+      "prefix": "RESAR",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "template": "RESAR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+    },
+    "CAPAD": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, axial, horizontal",
+      "kind": "THT",
+      "prefix": "CAPAD",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "CAPAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "CAPADV": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, axial, vertical",
+      "kind": "THT",
+      "prefix": "CAPADV",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "CAPADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "CAPAR": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, axial rectangular",
+      "kind": "THT",
+      "prefix": "CAPAR",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "template": "CAPAR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+    },
+    "CAPARV": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, axial rectangular, vertical",
+      "kind": "THT",
+      "prefix": "CAPARV",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "template": "CAPARV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+    },
+    "CAPPAD": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, polarized, axial",
+      "kind": "THT",
+      "prefix": "CAPPAD",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "CAPPAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "CAPRD": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, radial, round body",
+      "kind": "THT",
+      "prefix": "CAPRD",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyDia",
+        "height"
+      ],
+      "template": "CAPRD{leadSpacing:h}W{leadWidth:h}D{bodyDia:h}H{height:h}"
+    },
+    "CAPPRD": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, polarized, radial",
+      "kind": "THT",
+      "prefix": "CAPPRD",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyDia",
+        "height"
+      ],
+      "template": "CAPPRD{leadSpacing:h}W{leadWidth:h}D{bodyDia:h}H{height:h}"
+    },
+    "CAPRR": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, radial, rectangular",
+      "kind": "THT",
+      "prefix": "CAPRR",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "template": "CAPRR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+    },
+    "CAPRB": {
+      "group": "Through-hole axial / radial",
+      "name": "Capacitor, radial, disk / button",
+      "kind": "THT",
+      "prefix": "CAPRB",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "template": "CAPRB{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+    },
+    "DIOAD": {
+      "group": "Through-hole axial / radial",
+      "name": "Diode, axial, horizontal",
+      "kind": "THT",
+      "prefix": "DIOAD",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "DIOAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "DIOADV": {
+      "group": "Through-hole axial / radial",
+      "name": "Diode, axial, vertical",
+      "kind": "THT",
+      "prefix": "DIOADV",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "DIOADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "INDAD": {
+      "group": "Through-hole axial / radial",
+      "name": "Inductor, axial, horizontal",
+      "kind": "THT",
+      "prefix": "INDAD",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "INDAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "INDADV": {
+      "group": "Through-hole axial / radial",
+      "name": "Inductor, axial, vertical",
+      "kind": "THT",
+      "prefix": "INDADV",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth",
+        "bodyL",
+        "bodyDia"
+      ],
+      "template": "INDADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+    },
+    "DIP": {
+      "group": "Through-hole IC & connectors",
+      "name": "Dual in-line package",
+      "kind": "THT",
+      "prefix": "DIP",
+      "suffix": "level",
+      "fields": [
+        "leadSpan",
+        "leadWidth",
+        "pitch",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "DIP{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+    },
+    "DIPS": {
+      "group": "Through-hole IC & connectors",
+      "name": "DIP socket",
+      "kind": "THT",
+      "prefix": "DIPS",
+      "suffix": "level",
+      "fields": [
+        "leadSpan",
+        "leadWidth",
+        "pitch",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "DIPS{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+    },
+    "SIP": {
+      "group": "Through-hole IC & connectors",
+      "name": "Single in-line package",
+      "kind": "THT",
+      "prefix": "SIP",
+      "suffix": "level",
+      "fields": [
+        "bodyW",
+        "leadWidth",
+        "pitch",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "SIP{bodyW:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+    },
+    "OSC_THT": {
+      "group": "Through-hole IC & connectors",
+      "name": "Oscillator, through-hole",
+      "kind": "THT",
+      "prefix": "OSC",
+      "suffix": "level",
+      "fields": [
+        "leadSpan",
+        "leadWidth",
+        "pitch",
+        "bodyL",
+        "height",
+        "pinQty"
+      ],
+      "template": "OSC{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+    },
+    "PGA": {
+      "group": "Through-hole IC & connectors",
+      "name": "Pin grid array",
+      "kind": "THT",
+      "prefix": "PGA",
+      "suffix": "level",
+      "fields": [
+        "pinQty",
+        "pitch",
+        "cols",
+        "rows",
+        "bodyL",
+        "bodyW",
+        "height"
+      ],
+      "template": "PGA{pinQty:i}P{pitch:h}C{cols:i}R{rows:i}L{bodyL:h}X{bodyW:h}H{height:h}"
+    },
+    "HDRV": {
+      "group": "Through-hole IC & connectors",
+      "name": "Header, vertical",
+      "kind": "THT",
+      "prefix": "HDRV",
+      "suffix": "level",
+      "fields": [
+        "pinQty",
+        "leadWidth",
+        "pitch",
+        "pitchCol",
+        "rows",
+        "pinsPerRow",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "optionalFields": [
+        "pitchCol"
+      ],
+      "template": "HDRV{pinQty:i}W{leadWidth:h}P{pitch:h}[X{pitchCol:h}]_{rows:i}X{pinsPerRow:i}_{bodyL:h}X{bodyT:h}X{height:h}",
+      "note": "Pitch = row pitch. Fill column pitch only when it differs."
+    },
+    "HDRRA": {
+      "group": "Through-hole IC & connectors",
+      "name": "Header, right angle",
+      "kind": "THT",
+      "prefix": "HDRRA",
+      "suffix": "level",
+      "fields": [
+        "pinQty",
+        "leadWidth",
+        "pitch",
+        "pitchCol",
+        "rows",
+        "pinsPerRow",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "optionalFields": [
+        "pitchCol"
+      ],
+      "template": "HDRRA{pinQty:i}W{leadWidth:h}P{pitch:h}[X{pitchCol:h}]_{rows:i}X{pinsPerRow:i}_{bodyL:h}X{bodyT:h}X{height:h}"
+    },
+    "JUMP": {
+      "group": "Through-hole misc",
+      "name": "Wire jumper",
+      "kind": "THT",
+      "prefix": "JUMP",
+      "suffix": "level",
+      "fields": [
+        "leadSpacing",
+        "leadWidth"
+      ],
+      "template": "JUMP{leadSpacing:h}W{leadWidth:h}"
+    },
+    "MTG": {
+      "group": "Through-hole misc",
+      "name": "Mounting hole",
+      "kind": "THT",
+      "prefix": "MTG",
+      "suffix": "level",
+      "fields": [
+        "plating",
+        "land",
+        "hole",
+        "vias",
+        "antipad"
+      ],
+      "template": "MTG{plating:u}{land:h}H{hole:h}[V{vias:i}][Z{antipad:h}]",
+      "note": "Give vias (V) or anti-pad (Z) when used; leave empty otherwise."
+    },
+    "TPC_THT": {
+      "group": "Through-hole misc",
+      "name": "Test point, round body",
+      "kind": "THT",
+      "prefix": "TPC",
+      "suffix": "level",
+      "fields": [
+        "leadWidth",
+        "bodyDia",
+        "height"
+      ],
+      "template": "TPCW{leadWidth:h}D{bodyDia:h}H{height:h}"
+    },
+    "TPR_THT": {
+      "group": "Through-hole misc",
+      "name": "Test point, square body",
+      "kind": "THT",
+      "prefix": "TPR",
+      "suffix": "level",
+      "fields": [
+        "leadWidth",
+        "bodyL",
+        "height"
+      ],
+      "template": "TPRW{leadWidth:h}L{bodyL:h}H{height:h}"
+    },
+    "TPRR_THT": {
+      "group": "Through-hole misc",
+      "name": "Test point, rectangular body + lead",
+      "kind": "THT",
+      "prefix": "TPR",
+      "suffix": "level",
+      "fields": [
+        "leadLength",
+        "leadWidth",
+        "bodyL",
+        "bodyT",
+        "height"
+      ],
+      "template": "TPRW{leadLength:h}X{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+    },
+    "PAD_WIRE": {
+      "group": "Through-hole misc",
+      "name": "Wire pad",
+      "kind": "THT",
+      "prefix": "PAD",
+      "suffix": "none",
+      "fields": [
+        "leadWidth"
+      ],
+      "template": "PAD{leadWidth:h}"
+    },
+    "TO_JEDEC": {
+      "group": "Through-hole misc",
+      "name": "Transistor outline, JEDEC (TO-220 ...)",
+      "kind": "THT",
+      "prefix": "TO-",
+      "suffix": "none",
+      "fields": [
+        "jedecNo"
+      ],
+      "template": "TO-{jedecNo:s}"
+    },
+    "MFR": {
+      "group": "Non-standard (manufacturer part)",
+      "name": "Non-standard part",
+      "kind": "OTHER",
+      "prefix": "",
+      "suffix": "none",
+      "fields": [
+        "mfrPrefix",
+        "part",
+        "pinQtyOpt"
+      ],
+      "optionalFields": [
+        "pinQtyOpt"
+      ],
+      "template": "{mfrPrefix:u}_{part:s}[-{pinQtyOpt:i}]",
+      "extraFields": {
+        "mfrPrefix": {
+          "label": "Category",
+          "type": "select",
+          "options": [
+            [
+              "AMP",
+              "AMP - amplifier"
+            ],
+            [
+              "BAT",
+              "BAT - battery"
+            ],
+            [
+              "CAP",
+              "CAP - capacitor, misc"
+            ],
+            [
+              "CAPV",
+              "CAPV - capacitor, variable"
+            ],
+            [
+              "CONV",
+              "CONV - converter"
+            ],
+            [
+              "DIO",
+              "DIO - diode, misc"
+            ],
+            [
+              "DIOB",
+              "DIOB - bridge rectifier"
+            ],
+            [
+              "FB",
+              "FB - ferrite bead"
+            ],
+            [
+              "FIL",
+              "FIL - filter"
+            ],
+            [
+              "FUSE",
+              "FUSE - fuse"
+            ],
+            [
+              "FUSER",
+              "FUSER - resettable fuse"
+            ],
+            [
+              "HSINK",
+              "HSINK - heat sink"
+            ],
+            [
+              "IND",
+              "IND - inductor, misc"
+            ],
+            [
+              "KEYPAD",
+              "KEYPAD - keypad"
+            ],
+            [
+              "LCD",
+              "LCD - display"
+            ],
+            [
+              "LED",
+              "LED - LED"
+            ],
+            [
+              "MIC",
+              "MIC - microphone"
+            ],
+            [
+              "MOV",
+              "MOV - MOV"
+            ],
+            [
+              "OPTO",
+              "OPTO - opto isolator"
+            ],
+            [
+              "OSC",
+              "OSC - oscillator"
+            ],
+            [
+              "PHODET",
+              "PHODET - photo detector"
+            ],
+            [
+              "REG",
+              "REG - regulator"
+            ],
+            [
+              "RELAY",
+              "RELAY - relay"
+            ],
+            [
+              "SHIELD",
+              "SHIELD - shield"
+            ],
+            [
+              "SPKR",
+              "SPKR - speaker"
+            ],
+            [
+              "STIF",
+              "STIF - stiffener"
+            ],
+            [
+              "SW",
+              "SW - switch"
+            ],
+            [
+              "THERM",
+              "THERM - thermistor"
+            ],
+            [
+              "TRANS",
+              "TRANS - transistor, custom"
+            ],
+            [
+              "TRIM",
+              "TRIM - trimmer / pot"
+            ],
+            [
+              "TUNER",
+              "TUNER - tuner"
+            ],
+            [
+              "TVS",
+              "TVS - TVS"
+            ],
+            [
+              "TVSP",
+              "TVSP - TVS, polarized"
+            ],
+            [
+              "VAR",
+              "VAR - varistor"
+            ],
+            [
+              "VCO",
+              "VCO - VCO"
+            ],
+            [
+              "VREG",
+              "VREG - regulator, custom"
+            ],
+            [
+              "XCVR",
+              "XCVR - transceiver"
+            ],
+            [
+              "XDCR",
+              "XDCR - transducer"
+            ],
+            [
+              "XFMR",
+              "XFMR - transformer"
+            ],
+            [
+              "XTAL",
+              "XTAL - crystal"
+            ]
+          ]
+        },
+        "pinQtyOpt": {
+          "label": "Pin quantity (optional)",
+          "type": "int",
+          "optional": true
+        }
+      }
+    },
+    "CONN": {
+      "group": "Non-standard (manufacturer part)",
+      "name": "Connector (manufacturer part)",
+      "kind": "OTHER",
+      "prefix": "",
+      "suffix": "none",
+      "fields": [
+        "mfr",
+        "part"
+      ],
+      "template": "{mfr:u}_{part:s}",
+      "extraFields": {
+        "mfr": {
+          "label": "Manufacturer",
+          "type": "text",
+          "help": "e.g. MOLEX, JST, SAMTEC, TYCO, HIROSE, AMPHENOL"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "family": "SOD",
+      "in": {
+        "leadSpan": 3.7,
+        "bodyW": 1.7,
+        "height": 1.35
+      },
+      "opt": {
+        "suffix": ""
+      },
+      "expect": "SOD3717X135",
+      "source": "pdf"
+    },
+    {
+      "family": "SOT",
+      "in": {
+        "pitch": 2.3,
+        "leadSpan": 7,
+        "height": 1.8,
+        "pinQty": 4
+      },
+      "opt": {
+        "suffix": ""
+      },
+      "expect": "SOT230P700X180-4",
+      "source": "pdf"
+    },
+    {
+      "family": "TO",
+      "in": {
+        "pitch": 2.28,
+        "leadSpan": 9.7,
+        "height": 2.38,
+        "pinQty": 3
+      },
+      "opt": {
+        "suffix": ""
+      },
+      "expect": "TO228P970X238-3",
+      "source": "pdf"
+    },
+    {
+      "family": "TO",
+      "in": {
+        "pitch": 2.54,
+        "leadSpan": 10.55,
+        "height": 1.6,
+        "pinQty": 6
+      },
+      "opt": {
+        "general": "_HS"
+      },
+      "expect": "TO254P1055X160_HS-6N",
+      "source": "pdf"
+    },
+    {
+      "family": "SOT",
+      "in": {
+        "pitch": 0.95,
+        "leadSpan": 2.8,
+        "height": 1.6,
+        "pinQty": 3
+      },
+      "opt": {
+        "general": "_BEC"
+      },
+      "expect": "SOT95P280X160_BEC-3N",
+      "source": "pdf"
+    },
+    {
+      "family": "SOT",
+      "in": {
+        "pitch": 0.95,
+        "leadSpan": 2.8,
+        "height": 1.6,
+        "pinQty": 3
+      },
+      "opt": {
+        "general": "_SGD"
+      },
+      "expect": "SOT95P280X160_SGD-3N",
+      "source": "pdf"
+    },
+    {
+      "family": "SOT",
+      "in": {
+        "pitch": 0.95,
+        "leadSpan": 2.8,
+        "height": 1.6,
+        "pinQty": 3
+      },
+      "opt": {
+        "general": "_213"
+      },
+      "expect": "SOT95P280X160_213-3N",
+      "source": "pdf"
+    },
+    {
+      "family": "SOP",
+      "in": {
+        "pitch": 0.65,
+        "leadSpan": 6.4,
+        "height": 1.2,
+        "pinQty": 20
+      },
+      "opt": {
+        "reverse": true
+      },
+      "expect": "SOP65P640X120-20RN",
+      "source": "derived"
+    },
+    {
+      "family": "SOP",
+      "in": {
+        "pitch": 0.65,
+        "leadSpan": 6.4,
+        "height": 1.2,
+        "pinQty": 20
+      },
+      "opt": {
+        "pinMode": "hidden",
+        "packagePins": 24
+      },
+      "expect": "SOP65P640X120-20_24N",
+      "source": "derived"
+    },
+    {
+      "family": "SOP",
+      "in": {
+        "pitch": 0.65,
+        "leadSpan": 6.4,
+        "height": 1.2,
+        "pinQty": 20
+      },
+      "opt": {
+        "pinMode": "deleted",
+        "packagePins": 24
+      },
+      "expect": "SOP65P640X120-24_20N",
+      "source": "derived"
+    },
+    {
+      "family": "RESC",
+      "in": {
+        "bodyL": 1.6,
+        "bodyW": 0.8,
+        "height": 0.55
+      },
+      "expect": "RESC1608X55N",
+      "source": "derived"
+    },
+    {
+      "family": "CAPC",
+      "in": {
+        "bodyL": 1,
+        "bodyW": 0.5,
+        "height": 0.55
+      },
+      "opt": {
+        "suffix": "M"
+      },
+      "expect": "CAPC1005X55M",
+      "source": "derived"
+    },
+    {
+      "family": "SOIC",
+      "in": {
+        "leadSpan": 6,
+        "height": 1.75,
+        "pinQty": 8
+      },
+      "expect": "SOIC127P600X175-8N",
+      "source": "derived"
+    },
+    {
+      "family": "QFN",
+      "in": {
+        "pitch": 0.5,
+        "bodyW": 5,
+        "bodyL": 5,
+        "height": 1,
+        "pinQty": 32
+      },
+      "opt": {
+        "thermalPad": true
+      },
+      "expect": "QFN50P500X500X100-33N",
+      "source": "derived"
+    },
+    {
+      "family": "QFP",
+      "in": {
+        "pitch": 0.5,
+        "leadSpan1": 9,
+        "leadSpan2": 9,
+        "height": 1.2,
+        "pinQty": 48
+      },
+      "opt": {
+        "suffix": "L"
+      },
+      "expect": "QFP50P900X900X120-48L",
+      "source": "derived"
+    },
+    {
+      "family": "BGA",
+      "in": {
+        "pinQty": 100,
+        "ballType": "C",
+        "pitch": 0.8,
+        "cols": 10,
+        "rows": 10,
+        "bodyL": 10,
+        "bodyW": 10,
+        "height": 1.4
+      },
+      "expect": "BGA100C80P10X10_1000X1000X140",
+      "source": "derived"
+    },
+    {
+      "family": "CAPAD",
+      "in": {
+        "leadSpacing": 8,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "CAPAD800W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPAR",
+      "in": {
+        "leadSpacing": 8,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyT": 0.5,
+        "height": 0.7
+      },
+      "expect": "CAPAR800W52L600T50H70B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPADV",
+      "in": {
+        "leadSpacing": 3,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "CAPADV300W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPARV",
+      "in": {
+        "leadSpacing": 3,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyT": 0.5,
+        "height": 0.7
+      },
+      "expect": "CAPARV300W52L600T50H70B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPRD",
+      "in": {
+        "leadSpacing": 2,
+        "leadWidth": 0.52,
+        "bodyDia": 3,
+        "height": 5.5
+      },
+      "expect": "CAPRD200W52D300H550B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPRR",
+      "in": {
+        "leadSpacing": 2,
+        "leadWidth": 0.52,
+        "bodyL": 0.5,
+        "bodyT": 0.7,
+        "height": 5.5
+      },
+      "expect": "CAPRR200W52L50T70H550B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPRB",
+      "in": {
+        "leadSpacing": 2,
+        "leadWidth": 0.52,
+        "bodyL": 0.5,
+        "bodyT": 0.7,
+        "height": 5.5
+      },
+      "expect": "CAPRB200W52L50T70H550B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPPAD",
+      "in": {
+        "leadSpacing": 8,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "CAPPAD800W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "CAPPRD",
+      "in": {
+        "leadSpacing": 2,
+        "leadWidth": 0.52,
+        "bodyDia": 3,
+        "height": 5.5
+      },
+      "expect": "CAPPRD200W52D300H550B",
+      "source": "pdf"
+    },
+    {
+      "family": "DIOAD",
+      "in": {
+        "leadSpacing": 8,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "DIOAD800W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "DIOADV",
+      "in": {
+        "leadSpacing": 3,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "DIOADV300W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "INDAD",
+      "in": {
+        "leadSpacing": 8,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "INDAD800W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "INDADV",
+      "in": {
+        "leadSpacing": 3,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "INDADV300W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "RESAD",
+      "in": {
+        "leadSpacing": 8,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "RESAD800W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "RESADV",
+      "in": {
+        "leadSpacing": 3,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyDia": 1.5
+      },
+      "expect": "RESADV300W52L600D150B",
+      "source": "pdf"
+    },
+    {
+      "family": "RESAR",
+      "in": {
+        "leadSpacing": 8,
+        "leadWidth": 0.52,
+        "bodyL": 6,
+        "bodyT": 0.5,
+        "height": 0.7
+      },
+      "expect": "RESAR800W52L600T50H70B",
+      "source": "pdf"
+    },
+    {
+      "family": "DIP",
+      "in": {
+        "leadSpan": 7.62,
+        "leadWidth": 0.52,
+        "pitch": 2.54,
+        "bodyL": 19.05,
+        "height": 5.08,
+        "pinQty": 14
+      },
+      "expect": "DIP762W52P254L1905H508Q14B",
+      "source": "pdf"
+    },
+    {
+      "family": "DIPS",
+      "in": {
+        "leadSpan": 7.62,
+        "leadWidth": 0.52,
+        "pitch": 2.54,
+        "bodyL": 19.05,
+        "height": 5.08,
+        "pinQty": 14
+      },
+      "expect": "DIPS762W52P254L1905H508Q14B",
+      "source": "pdf"
+    },
+    {
+      "family": "SIP",
+      "in": {
+        "bodyW": 1.5,
+        "leadWidth": 0.52,
+        "pitch": 2.54,
+        "bodyL": 19.05,
+        "height": 5.08,
+        "pinQty": 8
+      },
+      "expect": "SIP150W52P254L1905H508Q8B",
+      "source": "pdf"
+    },
+    {
+      "family": "PGA",
+      "in": {
+        "pinQty": 84,
+        "pitch": 2.54,
+        "cols": 10,
+        "rows": 10,
+        "bodyL": 25,
+        "bodyW": 25,
+        "height": 3
+      },
+      "expect": "PGA84P254C10R10L2500X2500H300B",
+      "source": "pdf"
+    },
+    {
+      "family": "HDRV",
+      "in": {
+        "pinQty": 20,
+        "leadWidth": 0.635,
+        "pitch": 2.54,
+        "rows": 2,
+        "pinsPerRow": 10,
+        "bodyL": 25.4,
+        "bodyT": 2.54,
+        "height": 8.38
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "HDRV20W64P254_2X10_2540X254X838P",
+      "source": "pdf"
+    },
+    {
+      "family": "HDRRA",
+      "in": {
+        "pinQty": 20,
+        "leadWidth": 0.635,
+        "pitch": 2.54,
+        "rows": 2,
+        "pinsPerRow": 10,
+        "bodyL": 25.4,
+        "bodyT": 2.54,
+        "height": 5.08
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "HDRRA20W64P254_2X10_2540X254X508P",
+      "source": "pdf"
+    },
+    {
+      "family": "HDRV",
+      "in": {
+        "pinQty": 50,
+        "leadWidth": 0.635,
+        "pitch": 2.54,
+        "rows": 3,
+        "pinsPerRow": 25,
+        "bodyL": 63.5,
+        "bodyT": 2.54,
+        "height": 8.38
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "HDRV50W64P254_3X25_6350X254X838P",
+      "source": "pdf"
+    },
+    {
+      "family": "JUMP",
+      "in": {
+        "leadSpacing": 5,
+        "leadWidth": 0.52
+      },
+      "expect": "JUMP500W52B",
+      "source": "pdf"
+    },
+    {
+      "family": "MTG",
+      "in": {
+        "plating": "NP",
+        "land": 8.7,
+        "hole": 3.85,
+        "vias": 6
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "MTGNP870H385V6P",
+      "source": "pdf"
+    },
+    {
+      "family": "MTG",
+      "in": {
+        "plating": "P",
+        "land": 7.35,
+        "hole": 3.85,
+        "antipad": 7.35
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "MTGP735H385Z735P",
+      "source": "pdf"
+    },
+    {
+      "family": "MTG",
+      "in": {
+        "plating": "P",
+        "land": 4,
+        "hole": 2.9,
+        "antipad": 4
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "MTGP400H290Z400P",
+      "source": "pdf"
+    },
+    {
+      "family": "MTG",
+      "in": {
+        "plating": "NP",
+        "land": 1.3,
+        "hole": 2.6,
+        "antipad": 1.3
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "MTGNP130H260Z130P",
+      "source": "pdf"
+    },
+    {
+      "family": "TPC_THT",
+      "in": {
+        "leadWidth": 0.635,
+        "bodyDia": 2.54,
+        "height": 5.84
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "TPCW64D254H584P",
+      "source": "pdf"
+    },
+    {
+      "family": "TPR_THT",
+      "in": {
+        "leadWidth": 0.635,
+        "bodyL": 2.54,
+        "height": 5.84
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "TPRW64L254H584P",
+      "source": "pdf"
+    },
+    {
+      "family": "TPRR_THT",
+      "in": {
+        "leadLength": 1.57,
+        "leadWidth": 0.635,
+        "bodyL": 2.54,
+        "bodyT": 0.635,
+        "height": 3.3
+      },
+      "opt": {
+        "suffix": "P"
+      },
+      "expect": "TPRW157X64L254T64H330P",
+      "source": "pdf"
+    },
+    {
+      "family": "PAD_WIRE",
+      "in": {
+        "leadWidth": 0.52
+      },
+      "expect": "PAD52",
+      "source": "pdf"
+    },
+    {
+      "family": "OSC_THT",
+      "in": {
+        "leadSpan": 7.62,
+        "leadWidth": 0.46,
+        "pitch": 7.62,
+        "bodyL": 13.2,
+        "height": 6,
+        "pinQty": 8
+      },
+      "expect": "OSC762W46P762L1320H600Q8B",
+      "source": "pdf"
+    },
+    {
+      "family": "OSC_THT",
+      "in": {
+        "leadSpan": 7.62,
+        "leadWidth": 0.53,
+        "pitch": 15.24,
+        "bodyL": 20.8,
+        "height": 5.08,
+        "pinQty": 14
+      },
+      "expect": "OSC762W53P1524L2080H508Q14B",
+      "source": "pdf"
+    },
+    {
+      "family": "TP_SMD",
+      "in": {
+        "padSize": 1
+      },
+      "expect": "TP100",
+      "source": "pdf"
+    },
+    {
+      "family": "MFR",
+      "in": {
+        "mfrPrefix": "RELAY",
+        "part": "G5V-1"
+      },
+      "expect": "RELAY_G5V-1",
+      "source": "derived"
+    },
+    {
+      "family": "CONN",
+      "in": {
+        "mfr": "molex",
+        "part": "53047-0410"
+      },
+      "expect": "MOLEX_53047-0410",
+      "source": "derived"
+    }
+  ],
+  "knownSourceIssues": [
+    "Summary lists the polarized axial capacitor as \"CAPPA\" but its example is \"CAPPAD\"; CAPPAD is used here.",
+    "Summary lists the polarized radial capacitor as \"CAPPR\" but its example is \"CAPPRD\"; CAPPRD is used here.",
+    "Several through-hole examples end in \"P\" while the notes define fabrication levels A/B/C; both are accepted.",
+    "Height is taken as the maximum and spans/bodies as the nominal value - confirm against your library."
+  ]
+}

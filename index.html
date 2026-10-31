@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPC Land Pattern Namer</title>
+<meta name="description" content="Free tool: build IPC-7351B / IPC-7251 land pattern (footprint) names from datasheet dimensions.">
+<style>
+  :root {
+    --bg: #f6f7f5; --panel: #ffffff; --ink: #1b1f1d; --muted: #5d6762; --line: #d9ded9;
+    --accent: #0b6e4f; --accent-soft: #e2f1ea; --warn: #8a5a00; --warn-soft: #fff4dc;
+    --err: #a1261b; --err-soft: #fde9e6; --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121614; --panel: #1a201d; --ink: #e6ebe8; --muted: #9aa69f; --line: #2c3530;
+      --accent: #4cc490; --accent-soft: #173327; --warn: #e2b450; --warn-soft: #33290f;
+      --err: #f08a7e; --err-soft: #3a1a16;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--ink); }
+  header { padding: 20px 16px 8px; max-width: 1080px; margin: 0 auto; }
+  header h1 { margin: 0; font-size: 22px; letter-spacing: .2px; }
+  header p { margin: 4px 0 0; color: var(--muted); }
+  main { max-width: 1080px; margin: 0 auto; padding: 8px 16px 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+  @media (max-width: 820px) { main { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+  .panel h2 { margin: 0 0 12px; font-size: 15px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+  label.f { display: block; font-weight: 600; margin: 12px 0 4px; }
+  .help { font-size: 12.5px; color: var(--muted); margin: 2px 0 0; }
+  select, input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); font: inherit; }
+  select:focus, input:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+  .minmax { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .minmax input::placeholder { color: var(--muted); }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .row label { display: flex; gap: 6px; align-items: center; font-weight: 500; }
+  .row input[type=checkbox] { width: auto; }
+  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+  .name-box { font-family: var(--mono); font-size: clamp(20px, 4vw, 30px); font-weight: 700; word-break: break-all; padding: 14px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); min-height: 64px; }
+  .name-box.empty { background: var(--bg); color: var(--muted); font-weight: 500; font-size: 16px; font-family: inherit; }
+  .parts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .chip { border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font-size: 12px; background: var(--bg); }
+  .chip b { display: block; font-family: var(--mono); font-size: 14px; }
+  .chip.sep { opacity: .65; }
+  .msg { margin-top: 10px; padding: 8px 10px; border-radius: 6px; font-size: 13.5px; }
+  .msg.warn { background: var(--warn-soft); color: var(--warn); }
+  .msg.err { background: var(--err-soft); color: var(--err); }
+  .msg ul { margin: 0; padding-left: 18px; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  button { padding: 8px 14px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); }
+  button:disabled { opacity: .45; cursor: default; }
+  .tpl { font-family: var(--mono); font-size: 13px; color: var(--muted); word-break: break-all; }
+  footer { max-width: 1080px; margin: 0 auto; padding: 0 16px 32px; color: var(--muted); font-size: 13px; }
+  footer ul { padding-left: 18px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>IPC Land Pattern Namer</h1>
+  <p>Enter the datasheet dimensions (mm). The footprint name is built using the IPC-7351B / IPC-7251 naming convention.</p>
+</header>
+
+<main>
+  <section class="panel" aria-label="Inputs">
+    <h2>1 · Package</h2>
+    <label class="f" for="family">Component family</label>
+    <select id="family"></select>
+    <p class="help" id="famNote"></p>
+    <p class="tpl" id="tpl"></p>
+
+    <h2 style="margin-top:18px">2 · Dimensions</h2>
+    <p class="help">Type min and max from the datasheet. Spans and bodies use the nominal (average); heights and lead widths use the maximum. One value is fine too.</p>
+    <div id="fields"></div>
+
+    <h2 style="margin-top:18px">3 · Options</h2>
+    <div id="options"></div>
+  </section>
+
+  <section class="panel" aria-label="Result">
+    <h2>Land pattern name</h2>
+    <div id="name" class="name-box empty">Fill in the dimensions…</div>
+    <div id="parts" class="parts"></div>
+    <div id="msgs"></div>
+    <div class="btns">
+      <button id="copy" disabled>Copy name</button>
+      <button id="json" class="ghost" disabled>Download JSON record</button>
+      <button id="example" class="ghost">Load example</button>
+      <button id="clear" class="ghost">Clear</button>
+    </div>
+    <p class="help" style="margin-top:14px">The JSON record holds the family, the values used and the name, ready for a footprint generator or a library check.</p>
+  </section>
+</main>
+
+<footer>
+  <p><b>About.</b> Free and open source (<a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer">GitHub</a>). Implements the naming rules from the public IPC-7351B naming convention summary (PCB Matrix, 2009). Not affiliated with or endorsed by IPC. Always confirm names against your company library standard.</p>
+  <p><b>Known issues in the source summary:</b></p>
+  <ul id="issues"></ul>
+</footer>
+
+<script src="rules/ipc-7351b.js"></script>
+<script src="src/namer.js"></script>
+<script>
+(function () {
+  'use strict';
+  const rules = window.IPC7351B;
+  const namer = IPCNamer.create(rules);
+  const $ = id => document.getElementById(id);
+  let current = null;
+  let lastResult = null;
+
+  // ---- family picker, grouped
+  const groups = {};
+  namer.listFamilies().forEach(f => { (groups[f.group] = groups[f.group] || []).push(f); });
+  Object.keys(groups).forEach(g => {
+    const og = document.createElement('optgroup');
+    og.label = g;
+    groups[g].forEach(f => {
+      const o = document.createElement('option');
+      o.value = f.id;
+      o.textContent = f.name + (f.prefix ? '  (' + f.prefix + ')' : '');
+      og.appendChild(o);
+    });
+    $('family').appendChild(og);
+  });
+  rules.knownSourceIssues.forEach(t => { const li = document.createElement('li'); li.textContent = t; $('issues').appendChild(li); });
+
+  function el(tag, attrs, text) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => e.setAttribute(k, v));
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+
+  // ---- field inputs
+  function renderFields() {
+    current = namer.describe($('family').value);
+    $('famNote').textContent = current.note;
+    $('tpl').textContent = 'Pattern: ' + current.template + (current.qty ? '-<pins>' : '');
+    const box = $('fields');
+    box.innerHTML = '';
+    current.fields.forEach(f => {
+      const lab = el('label', { class: 'f', for: 'in_' + f.key },
+        f.label + (f.unit ? ' (' + f.unit + ')' : '') + (f.optional ? ' - optional' : ''));
+      box.appendChild(lab);
+      if (f.type === 'select') {
+        const s = el('select', { id: 'in_' + f.key, 'data-key': f.key });
+        f.options.forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
+        box.appendChild(s);
+      } else if (f.type === 'text' || f.type === 'int') {
+        box.appendChild(el('input', { id: 'in_' + f.key, 'data-key': f.key, type: f.type === 'int' ? 'number' : 'text', step: '1', min: '1', inputmode: f.type === 'int' ? 'numeric' : 'text' }));
+      } else {
+        const mm = el('div', { class: 'minmax' });
+        mm.appendChild(el('input', { id: 'in_' + f.key, 'data-key': f.key, 'data-part': 'min', type: 'number', step: 'any', min: '0', placeholder: 'min', 'aria-label': f.label + ' min' }));
+        mm.appendChild(el('input', { 'data-key': f.key, 'data-part': 'max', type: 'number', step: 'any', min: '0', placeholder: 'max', 'aria-label': f.label + ' max' }));
+        box.appendChild(mm);
+      }
+      if (f.help) box.appendChild(el('p', { class: 'help' }, f.help));
+    });
+    renderOptions();
+    box.querySelectorAll('input,select').forEach(i => i.addEventListener('input', update));
+    update();
+  }
+
+  function renderOptions() {
+    const box = $('options');
+    box.innerHTML = '';
+    const grid = el('div', { class: 'opt-grid' });
+    if (current.suffixMode !== 'none') {
+      const wrap = el('div');
+      wrap.appendChild(el('label', { class: 'f', for: 'opt_suffix' }, current.suffixMode === 'level' ? 'Fabrication level' : 'Density level'));
+      const s = el('select', { id: 'opt_suffix' });
+      const opts = current.suffixMode === 'level'
+        ? [['A', 'A - general'], ['B', 'B - moderate'], ['C', 'C - high'], ['', '(none)']]
+        : [['N', 'N - nominal'], ['M', 'M - most material'], ['L', 'L - least material'], ['', '(none)']];
+      opts.forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
+      wrap.appendChild(s);
+      grid.appendChild(wrap);
+    }
+    if (current.suffixes.length) {
+      const wrap = el('div');
+      wrap.appendChild(el('label', { class: 'f', for: 'opt_general' }, 'Pin assignment / heat sink'));
+      const s = el('select', { id: 'opt_general' });
+      s.appendChild(el('option', { value: '' }, '(none)'));
+      current.suffixes.forEach(x => s.appendChild(el('option', { value: x }, x)));
+      wrap.appendChild(s);
+      grid.appendChild(wrap);
+    }
+    if (current.qty) {
+      let wrap = el('div');
+      wrap.appendChild(el('label', { class: 'f', for: 'opt_pinmode' }, 'Pins'));
+      const s = el('select', { id: 'opt_pinmode' });
+      [['normal', 'all pins present'], ['hidden', 'hidden pins (-20_24)'], ['deleted', 'deleted pins (-24_20)']].forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
+      wrap.appendChild(s);
+      grid.appendChild(wrap);
+      wrap = el('div');
+      wrap.appendChild(el('label', { class: 'f', for: 'opt_pkg' }, 'Package pin count'));
+      wrap.appendChild(el('input', { id: 'opt_pkg', type: 'number', step: '1', min: '1', placeholder: 'only for hidden / deleted' }));
+      grid.appendChild(wrap);
+      wrap = el('div');
+      wrap.appendChild(el('label', { class: 'f', for: 'opt_variant' }, 'Alternate / JEDEC variant'));
+      wrap.appendChild(el('input', { id: 'opt_variant', type: 'text', maxlength: '2', placeholder: 'A, B, AA …' }));
+      grid.appendChild(wrap);
+    }
+    box.appendChild(grid);
+    const row = el('div', { class: 'row', style: 'margin-top:10px' });
+    if (current.thermal) {
+      const l = el('label');
+      l.appendChild(el('input', { type: 'checkbox', id: 'opt_thermal' }));
+      l.appendChild(document.createTextNode('Has thermal pad (counted as one more pin)'));
+      row.appendChild(l);
+    }
+    if (current.qty) {
+      const l = el('label');
+      l.appendChild(el('input', { type: 'checkbox', id: 'opt_reverse' }));
+      l.appendChild(document.createTextNode('Reverse pin order (R)'));
+      row.appendChild(l);
+    }
+    box.appendChild(row);
+    if (!grid.children.length && !row.children.length) box.appendChild(el('p', { class: 'help' }, 'No options for this family.'));
+    box.querySelectorAll('input,select').forEach(i => i.addEventListener('input', update));
+  }
+
+  function readInputs() {
+    const inp = {};
+    current.fields.forEach(f => {
+      if (f.type === 'select' || f.type === 'text' || f.type === 'int') {
+        const v = $('in_' + f.key).value;
+        if (v !== '') inp[f.key] = f.type === 'int' ? Number(v) : v;
+      } else {
+        const [a, b] = document.querySelectorAll('[data-key="' + f.key + '"]');
+        if (a.value !== '' || b.value !== '') inp[f.key] = { min: a.value, max: b.value };
+      }
+    });
+    const opt = {};
+    if ($('opt_suffix')) opt.suffix = $('opt_suffix').value;
+    if ($('opt_general')) opt.general = $('opt_general').value;
+    if ($('opt_thermal')) opt.thermalPad = $('opt_thermal').checked;
+    if ($('opt_reverse')) opt.reverse = $('opt_reverse').checked;
+    if ($('opt_pinmode')) { opt.pinMode = $('opt_pinmode').value; opt.packagePins = $('opt_pkg').value; }
+    if ($('opt_variant') && $('opt_variant').value.trim()) opt.variant = $('opt_variant').value;
+    return { inp, opt };
+  }
+
+  function update() {
+    const { inp, opt } = readInputs();
+    const touched = Object.keys(inp).length > 0;
+    const r = namer.build(current.id, inp, opt);
+    lastResult = r.ok ? r : null;
+    const nameBox = $('name');
+    $('parts').innerHTML = '';
+    $('msgs').innerHTML = '';
+    if (r.ok) {
+      nameBox.textContent = r.name;
+      nameBox.className = 'name-box';
+      r.parts.forEach(p => {
+        const c = el('div', { class: 'chip' + (p.label === 'separator' ? ' sep' : ''), title: p.label });
+        c.appendChild(el('b', {}, p.text));
+        if (p.label !== 'separator') c.appendChild(document.createTextNode(p.label));
+        $('parts').appendChild(c);
+      });
+    } else {
+      nameBox.textContent = touched ? 'Not complete yet' : 'Fill in the dimensions…';
+      nameBox.className = 'name-box empty';
+      if (touched) addMsg('err', r.errors);
+    }
+    if (r.warnings && r.warnings.length) addMsg('warn', r.warnings);
+    $('copy').disabled = !r.ok;
+    $('json').disabled = !r.ok;
+  }
+
+  function addMsg(kind, list) {
+    const d = el('div', { class: 'msg ' + kind });
+    const ul = el('ul');
+    list.forEach(t => ul.appendChild(el('li', {}, t)));
+    d.appendChild(ul);
+    $('msgs').appendChild(d);
+  }
+
+  $('family').addEventListener('change', renderFields);
+  $('copy').addEventListener('click', () => {
+    if (!lastResult) return;
+    navigator.clipboard.writeText(lastResult.name).then(() => {
+      $('copy').textContent = 'Copied';
+      setTimeout(() => { $('copy').textContent = 'Copy name'; }, 1200);
+    });
+  });
+  $('json').addEventListener('click', () => {
+    if (!lastResult) return;
+    const blob = new Blob([JSON.stringify(lastResult.record, null, 2)], { type: 'application/json' });
+    const a = el('a', { href: URL.createObjectURL(blob), download: lastResult.name + '.json' });
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  $('clear').addEventListener('click', renderFields);
+  $('example').addEventListener('click', () => {
+    let ex = rules.examples.find(e => e.family === $('family').value);
+    if (!ex) { ex = rules.examples.find(e => e.family === 'QFN'); $('family').value = 'QFN'; }
+    renderFields();
+    Object.entries(ex.in).forEach(([k, v]) => {
+      const f = current.fields.find(x => x.key === k);
+      if (!f) return;
+      if (f.type === 'select' || f.type === 'text' || f.type === 'int') $('in_' + k).value = v;
+      else document.querySelector('[data-key="' + k + '"][data-part="min"]').value = v;
+    });
+    const o = ex.opt || {};
+    if ($('opt_suffix') && o.suffix !== undefined &&
+        Array.from($('opt_suffix').options).some(x => x.value === o.suffix)) $('opt_suffix').value = o.suffix;
+    if ($('opt_general') && o.general) $('opt_general').value = o.general;
+    if ($('opt_thermal')) $('opt_thermal').checked = !!o.thermalPad;
+    if ($('opt_reverse')) $('opt_reverse').checked = !!o.reverse;
+    if ($('opt_pinmode') && o.pinMode) { $('opt_pinmode').value = o.pinMode; $('opt_pkg').value = o.packagePins; }
+    update();
+  });
+
+  $('family').value = 'QFN';
+  renderFields();
+})();
+</script>
+</body>
+</html>
