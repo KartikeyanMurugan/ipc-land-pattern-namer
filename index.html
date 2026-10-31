@@ -3,161 +3,465 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IPC Land Pattern Namer</title>
-<meta name="description" content="Free tool: build IPC-7351B / IPC-7251 land pattern (footprint) names from datasheet dimensions.">
+<title>IPC Land Pattern Namer – footprint names from datasheet dimensions</title>
+<meta name="description" content="Free tool for PCB designers: type the datasheet dimensions and get the IPC-7351B / IPC-7251 land pattern (footprint) name. Works offline, open source.">
+<meta name="theme-color" content="#14532d">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="IPC Land Pattern Namer">
+<meta property="og:description" content="Type the datasheet dimensions, get the IPC-7351B footprint name. Free and open source for PCB designers.">
+<meta property="og:url" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/">
+<meta property="og:image" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f6f7f5; --panel: #ffffff; --ink: #1b1f1d; --muted: #5d6762; --line: #d9ded9;
-    --accent: #0b6e4f; --accent-soft: #e2f1ea; --warn: #8a5a00; --warn-soft: #fff4dc;
-    --err: #a1261b; --err-soft: #fde9e6; --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+    --paper: #f6f8f5; --grid: #e3e9e3; --panel: #ffffff; --ink: #1d2a33; --muted: #5b6862; --line: #d4dcd5;
+    --copper: #b5651d; --copper-ink: #8f4c12; --copper-soft: #f6e9dc;
+    --mask: #14532d; --mask-deep: #0e3d21; --silk: #f2f5ef;
+    --warn: #8a5a00; --warn-soft: #fff3d6; --err: #a1261b; --err-soft: #fde8e4;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+    --r: 6px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #121614; --panel: #1a201d; --ink: #e6ebe8; --muted: #9aa69f; --line: #2c3530;
-      --accent: #4cc490; --accent-soft: #173327; --warn: #e2b450; --warn-soft: #33290f;
-      --err: #f08a7e; --err-soft: #3a1a16;
+      --paper: #0f1513; --grid: #18211d; --panel: #151d19; --ink: #e5ebe7; --muted: #9aa8a1; --line: #2a3530;
+      --copper: #d9893f; --copper-ink: #e9a463; --copper-soft: #2c1f12;
+      --mask: #17603a; --mask-deep: #0f4528; --silk: #f2f5ef;
+      --warn: #e6b65a; --warn-soft: #2f2610; --err: #f28b7f; --err-soft: #3a1915;
     }
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--ink); }
-  header { padding: 20px 16px 8px; max-width: 1080px; margin: 0 auto; }
-  header h1 { margin: 0; font-size: 22px; letter-spacing: .2px; }
-  header p { margin: 4px 0 0; color: var(--muted); }
-  main { max-width: 1080px; margin: 0 auto; padding: 8px 16px 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
-  @media (max-width: 820px) { main { grid-template-columns: 1fr; } }
-  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
-  .panel h2 { margin: 0 0 12px; font-size: 15px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
-  label.f { display: block; font-weight: 600; margin: 12px 0 4px; }
-  .help { font-size: 12.5px; color: var(--muted); margin: 2px 0 0; }
-  select, input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); font: inherit; }
-  select:focus, input:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+  body {
+    margin: 0; font: 16px/1.55 var(--sans); color: var(--ink); background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  a { color: var(--copper-ink); }
+  :focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- header ---------- */
+  .site-head { background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
+  .site-head .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 17px; }
+  .brand svg { flex: none; }
+  .brand small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); line-height: 1.1; }
+  nav.top { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+  nav.top a { text-decoration: none; color: var(--ink); padding: 6px 10px; border-radius: var(--r); font-size: 14.5px; }
+  nav.top a:hover { background: var(--paper); }
+  nav.top a.gh { border: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+  @media (max-width: 680px) { nav.top a.hide-sm { display: none; } .brand small { display: none; } }
+
+  /* ---------- intro ---------- */
+  .intro { padding-top: 36px; padding-bottom: 20px; }
+  .intro h1 { margin: 0; font-size: clamp(28px, 4.2vw, 42px); line-height: 1.12; letter-spacing: -0.5px; max-width: 18ch; }
+  .intro p { margin: 12px 0 0; color: var(--muted); max-width: 62ch; font-size: 17px; }
+
+  /* ---------- tool ---------- */
+  .tool { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 20px; align-items: start; padding-bottom: 28px; }
+  @media (max-width: 900px) { .tool { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+  .panel h2 { margin: 0 0 4px; font-size: 18px; }
+  .step + .step { border-top: 1px dashed var(--line); margin-top: 18px; padding-top: 18px; }
+  .step-head { display: flex; align-items: baseline; gap: 10px; }
+  .step-no { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--copper-soft); color: var(--copper-ink); font: 600 13px/24px var(--mono); text-align: center; }
+  .hint { font-size: 13.5px; color: var(--muted); margin: 4px 0 0; }
+  label.f { display: block; font-weight: 600; font-size: 14.5px; margin: 14px 0 5px; }
+  label.f .opt { font-weight: 400; color: var(--muted); }
+  select, input[type=text], input[type=number], input[type=search] {
+    width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: var(--r);
+    background: var(--paper); color: var(--ink); font: inherit; font-size: 15px;
+  }
+  input:focus, select:focus { outline: 2px solid var(--copper); outline-offset: -1px; border-color: transparent; }
+  .search-row { display: grid; grid-template-columns: 1fr; gap: 8px; }
   .minmax { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .minmax input::placeholder { color: var(--muted); }
-  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .row label { display: flex; gap: 6px; align-items: center; font-weight: 500; }
-  .row input[type=checkbox] { width: auto; }
-  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
-  .name-box { font-family: var(--mono); font-size: clamp(20px, 4vw, 30px); font-weight: 700; word-break: break-all; padding: 14px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); min-height: 64px; }
-  .name-box.empty { background: var(--bg); color: var(--muted); font-weight: 500; font-size: 16px; font-family: inherit; }
-  .parts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-  .chip { border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font-size: 12px; background: var(--bg); }
-  .chip b { display: block; font-family: var(--mono); font-size: 14px; }
-  .chip.sep { opacity: .65; }
-  .msg { margin-top: 10px; padding: 8px 10px; border-radius: 6px; font-size: 13.5px; }
+  .minmax .cell { position: relative; }
+  .minmax .cell span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); pointer-events: none; }
+  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+  @media (max-width: 480px) { .opt-grid { grid-template-columns: 1fr; } }
+  .checks { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
+  .checks label { display: flex; align-items: center; gap: 7px; font-size: 14.5px; cursor: pointer; }
+  .checks input { width: 17px; height: 17px; accent-color: var(--copper); }
+  .pattern { margin-top: 10px; font: 500 12.5px/1.5 var(--mono); color: var(--muted); word-break: break-all; }
+
+  /* ---------- result board ---------- */
+  .result { position: sticky; top: 76px; }
+  @media (max-width: 900px) { .result { position: static; } }
+  .board {
+    background: var(--mask); border-radius: 10px; padding: 22px 20px 18px; color: var(--silk);
+    box-shadow: inset 0 0 0 2px var(--mask-deep);
+    background-image: radial-gradient(circle at 14px 14px, var(--copper) 0 4px, transparent 5px),
+                      radial-gradient(circle at calc(100% - 14px) 14px, var(--copper) 0 4px, transparent 5px);
+  }
+  .board .cap { font-size: 13px; opacity: .8; margin: 0 0 10px; }
+  .name {
+    font: 600 clamp(22px, 3.6vw, 34px)/1.2 var(--mono); letter-spacing: .5px; word-break: break-all;
+    min-height: 1.3em; color: var(--silk);
+  }
+  .name.empty { font: 500 17px/1.4 var(--sans); opacity: .75; letter-spacing: 0; }
+  .pads { display: flex; flex-wrap: wrap; gap: 10px 6px; margin-top: 18px; }
+  .pad { display: flex; flex-direction: column; align-items: center; min-width: 40px; }
+  .pad b {
+    display: block; padding: 5px 8px; border-radius: 3px; background: var(--copper); color: #fff8f0;
+    font: 600 15px/1.2 var(--mono);
+  }
+  .pad.sep b { background: transparent; color: var(--silk); padding: 5px 2px; opacity: .9; }
+  .pad i { font-style: normal; font-size: 11.5px; line-height: 1.25; margin-top: 5px; text-align: center; max-width: 92px; opacity: .85; }
+  .board .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  button, .btn {
+    display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: var(--r);
+    border: 1px solid var(--copper); background: var(--copper); color: #fff; font: 600 14.5px var(--sans);
+    cursor: pointer; text-decoration: none;
+  }
+  button:disabled { opacity: .45; cursor: default; }
+  .board button.line { background: transparent; border-color: rgba(242,245,239,.55); color: var(--silk); }
+  .board button.line:hover:not(:disabled) { background: rgba(242,245,239,.1); }
+  button.quiet { background: transparent; color: var(--copper-ink); }
+  button.quiet:hover { background: var(--copper-soft); }
+  .msgs .msg { margin-top: 12px; padding: 9px 12px; border-radius: var(--r); font-size: 14px; }
   .msg.warn { background: var(--warn-soft); color: var(--warn); }
   .msg.err { background: var(--err-soft); color: var(--err); }
   .msg ul { margin: 0; padding-left: 18px; }
-  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-  button { padding: 8px 14px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
-  button.ghost { background: transparent; color: var(--accent); }
-  button:disabled { opacity: .45; cursor: default; }
-  .tpl { font-family: var(--mono); font-size: 13px; color: var(--muted); word-break: break-all; }
-  footer { max-width: 1080px; margin: 0 auto; padding: 0 16px 32px; color: var(--muted); font-size: 13px; }
-  footer ul { padding-left: 18px; }
-  a { color: var(--accent); }
+  .below { margin-top: 14px; }
+  .history { list-style: none; margin: 8px 0 0; padding: 0; }
+  .history li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 14px; }
+  .history code { font: 500 14px var(--mono); word-break: break-all; }
+  .history button { padding: 3px 9px; font-size: 13px; }
+  .empty-note { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+
+  /* ---------- community strip ---------- */
+  .community { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 14px 20px; }
+  .stat { display: flex; align-items: baseline; gap: 6px; font-size: 14.5px; color: var(--muted); }
+  .stat strong { font: 600 18px var(--mono); color: var(--ink); }
+  .like.on { background: var(--copper-soft); color: var(--copper-ink); }
+  .share { margin-left: auto; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .share span { font-size: 14px; color: var(--muted); margin-right: 2px; }
+  .share a, .share button { text-decoration: none; padding: 7px 11px; font-size: 13.5px; background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .share a:hover, .share button:hover { border-color: var(--copper); color: var(--copper-ink); }
+  @media (max-width: 680px) { .share { margin-left: 0; } }
+
+  /* ---------- info sections ---------- */
+  section.info { padding-top: 34px; padding-bottom: 6px; }
+  section.info h2 { font-size: 24px; margin: 0 0 14px; letter-spacing: -0.2px; }
+  .how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; padding: 0; margin: 0; counter-reset: how; }
+  @media (max-width: 760px) { .how { grid-template-columns: 1fr; } }
+  .how li { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .how li::before { counter-increment: how; content: counter(how); display: inline-block; width: 26px; height: 26px; border-radius: 50%; background: var(--copper); color: #fff; font: 600 13px/26px var(--mono); text-align: center; margin-bottom: 8px; }
+  .how b { display: block; margin-bottom: 4px; }
+  .how p { margin: 0; color: var(--muted); font-size: 15px; }
+  table.rules { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font-size: 15px; }
+  table.rules th, table.rules td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.rules th { background: var(--paper); font-weight: 600; }
+  table.rules code { font: 500 14px var(--mono); color: var(--copper-ink); }
+  .table-wrap { overflow-x: auto; }
+  details.issues { margin-top: 14px; font-size: 14.5px; color: var(--muted); }
+  details.issues summary { cursor: pointer; color: var(--ink); font-weight: 600; }
+
+  /* ---------- footer ---------- */
+  .site-foot { margin-top: 40px; background: var(--mask-deep); color: var(--silk); }
+  .site-foot .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 24px; padding: 32px 16px 20px; }
+  @media (max-width: 760px) { .site-foot .wrap { grid-template-columns: 1fr; } }
+  .site-foot h3 { margin: 0 0 8px; font-size: 15px; }
+  .site-foot p, .site-foot li { font-size: 14px; opacity: .88; margin: 0 0 6px; }
+  .site-foot ul { list-style: none; padding: 0; margin: 0; }
+  .site-foot a { color: #f3c08f; }
+  .legal { border-top: 1px solid rgba(242,245,239,.18); }
+  .legal .wrap { display: block; padding: 14px 16px 20px; font-size: 13px; opacity: .75; }
+
+  /* mobile sticky name bar */
+  .mbar { display: none; }
+  @media (max-width: 900px) {
+    .mbar.show { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; gap: 10px; align-items: center;
+      background: var(--mask); color: var(--silk); padding: 10px 16px; box-shadow: 0 -2px 10px rgba(0,0,0,.18); }
+    .mbar code { font: 600 15px var(--mono); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mbar button { padding: 7px 12px; }
+  }
+  .toast { position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--ink); color: var(--paper);
+    padding: 9px 16px; border-radius: var(--r); font-size: 14px; transition: opacity .2s, transform .2s; z-index: 40; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 </style>
 </head>
 <body>
-<header>
-  <h1>IPC Land Pattern Namer</h1>
-  <p>Enter the datasheet dimensions (mm). The footprint name is built using the IPC-7351B / IPC-7251 naming convention.</p>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="IPC Land Pattern Namer home">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/>
+        <rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/>
+        <rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/>
+        <rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/>
+      </svg>
+      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+    </a>
+    <nav class="top" aria-label="Main">
+      <a class="hide-sm" href="#how">How it works</a>
+      <a class="hide-sm" href="#rules">Naming rules</a>
+      <a class="gh" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
 </header>
 
 <main>
-  <section class="panel" aria-label="Inputs">
-    <h2>1 · Package</h2>
-    <label class="f" for="family">Component family</label>
-    <select id="family"></select>
-    <p class="help" id="famNote"></p>
-    <p class="tpl" id="tpl"></p>
+  <div class="wrap intro">
+    <h1>Footprint names straight from the datasheet</h1>
+    <p>Pick the package, type the min and max dimensions, and copy the land pattern name built to the IPC-7351B / IPC-7251 convention. Free, open source, works offline.</p>
+  </div>
 
-    <h2 style="margin-top:18px">2 · Dimensions</h2>
-    <p class="help">Type min and max from the datasheet. Spans and bodies use the nominal (average); heights and lead widths use the maximum. One value is fine too.</p>
-    <div id="fields"></div>
+  <div class="wrap tool">
+    <section class="panel" aria-label="Package and dimensions">
+      <div class="step">
+        <div class="step-head"><span class="step-no">1</span><h2>Choose the package</h2></div>
+        <label class="f" for="search">Search <span class="opt">(QFN, SOIC, 0603, header …)</span></label>
+        <input id="search" type="search" placeholder="Type to filter the list" autocomplete="off">
+        <label class="f" for="family">Component family</label>
+        <select id="family"></select>
+        <p class="hint" id="famNote"></p>
+        <p class="pattern" id="tpl"></p>
+      </div>
 
-    <h2 style="margin-top:18px">3 · Options</h2>
-    <div id="options"></div>
+      <div class="step">
+        <div class="step-head"><span class="step-no">2</span><h2>Enter the dimensions</h2></div>
+        <p class="hint">Values in mm from the datasheet table. Spans and body sizes use the nominal (average of min and max); heights and lead widths use the maximum. One value is enough when the datasheet gives only one.</p>
+        <div id="fields"></div>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-no">3</span><h2>Options</h2></div>
+        <div id="options"></div>
+      </div>
+    </section>
+
+    <aside class="result" aria-label="Result">
+      <div class="board">
+        <p class="cap">Land pattern name</p>
+        <div id="name" class="name empty" aria-live="polite">Fill in the dimensions to build the name</div>
+        <div id="pads" class="pads"></div>
+        <div class="actions">
+          <button id="copy" disabled>Copy name</button>
+          <button id="link" class="line" disabled>Copy link to this part</button>
+          <button id="json" class="line" disabled>Download JSON</button>
+        </div>
+      </div>
+      <div class="msgs" id="msgs"></div>
+      <div class="panel below">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <h2 style="font-size:16px;margin:0">Recent names</h2>
+          <span>
+            <button id="example" class="quiet">Try an example</button>
+            <button id="clear" class="quiet">Clear form</button>
+          </span>
+        </div>
+        <ul class="history" id="history"></ul>
+        <p class="empty-note" id="historyEmpty">Names you copy appear here, saved in this browser only.</p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="wrap">
+    <div class="panel community" aria-label="Community">
+      <div class="stat" title="Visits counted once per browser session"><strong id="visits">–</strong> visits</div>
+      <button id="like" class="quiet like" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.5 1.1 4.3 2.6h2.6C14.1 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg>
+        <span id="likeLabel">Useful?</span> <strong id="likes"></strong>
+      </button>
+      <div class="share">
+        <span>Share with your team</span>
+        <a id="shLinkedIn" target="_blank" rel="noopener">LinkedIn</a>
+        <a id="shWhatsApp" target="_blank" rel="noopener">WhatsApp</a>
+        <a id="shX" target="_blank" rel="noopener">X</a>
+        <button id="shNative" hidden>More…</button>
+        <button id="shCopy">Copy site link</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="info wrap" id="how">
+    <h2>How it works</h2>
+    <ol class="how">
+      <li><b>Pick the package family</b><p>Search by package type. Each family asks only for the dimensions its name needs.</p></li>
+      <li><b>Type the datasheet values</b><p>Enter min and max as printed. The tool takes the nominal for spans and the maximum for height, the way IPC names are built.</p></li>
+      <li><b>Copy and reuse</b><p>Copy the name, share a link that reopens the same part, or download the JSON record for a footprint generator.</p></li>
+    </ol>
   </section>
 
-  <section class="panel" aria-label="Result">
-    <h2>Land pattern name</h2>
-    <div id="name" class="name-box empty">Fill in the dimensions…</div>
-    <div id="parts" class="parts"></div>
-    <div id="msgs"></div>
-    <div class="btns">
-      <button id="copy" disabled>Copy name</button>
-      <button id="json" class="ghost" disabled>Download JSON record</button>
-      <button id="example" class="ghost">Load example</button>
-      <button id="clear" class="ghost">Clear</button>
+  <section class="info wrap" id="rules">
+    <h2>Naming rules used</h2>
+    <div class="table-wrap">
+      <table class="rules">
+        <thead><tr><th>Value</th><th>Rule</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Pitch, lead span, body, height</td><td>mm × 100, rounded, no leading zeros</td><td>1.27 mm → <code>127</code>, 0.50 mm → <code>50</code></td></tr>
+          <tr><td>Chip body (RESC, CAPC, INDC …)</td><td>One digit each side of the decimal point</td><td>1.6 × 0.8 mm → <code>1608</code></td></tr>
+          <tr><td>Pin quantity</td><td>After a dash; a thermal pad counts as one more pin</td><td><code>-33</code> for 32 pins + pad</td></tr>
+          <tr><td>Hidden / deleted / reversed pins</td><td>Used_package, package_used, R</td><td><code>-20_24</code>, <code>-24_20</code>, <code>-20R</code></td></tr>
+          <tr><td>Last letter, SMD</td><td>Density level M (most), N (nominal), L (least); none for BGA</td><td><code>RESC1608X55N</code></td></tr>
+          <tr><td>Last letter, through-hole</td><td>Fabrication level A, B or C</td><td><code>DIP762W52P254L1905H508Q14B</code></td></tr>
+        </tbody>
+      </table>
     </div>
-    <p class="help" style="margin-top:14px">The JSON record holds the family, the values used and the name, ready for a footprint generator or a library check.</p>
+    <details class="issues">
+      <summary>Notes on the source and known issues</summary>
+      <p>Rules follow the public IPC-7351B naming convention summary (PCB Matrix, 2009). IPC-7351C was never released; the current IPC document is IPC-7352 (2023), and a profile for it is planned.</p>
+      <ul id="issues"></ul>
+    </details>
   </section>
 </main>
 
-<footer>
-  <p><b>About.</b> Free and open source (<a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer">GitHub</a>). Implements the naming rules from the public IPC-7351B naming convention summary (PCB Matrix, 2009). Not affiliated with or endorsed by IPC. Always confirm names against your company library standard.</p>
-  <p><b>Known issues in the source summary:</b></p>
-  <ul id="issues"></ul>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <h3>IPC Land Pattern Namer</h3>
+      <p>A free tool for PCB designers and library engineers. Built and maintained by Karthikeyan Murugan, PCB design engineer.</p>
+      <p>Found a wrong name? <a id="issueLink" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues/new" target="_blank" rel="noopener">Report it on GitHub</a> with the values you typed. Every correction becomes a test.</p>
+    </div>
+    <div>
+      <h3>Project</h3>
+      <ul>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer#roadmap" target="_blank" rel="noopener">Roadmap</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues" target="_blank" rel="noopener">Issues and suggestions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener">More tools by the author</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Use it anywhere</h3>
+      <ul>
+        <li>Works offline: download the repository and open index.html</li>
+        <li>Engine and rules usable from Node, Python or SKILL</li>
+        <li>MIT licence – free for commercial use</li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    <div class="wrap">Not affiliated with or endorsed by IPC. IPC-7351 and IPC-7352 are IPC standards; this tool implements the published naming convention and does not reproduce the standard. Always confirm names against your own library standard. Version <span id="ver">0.2.0</span>.</div>
+  </div>
 </footer>
+
+<div class="mbar" id="mbar"><code id="mbarName"></code><button id="mbarCopy">Copy</button></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script src="rules/ipc-7351b.js"></script>
 <script src="src/namer.js"></script>
 <script>
 (function () {
   'use strict';
+  const SITE = 'https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/';
+  const COUNTER = 'https://abacus.jasoncameron.dev';
+  const NS = 'kartikeyanmurugan-ipc-namer';
   const rules = window.IPC7351B;
   const namer = IPCNamer.create(rules);
   const $ = id => document.getElementById(id);
   let current = null;
-  let lastResult = null;
+  let last = null;
 
-  // ---- family picker, grouped
-  const groups = {};
-  namer.listFamilies().forEach(f => { (groups[f.group] = groups[f.group] || []).push(f); });
-  Object.keys(groups).forEach(g => {
-    const og = document.createElement('optgroup');
-    og.label = g;
-    groups[g].forEach(f => {
-      const o = document.createElement('option');
-      o.value = f.id;
-      o.textContent = f.name + (f.prefix ? '  (' + f.prefix + ')' : '');
-      og.appendChild(o);
-    });
-    $('family').appendChild(og);
-  });
-  rules.knownSourceIssues.forEach(t => { const li = document.createElement('li'); li.textContent = t; $('issues').appendChild(li); });
-
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } }
+  };
   function el(tag, attrs, text) {
     const e = document.createElement(tag);
     Object.entries(attrs || {}).forEach(([k, v]) => e.setAttribute(k, v));
     if (text !== undefined) e.textContent = text;
     return e;
   }
+  function toast(t) {
+    const x = $('toast'); x.textContent = t; x.classList.add('show');
+    clearTimeout(toast.t); toast.t = setTimeout(() => x.classList.remove('show'), 1600);
+  }
+  function copyText(t, msg) {
+    const done = () => toast(msg);
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, () => fallback());
+    else fallback();
+    function fallback() {
+      const ta = el('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { toast('Select and copy: ' + t); }
+      ta.remove();
+    }
+  }
 
-  // ---- field inputs
+  // ---------------- family list with search ----------------
+  const families = namer.listFamilies();
+  const keywords = {
+    RESC: '0402 0603 0805 1206 1210 2512 resistor chip', CAPC: '0402 0603 0805 1206 mlcc capacitor chip',
+    INDC: 'inductor chip 0603 0805', SOIC: 'so8 so-8 soic8 soic-8 soic14 soic16', SOP: 'ssop tssop msop sop',
+    SOT: 'sot23 sot-23 sot223 sot-223 sot363 sc70', QFN: 'qfn mlf vqfn wqfn', QFP: 'lqfp tqfp qfp',
+    BGA: 'bga fbga', HDRV: 'header pin header 2.54 berg', HDRRA: 'header right angle', MTG: 'mounting hole screw',
+    TO: 'dpak d2pak to252 to263', DIP: 'dip pdip', CAPAE: 'electrolytic smd can', SOD: 'sod123 sod323 sod523'
+  };
+  function fillFamilies(filter) {
+    const sel = $('family');
+    const keep = sel.value;
+    sel.innerHTML = '';
+    const f = (filter || '').trim().toLowerCase();
+    const groups = {};
+    families.forEach(x => {
+      const hay = (x.name + ' ' + x.prefix + ' ' + x.id + ' ' + x.group + ' ' + (keywords[x.id] || '')).toLowerCase();
+      if (f && !f.split(/\s+/).every(w => hay.indexOf(w) >= 0)) return;
+      (groups[x.group] = groups[x.group] || []).push(x);
+    });
+    Object.keys(groups).forEach(g => {
+      const og = el('optgroup', { label: g });
+      groups[g].forEach(x => og.appendChild(el('option', { value: x.id }, x.name + (x.prefix ? '  (' + x.prefix + ')' : ''))));
+      sel.appendChild(og);
+    });
+    if (!sel.options.length) {
+      sel.appendChild(el('option', { value: '', disabled: '' }, 'No match – try another word'));
+      return false;
+    }
+    if ([...sel.options].some(o => o.value === keep)) sel.value = keep;
+    return true;
+  }
+  $('search').addEventListener('input', () => {
+    const before = $('family').value;
+    if (fillFamilies($('search').value) && $('family').value !== before) renderFields();
+  });
+  (rules.knownSourceIssues || []).forEach(t => $('issues').appendChild(el('li', {}, t)));
+
+  // ---------------- form ----------------
   function renderFields() {
+    if (!$('family').value) return;
     current = namer.describe($('family').value);
     $('famNote').textContent = current.note;
-    $('tpl').textContent = 'Pattern: ' + current.template + (current.qty ? '-<pins>' : '');
+    $('tpl').textContent = 'Pattern  ' + current.template + (current.qty ? '-<pins>' : '');
     const box = $('fields');
     box.innerHTML = '';
     current.fields.forEach(f => {
-      const lab = el('label', { class: 'f', for: 'in_' + f.key },
-        f.label + (f.unit ? ' (' + f.unit + ')' : '') + (f.optional ? ' - optional' : ''));
-      box.appendChild(lab);
+      box.appendChild(el('label', { class: 'f', for: 'in_' + f.key }, f.label));
+      if (f.optional) box.lastChild.appendChild(el('span', { class: 'opt' }, '  (optional)'));
       if (f.type === 'select') {
         const s = el('select', { id: 'in_' + f.key, 'data-key': f.key });
         f.options.forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
         box.appendChild(s);
       } else if (f.type === 'text' || f.type === 'int') {
-        box.appendChild(el('input', { id: 'in_' + f.key, 'data-key': f.key, type: f.type === 'int' ? 'number' : 'text', step: '1', min: '1', inputmode: f.type === 'int' ? 'numeric' : 'text' }));
+        box.appendChild(el('input', { id: 'in_' + f.key, 'data-key': f.key, type: f.type === 'int' ? 'number' : 'text', step: '1', min: '1', inputmode: f.type === 'int' ? 'numeric' : 'text', autocomplete: 'off' }));
       } else {
         const mm = el('div', { class: 'minmax' });
-        mm.appendChild(el('input', { id: 'in_' + f.key, 'data-key': f.key, 'data-part': 'min', type: 'number', step: 'any', min: '0', placeholder: 'min', 'aria-label': f.label + ' min' }));
-        mm.appendChild(el('input', { 'data-key': f.key, 'data-part': 'max', type: 'number', step: 'any', min: '0', placeholder: 'max', 'aria-label': f.label + ' max' }));
+        ['min', 'max'].forEach(part => {
+          const c = el('div', { class: 'cell' });
+          c.appendChild(el('input', { id: part === 'min' ? 'in_' + f.key : 'in_' + f.key + '_max', 'data-key': f.key, 'data-part': part, type: 'number', step: 'any', min: '0', inputmode: 'decimal', placeholder: part, 'aria-label': f.label + ' ' + part }));
+          c.appendChild(el('span', {}, 'mm'));
+          mm.appendChild(c);
+        });
         box.appendChild(mm);
       }
-      if (f.help) box.appendChild(el('p', { class: 'help' }, f.help));
+      if (f.help) box.appendChild(el('p', { class: 'hint' }, f.help));
     });
     renderOptions();
     box.querySelectorAll('input,select').forEach(i => i.addEventListener('input', update));
@@ -168,155 +472,231 @@
     const box = $('options');
     box.innerHTML = '';
     const grid = el('div', { class: 'opt-grid' });
+    function field(id, label, node) { const w = el('div'); w.appendChild(el('label', { class: 'f', for: id }, label)); w.appendChild(node); grid.appendChild(w); }
     if (current.suffixMode !== 'none') {
-      const wrap = el('div');
-      wrap.appendChild(el('label', { class: 'f', for: 'opt_suffix' }, current.suffixMode === 'level' ? 'Fabrication level' : 'Density level'));
       const s = el('select', { id: 'opt_suffix' });
       const opts = current.suffixMode === 'level'
-        ? [['A', 'A - general'], ['B', 'B - moderate'], ['C', 'C - high'], ['', '(none)']]
-        : [['N', 'N - nominal'], ['M', 'M - most material'], ['L', 'L - least material'], ['', '(none)']];
+        ? [['A', 'A – general'], ['B', 'B – moderate'], ['C', 'C – high'], ['', 'No letter']]
+        : [['N', 'N – nominal'], ['M', 'M – most material'], ['L', 'L – least material'], ['', 'No letter']];
       opts.forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
       s.value = current.suffixMode === 'level' ? 'B' : 'N';
-      wrap.appendChild(s);
-      grid.appendChild(wrap);
+      field('opt_suffix', current.suffixMode === 'level' ? 'Fabrication level' : 'Density level', s);
     }
     if (current.suffixes.length) {
-      const wrap = el('div');
-      wrap.appendChild(el('label', { class: 'f', for: 'opt_general' }, 'Pin assignment / heat sink'));
       const s = el('select', { id: 'opt_general' });
-      s.appendChild(el('option', { value: '' }, '(none)'));
+      s.appendChild(el('option', { value: '' }, 'None'));
       current.suffixes.forEach(x => s.appendChild(el('option', { value: x }, x)));
-      wrap.appendChild(s);
-      grid.appendChild(wrap);
+      field('opt_general', 'Pin assignment / heat sink', s);
     }
     if (current.qty) {
-      let wrap = el('div');
-      wrap.appendChild(el('label', { class: 'f', for: 'opt_pinmode' }, 'Pins'));
       const s = el('select', { id: 'opt_pinmode' });
-      [['normal', 'all pins present'], ['hidden', 'hidden pins (-20_24)'], ['deleted', 'deleted pins (-24_20)']].forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
-      wrap.appendChild(s);
-      grid.appendChild(wrap);
-      wrap = el('div');
-      wrap.appendChild(el('label', { class: 'f', for: 'opt_pkg' }, 'Package pin count'));
-      wrap.appendChild(el('input', { id: 'opt_pkg', type: 'number', step: '1', min: '1', placeholder: 'only for hidden / deleted' }));
-      grid.appendChild(wrap);
-      wrap = el('div');
-      wrap.appendChild(el('label', { class: 'f', for: 'opt_variant' }, 'Alternate / JEDEC variant'));
-      wrap.appendChild(el('input', { id: 'opt_variant', type: 'text', maxlength: '2', placeholder: 'A, B, AA …' }));
-      grid.appendChild(wrap);
+      [['normal', 'All pins present'], ['hidden', 'Hidden pins (-20_24)'], ['deleted', 'Deleted pins (-24_20)']].forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
+      field('opt_pinmode', 'Pins', s);
+      field('opt_pkg', 'Package pin count', el('input', { id: 'opt_pkg', type: 'number', step: '1', min: '1', placeholder: 'Hidden / deleted only' }));
+      field('opt_variant', 'Alternate / JEDEC variant', el('input', { id: 'opt_variant', type: 'text', maxlength: '2', placeholder: 'A, B, AA …', autocomplete: 'off' }));
     }
     box.appendChild(grid);
-    const row = el('div', { class: 'row', style: 'margin-top:10px' });
-    if (current.thermal) {
-      const l = el('label');
-      l.appendChild(el('input', { type: 'checkbox', id: 'opt_thermal' }));
-      l.appendChild(document.createTextNode('Has thermal pad (counted as one more pin)'));
-      row.appendChild(l);
-    }
-    if (current.qty) {
-      const l = el('label');
-      l.appendChild(el('input', { type: 'checkbox', id: 'opt_reverse' }));
-      l.appendChild(document.createTextNode('Reverse pin order (R)'));
-      row.appendChild(l);
-    }
-    box.appendChild(row);
-    if (!grid.children.length && !row.children.length) box.appendChild(el('p', { class: 'help' }, 'No options for this family.'));
+    const checks = el('div', { class: 'checks' });
+    function check(id, text) { const l = el('label'); l.appendChild(el('input', { type: 'checkbox', id })); l.appendChild(document.createTextNode(text)); checks.appendChild(l); }
+    if (current.thermal) check('opt_thermal', 'Has a thermal pad (adds one pin)');
+    if (current.qty) check('opt_reverse', 'Reverse pin order (R)');
+    if (checks.children.length) box.appendChild(checks);
+    if (!grid.children.length && !checks.children.length) box.appendChild(el('p', { class: 'hint' }, 'This family has no options.'));
     box.querySelectorAll('input,select').forEach(i => i.addEventListener('input', update));
   }
 
-  function readInputs() {
+  function readForm() {
     const inp = {};
     current.fields.forEach(f => {
       if (f.type === 'select' || f.type === 'text' || f.type === 'int') {
         const v = $('in_' + f.key).value;
         if (v !== '') inp[f.key] = f.type === 'int' ? Number(v) : v;
       } else {
-        const [a, b] = document.querySelectorAll('[data-key="' + f.key + '"]');
-        if (a.value !== '' || b.value !== '') inp[f.key] = { min: a.value, max: b.value };
+        const a = $('in_' + f.key).value, b = $('in_' + f.key + '_max').value;
+        if (a !== '' || b !== '') inp[f.key] = { min: a, max: b };
       }
     });
     const opt = {};
     if ($('opt_suffix')) opt.suffix = $('opt_suffix').value;
-    if ($('opt_general')) opt.general = $('opt_general').value;
-    if ($('opt_thermal')) opt.thermalPad = $('opt_thermal').checked;
-    if ($('opt_reverse')) opt.reverse = $('opt_reverse').checked;
-    if ($('opt_pinmode')) { opt.pinMode = $('opt_pinmode').value; opt.packagePins = $('opt_pkg').value; }
-    if ($('opt_variant') && $('opt_variant').value.trim()) opt.variant = $('opt_variant').value;
+    if ($('opt_general') && $('opt_general').value) opt.general = $('opt_general').value;
+    if ($('opt_thermal') && $('opt_thermal').checked) opt.thermalPad = true;
+    if ($('opt_reverse') && $('opt_reverse').checked) opt.reverse = true;
+    if ($('opt_pinmode') && $('opt_pinmode').value !== 'normal') { opt.pinMode = $('opt_pinmode').value; opt.packagePins = $('opt_pkg').value; }
+    if ($('opt_variant') && $('opt_variant').value.trim()) opt.variant = $('opt_variant').value.trim();
     return { inp, opt };
   }
 
-  function update() {
-    const { inp, opt } = readInputs();
-    const touched = Object.keys(inp).length > 0;
-    const r = namer.build(current.id, inp, opt);
-    lastResult = r.ok ? r : null;
-    const nameBox = $('name');
-    $('parts').innerHTML = '';
-    $('msgs').innerHTML = '';
-    if (r.ok) {
-      nameBox.textContent = r.name;
-      nameBox.className = 'name-box';
-      r.parts.forEach(p => {
-        const c = el('div', { class: 'chip' + (p.label === 'separator' ? ' sep' : ''), title: p.label });
-        c.appendChild(el('b', {}, p.text));
-        if (p.label !== 'separator') c.appendChild(document.createTextNode(p.label));
-        $('parts').appendChild(c);
-      });
-    } else {
-      nameBox.textContent = touched ? 'Not complete yet' : 'Fill in the dimensions…';
-      nameBox.className = 'name-box empty';
-      if (touched) addMsg('err', r.errors);
-    }
-    if (r.warnings && r.warnings.length) addMsg('warn', r.warnings);
-    $('copy').disabled = !r.ok;
-    $('json').disabled = !r.ok;
-  }
-
-  function addMsg(kind, list) {
-    const d = el('div', { class: 'msg ' + kind });
-    const ul = el('ul');
-    list.forEach(t => ul.appendChild(el('li', {}, t)));
-    d.appendChild(ul);
-    $('msgs').appendChild(d);
-  }
-
-  $('family').addEventListener('change', renderFields);
-  $('copy').addEventListener('click', () => {
-    if (!lastResult) return;
-    navigator.clipboard.writeText(lastResult.name).then(() => {
-      $('copy').textContent = 'Copied';
-      setTimeout(() => { $('copy').textContent = 'Copy name'; }, 1200);
-    });
-  });
-  $('json').addEventListener('click', () => {
-    if (!lastResult) return;
-    const blob = new Blob([JSON.stringify(lastResult.record, null, 2)], { type: 'application/json' });
-    const a = el('a', { href: URL.createObjectURL(blob), download: lastResult.name + '.json' });
-    document.body.appendChild(a); a.click(); a.remove();
-  });
-  $('clear').addEventListener('click', renderFields);
-  $('example').addEventListener('click', () => {
-    let ex = rules.examples.find(e => e.family === $('family').value);
-    if (!ex) { ex = rules.examples.find(e => e.family === 'QFN'); $('family').value = 'QFN'; }
-    renderFields();
-    Object.entries(ex.in).forEach(([k, v]) => {
+  function writeForm(inp, opt) {
+    Object.entries(inp || {}).forEach(([k, v]) => {
       const f = current.fields.find(x => x.key === k);
       if (!f) return;
       if (f.type === 'select' || f.type === 'text' || f.type === 'int') $('in_' + k).value = v;
-      else document.querySelector('[data-key="' + k + '"][data-part="min"]').value = v;
+      else if (typeof v === 'object') { $('in_' + k).value = v.min || ''; $('in_' + k + '_max').value = v.max || ''; }
+      else $('in_' + k).value = v;
     });
-    const o = ex.opt || {};
-    if ($('opt_suffix') && o.suffix !== undefined &&
-        Array.from($('opt_suffix').options).some(x => x.value === o.suffix)) $('opt_suffix').value = o.suffix;
-    if ($('opt_general') && o.general) $('opt_general').value = o.general;
-    if ($('opt_thermal')) $('opt_thermal').checked = !!o.thermalPad;
-    if ($('opt_reverse')) $('opt_reverse').checked = !!o.reverse;
-    if ($('opt_pinmode') && o.pinMode) { $('opt_pinmode').value = o.pinMode; $('opt_pkg').value = o.packagePins; }
+    opt = opt || {};
+    if ($('opt_suffix') && opt.suffix !== undefined && [...$('opt_suffix').options].some(o => o.value === opt.suffix)) $('opt_suffix').value = opt.suffix;
+    if ($('opt_general') && opt.general) $('opt_general').value = opt.general;
+    if ($('opt_thermal')) $('opt_thermal').checked = !!opt.thermalPad;
+    if ($('opt_reverse')) $('opt_reverse').checked = !!opt.reverse;
+    if ($('opt_pinmode') && opt.pinMode) { $('opt_pinmode').value = opt.pinMode; $('opt_pkg').value = opt.packagePins || ''; }
+    if ($('opt_variant') && opt.variant) $('opt_variant').value = opt.variant;
+  }
+
+  function update() {
+    const { inp, opt } = readForm();
+    const touched = Object.keys(inp).length > 0;
+    const r = namer.build(current.id, inp, opt);
+    last = r.ok ? { r, inp, opt } : null;
+    const name = $('name');
+    $('pads').innerHTML = '';
+    $('msgs').innerHTML = '';
+    if (r.ok) {
+      name.textContent = r.name;
+      name.className = 'name';
+      r.parts.forEach(p => {
+        const sep = p.label === 'separator';
+        const d = el('div', { class: 'pad' + (sep ? ' sep' : '') });
+        d.appendChild(el('b', {}, p.text));
+        if (!sep) d.appendChild(el('i', {}, p.label.replace(/\s*\(.*\)/, '')));
+        $('pads').appendChild(d);
+      });
+      $('mbarName').textContent = r.name;
+      $('mbar').classList.add('show');
+    } else {
+      name.textContent = touched ? 'Keep going – some values are still missing' : 'Fill in the dimensions to build the name';
+      name.className = 'name empty';
+      $('mbar').classList.remove('show');
+      if (touched) msg('err', r.errors);
+    }
+    if (r.warnings && r.warnings.length) msg('warn', r.warnings);
+    ['copy', 'link', 'json'].forEach(id => { $(id).disabled = !r.ok; });
+  }
+  function msg(kind, list) {
+    const d = el('div', { class: 'msg ' + kind }), ul = el('ul');
+    list.forEach(t => ul.appendChild(el('li', {}, t)));
+    d.appendChild(ul); $('msgs').appendChild(d);
+  }
+
+  // ---------------- share link (state in the URL hash) ----------------
+  function stateLink() {
+    const s = { f: current.id, i: last.inp, o: last.opt };
+    return SITE + '#p=' + encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(s)))));
+  }
+  function loadFromHash() {
+    const m = location.hash.match(/#p=(.+)$/);
+    if (!m) return false;
+    try {
+      const s = JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(m[1])))));
+      if (!namer.rules.families[s.f]) return false;
+      $('family').value = s.f;
+      renderFields();
+      writeForm(s.i, s.o);
+      update();
+      return true;
+    } catch (e) { return false; }
+  }
+
+  // ---------------- history ----------------
+  function renderHistory() {
+    const h = store.get('ipcNamerHistory', []);
+    const ul = $('history'); ul.innerHTML = '';
+    $('historyEmpty').hidden = h.length > 0;
+    h.forEach(item => {
+      const li = el('li');
+      li.appendChild(el('code', {}, item.name));
+      const b = el('button', { class: 'quiet' }, 'Open');
+      b.addEventListener('click', () => {
+        $('search').value = ''; fillFamilies('');
+        $('family').value = item.f; renderFields(); writeForm(item.i, item.o); update();
+        window.scrollTo({ top: 0 });
+      });
+      li.appendChild(b); ul.appendChild(li);
+    });
+  }
+  function remember() {
+    if (!last) return;
+    const h = store.get('ipcNamerHistory', []).filter(x => x.name !== last.r.name);
+    h.unshift({ name: last.r.name, f: current.id, i: last.inp, o: last.opt });
+    store.set('ipcNamerHistory', h.slice(0, 8));
+    renderHistory();
+  }
+
+  // ---------------- buttons ----------------
+  function copyName() { if (!last) return; copyText(last.r.name, 'Copied ' + last.r.name); remember(); }
+  $('copy').addEventListener('click', copyName);
+  $('mbarCopy').addEventListener('click', copyName);
+  $('link').addEventListener('click', () => { if (last) { copyText(stateLink(), 'Link copied – it reopens this part'); remember(); } });
+  $('json').addEventListener('click', () => {
+    if (!last) return;
+    const blob = new Blob([JSON.stringify(last.r.record, null, 2)], { type: 'application/json' });
+    const a = el('a', { href: URL.createObjectURL(blob), download: last.r.name + '.json' });
+    document.body.appendChild(a); a.click(); a.remove();
+    remember();
+  });
+  $('family').addEventListener('change', () => { history.replaceState(null, '', location.pathname); renderFields(); });
+  $('clear').addEventListener('click', () => { history.replaceState(null, '', location.pathname); renderFields(); });
+  $('example').addEventListener('click', () => {
+    let ex = rules.examples.find(e => e.family === $('family').value);
+    if (!ex) { ex = rules.examples.find(e => e.family === 'QFN'); $('search').value = ''; fillFamilies(''); $('family').value = 'QFN'; }
+    renderFields();
+    writeForm(ex.in, ex.opt);
     update();
   });
 
-  $('family').value = 'QFN';
-  renderFields();
+  // ---------------- share the site ----------------
+  const shareText = 'Free tool: type datasheet dimensions, get the IPC-7351B footprint (land pattern) name.';
+  $('shLinkedIn').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(SITE);
+  $('shWhatsApp').href = 'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + SITE);
+  $('shX').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(SITE);
+  $('shCopy').addEventListener('click', () => copyText(SITE, 'Site link copied'));
+  if (navigator.share) {
+    $('shNative').hidden = false;
+    $('shNative').addEventListener('click', () => navigator.share({ title: 'IPC Land Pattern Namer', text: shareText, url: SITE }).catch(() => {}));
+  }
+  $('issueLink').addEventListener('click', e => {
+    if (!last && !current) return;
+    const body = 'Family: ' + (current ? current.id : '') + '\nValues: ' + JSON.stringify(last ? last.inp : {}) +
+      '\nOptions: ' + JSON.stringify(last ? last.opt : {}) + '\nName shown: ' + (last ? last.r.name : '') +
+      '\nName expected (and source): \n';
+    e.currentTarget.href = 'https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues/new?title=' +
+      encodeURIComponent('Wrong name: ' + (last ? last.r.name : '')) + '&body=' + encodeURIComponent(body);
+  });
+
+  // ---------------- visits and likes (free public counter, no personal data) ----------------
+  const onSite = location.protocol.indexOf('http') === 0;
+  function counter(path) {
+    return fetch(COUNTER + path, { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(j => j.value);
+  }
+  function fmt(n) { return typeof n === 'number' ? n.toLocaleString('en-IN') : '–'; }
+  if (onSite) {
+    let counted = false;
+    try { counted = sessionStorage.getItem('ipcNamerVisit') === '1'; } catch (e) {}
+    counter((counted ? '/get/' : '/hit/') + NS + '/visits')
+      .then(v => { $('visits').textContent = fmt(v); try { sessionStorage.setItem('ipcNamerVisit', '1'); } catch (e) {} })
+      .catch(() => { $('visits').parentNode.hidden = true; });
+    counter('/get/' + NS + '/likes').then(v => { $('likes').textContent = fmt(v); }).catch(() => { $('likes').textContent = ''; });
+  } else {
+    $('visits').parentNode.hidden = true;
+  }
+  function setLiked(on) {
+    $('like').classList.toggle('on', on);
+    $('like').setAttribute('aria-pressed', on ? 'true' : 'false');
+    $('likeLabel').textContent = on ? 'Thanks!' : 'Useful?';
+  }
+  setLiked(store.get('ipcNamerLiked', false));
+  $('like').addEventListener('click', () => {
+    if (store.get('ipcNamerLiked', false)) { toast('Already counted – thank you'); return; }
+    store.set('ipcNamerLiked', true);
+    setLiked(true);
+    if (!onSite) return;
+    counter('/hit/' + NS + '/likes').then(v => { $('likes').textContent = fmt(v); }).catch(() => {});
+  });
+
+  // ---------------- start ----------------
+  fillFamilies('');
+  renderHistory();
+  if (!loadFromHash()) { $('family').value = 'QFN'; renderFields(); }
 })();
 </script>
 </body>

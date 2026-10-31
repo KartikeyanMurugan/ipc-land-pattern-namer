@@ -1,6 +1,6 @@
 {
   "name": "ipc-land-pattern-namer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Build IPC-7351B / IPC-7251 land pattern (footprint) names from datasheet dimensions.",
   "main": "src/namer.js",
   "scripts": {

@@ -12,10 +12,20 @@ Pick the component family, type the min/max values from the datasheet, and get t
 | DIP-14 | `DIP762W52P254L1905H508Q14B` |
 | 2×10 vertical header | `HDRV20W64P254_2X10_2540X254X838B` |
 
-**Use it online:** https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/ *(after GitHub Pages is enabled)*
+**Use it online:** https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/
 **Use it offline:** download the repo and open `index.html` – no install, no internet needed.
 
-## What it covers (v0.1)
+## Site features (v0.2)
+
+* Search packages by type (QFN, SOIC, 0603, header …)
+* Name shown as labelled segments so you can see where each number comes from
+* **Copy link to this part** – a link that reopens the same family and values (handy for reviews and chat)
+* Recent names kept in your browser; JSON download for footprint generators
+* Like button, visit count and share buttons (LinkedIn, WhatsApp, X)
+
+Visits and likes use the free public counter at abacus.jasoncameron.dev. Only a number is stored – no cookies, no personal data. If the counter is unreachable the tool still works and the numbers are simply hidden.
+
+## What it covers
 
 * **SMD** – chip & molded parts, MELF, SOD, chip arrays, oscillators, SOIC / SOP / SOJ / SOT / TO, QFP / PLCC, QFN / SON / DFN / LCC, BGA / LGA / CGA, fiducials and test points
 * **Through-hole** – axial / radial R, C, L, D, DIP, SIP, PGA, headers, mounting holes, test points, jumpers
