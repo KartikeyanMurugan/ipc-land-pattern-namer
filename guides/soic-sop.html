@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to name SOIC, SOP, SSOP and TSSOP footprints (IPC-7351B)</title>
+<meta name="description" content="IPC-7351B naming for SOIC and SOP family footprints: lead span E versus body width E1, maximum height, pitch and pin count.">
+<meta name="theme-color" content="#14532d">
+<script>try{var t=localStorage.getItem('ipcNamerTheme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/soic-sop.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to name SOIC, SOP, SSOP and TSSOP footprints (IPC-7351B)">
+<meta property="og:description" content="IPC-7351B naming for SOIC and SOP family footprints: lead span E versus body width E1, maximum height, pitch and pin count.">
+<meta property="og:url" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/soic-sop.html">
+<meta property="og:image" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How to name SOIC, SOP, SSOP and TSSOP footprints (IPC-7351B)","description":"IPC-7351B naming for SOIC and SOP family footprints: lead span E versus body width E1, maximum height, pitch and pin count.","url":"https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/soic-sop.html","author":{"@type":"Person","name":"Karthikeyan Murugan","url":"https://www.linkedin.com/in/karthikeyanmurugan1/"}}</script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
+      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+    </a>
+    <nav class="top" aria-label="Main">
+      <a href="../">Tool</a>
+      <a class="hide-sm" href="./">Guides</a>
+      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
+        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        <span class="lbl" id="themeLbl">Dark</span>
+      </button>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap crumbs"><a href="../">Tool</a> / <a href="./">Guides</a> / SOIC and SOP</div>
+<div class="wrap"><article class="guide">
+  <h1>How to name SOIC, SOP, SSOP and TSSOP footprints</h1>
+  <p class="lead">Gull-wing packages are named from pitch, lead span and height. Almost every wrong name comes from using the body width instead of the lead span.</p>
+  <h2>The formula</h2>
+  <div class="formula">SOIC127P + lead span X height - pin count + density
+    <small>SOIC127P600X175-8N = 1.27 mm pitch SOIC, 6.00 mm lead span, 1.75 mm max height, 8 pins</small></div>
+  <div class="formula" style="margin-top:10px">SOP + pitch P + lead span X height - pin count + density
+    <small>SOP65P640X120-20N = 0.65 mm pitch (TSSOP-20), 6.40 mm lead span, 1.20 mm max height, 20 pins</small></div>
+  <figure class="diagram"><svg viewBox="0 0 640 300" role="img" aria-label="SOIC top view showing lead span E versus body width E1">
+  <rect class="dg-fill" x="200" y="40" width="160" height="210" rx="4"/>
+  <g class="dg-pad">
+    <rect x="150" y="62" width="50" height="16"/><rect x="150" y="112" width="50" height="16"/><rect x="150" y="162" width="50" height="16"/><rect x="150" y="212" width="50" height="16"/>
+    <rect x="360" y="62" width="50" height="16"/><rect x="360" y="112" width="50" height="16"/><rect x="360" y="162" width="50" height="16"/><rect x="360" y="212" width="50" height="16"/>
+  </g>
+  <circle cx="220" cy="60" r="6" class="dg-pad"/>
+  <path class="dg-dim" d="M150 272 H410 M150 264 V280 M410 264 V280"/><text class="dg-txt" x="222" y="295">E – lead span (use this)</text>
+  <path class="dg-dim" d="M200 22 H360 M200 14 V30 M360 14 V30"/><text class="dg-txt" x="220" y="12">E1 – body width (not this)</text>
+  <path class="dg-dim" d="M128 70 V120 M120 70 H136 M120 120 H136"/><text class="dg-txt" x="108" y="100">e</text>
+</svg><figcaption>The name uses E, measured from lead tip to lead tip. E1 is only the plastic body.</figcaption></figure>
+  <h2>Step by step</h2>
+  <ol>
+    <li><b>Family</b> – 1.27 mm pitch parts use the fixed prefix <code>SOIC127P</code>. All other pitches (SSOP, TSSOP, MSOP) use <code>SOP</code> + pitch.</li>
+    <li><b>Lead span</b> – E, lead tip to lead tip, nominal: 5.80–6.20 → 6.00 → <code>600</code>.</li>
+    <li><b>Height</b> – A maximum: 1.75 → <code>175</code>.</li>
+    <li><b>Pin count and density</b> – <code>-8N</code>.</li>
+  </ol>
+  <h2>Common mistakes</h2>
+  <div class="mistake"><b>E1 instead of E</b>A narrow SOIC body (E1) is about 3.9 mm, the lead span (E) about 6.0 mm. Using 3.90 gives <code>SOIC127P390…</code>, which describes a different footprint.</div><div class="mistake"><b>Nominal height</b>Use A max, not the typical value.</div><div class="mistake"><b>Wide-body parts</b>Wide SOIC-16 has a lead span near 10.3 mm: <code>SOIC127P1030X265-16N</code>. Same pin count, different name – that is the point.</div>
+  <div class="cta">
+    <a class="btn" href="../#f=SOIC">Open the tool for this package</a>
+    <a class="btn outline" href="./">All guides</a>
+  </div>
+  <p class="hint">Values in mm. Check the result against your company library standard.</p>
+</article></div>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <h3>IPC Land Pattern Namer</h3>
+      <p>A free tool and guides for PCB designers and library engineers, by Karthikeyan Murugan, PCB design engineer.</p>
+    </div>
+    <div>
+      <h3>Guides</h3>
+      <ul>
+        <li><a href="qfn.html">QFN, SON, DFN</a></li>
+        <li><a href="soic-sop.html">SOIC and SOP</a></li>
+        <li><a href="chip.html">Chip R, C, L</a></li>
+        <li><a href="sot.html">SOT-23 and SOT-223</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Project</h3>
+      <ul>
+        <li><a href="../">Open the tool</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
+        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal"><div class="wrap">Not affiliated with or endorsed by IPC. Names follow the public IPC-7351B naming convention summary; always confirm against your own library standard.</div></div>
+</footer>
+<script src="../assets/theme.js"></script>
+</body>
+</html>

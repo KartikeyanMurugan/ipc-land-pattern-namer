@@ -24,6 +24,9 @@ check('lead width 0.635 rounds half up', IPCNamer.formatValue(0.635, 'h'), '64')
 check('1.005 rounds half up', IPCNamer.formatValue(1.005, 'h'), '101');
 check('chip 0.8', IPCNamer.formatValue(0.8, 'c'), '08');
 check('chip 3.2', IPCNamer.formatValue(3.2, 'c'), '32');
+check('chip 1.25 drops second decimal (0805 = 2012)', IPCNamer.formatValue(1.25, 'c'), '12');
+check('chip 1.6 float safe', IPCNamer.formatValue(1.6, 'c'), '16');
+check('chip 0.6', IPCNamer.formatValue(0.6, 'c'), '06');
 
 // 3. min/max resolution: nominal for spans, maximum for height
 const mm = namer.build('SOIC', { leadSpan: { min: 5.8, max: 6.2 }, height: { min: 1.35, max: 1.75 }, pinQty: 8 });

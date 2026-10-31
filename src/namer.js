@@ -25,8 +25,10 @@
 
   // -------------------------------------------------------------- formatting
   function hundredths(mm) { return String(Math.round(mm * 100 + EPS)); }
+  // chip body: one digit each side of the decimal point; further digits are dropped
+  // (0805 = 2.0 x 1.25 mm -> 2012, as used in IPC chip names)
   function chipDigits(mm) {
-    const s = String(Math.round(mm * 10 + EPS));
+    const s = String(Math.floor(mm * 10 + 1e-6));
     return s.length < 2 ? '0' + s : s;
   }
 

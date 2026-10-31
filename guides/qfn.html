@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to name a QFN footprint (IPC-7351B) – QFN, SON, DFN</title>
+<meta name="description" content="Step-by-step IPC-7351B naming for QFN, SON and DFN footprints: pitch, body size, maximum height and the thermal pad in the pin count.">
+<meta name="theme-color" content="#14532d">
+<script>try{var t=localStorage.getItem('ipcNamerTheme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/qfn.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to name a QFN footprint (IPC-7351B) – QFN, SON, DFN">
+<meta property="og:description" content="Step-by-step IPC-7351B naming for QFN, SON and DFN footprints: pitch, body size, maximum height and the thermal pad in the pin count.">
+<meta property="og:url" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/qfn.html">
+<meta property="og:image" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How to name a QFN footprint (IPC-7351B) – QFN, SON, DFN","description":"Step-by-step IPC-7351B naming for QFN, SON and DFN footprints: pitch, body size, maximum height and the thermal pad in the pin count.","url":"https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/qfn.html","author":{"@type":"Person","name":"Karthikeyan Murugan","url":"https://www.linkedin.com/in/karthikeyanmurugan1/"}}</script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
+      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+    </a>
+    <nav class="top" aria-label="Main">
+      <a href="../">Tool</a>
+      <a class="hide-sm" href="./">Guides</a>
+      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
+        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        <span class="lbl" id="themeLbl">Dark</span>
+      </button>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap crumbs"><a href="../">Tool</a> / <a href="./">Guides</a> / QFN, SON and DFN</div>
+<div class="wrap"><article class="guide">
+  <h1>How to name a QFN footprint (IPC-7351B)</h1>
+  <p class="lead">QFN, SON and DFN names describe pitch, body size, height and pin count. The two things people get wrong are the order of the body dimensions and the thermal pad.</p>
+  <h2>The formula</h2>
+  <div class="formula">QFN + pitch P + body width X body length X height - pin count + density
+    <small>QFN50P500X500X100-33N = 0.50 mm pitch, 5.00 × 5.00 mm body, 1.00 mm max height, 32 pins + thermal pad, nominal density</small></div>
+  <figure class="diagram"><svg viewBox="0 0 640 300" role="img" aria-label="QFN top and side view with pitch e, body width E, body length D and height A">
+  <rect class="dg-fill" x="60" y="40" width="200" height="200" rx="6"/>
+  <g class="dg-pad">
+    <rect x="62" y="70" width="18" height="12"/><rect x="62" y="100" width="18" height="12"/><rect x="62" y="130" width="18" height="12"/><rect x="62" y="160" width="18" height="12"/><rect x="62" y="190" width="18" height="12"/>
+    <rect x="240" y="70" width="18" height="12"/><rect x="240" y="100" width="18" height="12"/><rect x="240" y="130" width="18" height="12"/><rect x="240" y="160" width="18" height="12"/><rect x="240" y="190" width="18" height="12"/>
+    <rect x="115" y="95" width="90" height="90" opacity=".75"/>
+  </g>
+  <circle cx="92" cy="58" r="5" class="dg-pad"/>
+  <path class="dg-dim" d="M60 262 H260 M60 254 V270 M260 254 V270"/><text class="dg-txt" x="128" y="285">E (width)</text>
+  <path class="dg-dim" d="M282 40 V240 M274 40 H290 M274 240 H290"/><text class="dg-txt" x="292" y="145">D</text>
+  <path class="dg-dim" d="M40 76 V106 M32 76 H48 M32 106 H48"/><text class="dg-txt" x="18" y="96">e</text>
+  <text class="dg-note" x="125" y="145">thermal pad</text>
+  <rect class="dg-fill" x="380" y="150" width="200" height="34"/>
+  <rect class="dg-pad" x="380" y="184" width="22" height="4"/><rect class="dg-pad" x="558" y="184" width="22" height="4"/>
+  <path class="dg-dim" d="M600 150 V188 M592 150 H608 M592 188 H608"/><text class="dg-txt" x="612" y="174">A</text>
+  <text class="dg-note" x="380" y="215">Side view: A = maximum height</text>
+</svg><figcaption>QFN dimensions as most datasheets label them: e pitch, E body width, D body length, A height.</figcaption></figure>
+  <h2>Step by step</h2>
+  <ol>
+    <li><b>Pitch</b> – e from the datasheet, × 100: 0.50 mm → <code>50P</code>, 0.40 mm → <code>40P</code>.</li>
+    <li><b>Body width and length</b> – nominal values × 100, no leading zeros: 5.00 → <code>500</code>, 3.50 → <code>350</code>. Width comes first.</li>
+    <li><b>Height</b> – the <em>maximum</em> A value × 100: 1.00 → <code>100</code>, 0.80 → <code>80</code>.</li>
+    <li><b>Pin count</b> – signal pins, plus one if there is an exposed thermal pad: 32 + pad → <code>-33</code>.</li>
+    <li><b>Density</b> – <code>N</code> nominal for most boards, <code>M</code> most material, <code>L</code> least material.</li>
+  </ol>
+  <p>SON (two-sided) uses the same pattern with the prefix <code>SON</code>. DFN uses body size and height without a pitch: <code>DFN300X300X80-8N</code>.</p>
+  <h2>Common mistakes</h2>
+  <div class="mistake"><b>Forgetting the thermal pad</b>A 32-pin QFN with an exposed pad is <code>-33</code>, not <code>-32</code>. Two parts with and without a pad would otherwise get the same name.</div><div class="mistake"><b>Using typical height</b>Datasheets list A as min / nom / max. The name uses the maximum, because it is what limits clearance.</div><div class="mistake"><b>Leading zeros</b>Write <code>350</code>, not <code>0350</code>, and <code>80</code>, not <code>080</code>.</div>
+  <div class="cta">
+    <a class="btn" href="../#f=QFN">Open the tool for this package</a>
+    <a class="btn outline" href="./">All guides</a>
+  </div>
+  <p class="hint">Values in mm. Check the result against your company library standard.</p>
+</article></div>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <h3>IPC Land Pattern Namer</h3>
+      <p>A free tool and guides for PCB designers and library engineers, by Karthikeyan Murugan, PCB design engineer.</p>
+    </div>
+    <div>
+      <h3>Guides</h3>
+      <ul>
+        <li><a href="qfn.html">QFN, SON, DFN</a></li>
+        <li><a href="soic-sop.html">SOIC and SOP</a></li>
+        <li><a href="chip.html">Chip R, C, L</a></li>
+        <li><a href="sot.html">SOT-23 and SOT-223</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Project</h3>
+      <ul>
+        <li><a href="../">Open the tool</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
+        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal"><div class="wrap">Not affiliated with or endorsed by IPC. Names follow the public IPC-7351B naming convention summary; always confirm against your own library standard.</div></div>
+</footer>
+<script src="../assets/theme.js"></script>
+</body>
+</html>

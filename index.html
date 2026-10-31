@@ -36,197 +36,7 @@
   "license": "https://opensource.org/licenses/MIT"
 }
 </script>
-<style>
-  :root {
-    --paper: #f6f8f5; --grid: #e3e9e3; --panel: #ffffff; --ink: #1d2a33; --muted: #5b6862; --line: #d4dcd5;
-    --copper: #b5651d; --copper-ink: #8f4c12; --copper-soft: #f6e9dc;
-    --mask: #14532d; --mask-deep: #0e3d21; --silk: #f2f5ef;
-    --warn: #8a5a00; --warn-soft: #fff3d6; --err: #a1261b; --err-soft: #fde8e4;
-    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-    --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
-    --r: 6px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #0f1513; --grid: #18211d; --panel: #151d19; --ink: #e5ebe7; --muted: #9aa8a1; --line: #2a3530;
-      --copper: #d9893f; --copper-ink: #e9a463; --copper-soft: #2c1f12;
-      --mask: #17603a; --mask-deep: #0f4528; --silk: #f2f5ef;
-      --warn: #e6b65a; --warn-soft: #2f2610; --err: #f28b7f; --err-soft: #3a1915;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #0f1513; --grid: #18211d; --panel: #151d19; --ink: #e5ebe7; --muted: #9aa8a1; --line: #2a3530;
-    --copper: #d9893f; --copper-ink: #e9a463; --copper-soft: #2c1f12;
-    --mask: #17603a; --mask-deep: #0f4528; --silk: #f2f5ef;
-    --warn: #e6b65a; --warn-soft: #2f2610; --err: #f28b7f; --err-soft: #3a1915;
-  }
-  .theme-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid var(--line);
-    border-radius: var(--r); background: transparent; color: var(--ink); font: 500 14.5px var(--sans); cursor: pointer; }
-  .theme-btn:hover { background: var(--paper); }
-  .theme-btn .ic-sun { display: none; }
-  :root[data-theme="dark"] .theme-btn .ic-sun { display: block; }
-  :root[data-theme="dark"] .theme-btn .ic-moon { display: none; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .theme-btn .ic-sun { display: block; }
-    :root:not([data-theme="light"]) .theme-btn .ic-moon { display: none; }
-  }
-  @media (max-width: 680px) { .theme-btn .lbl { display: none; } }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
-  body {
-    margin: 0; font: 16px/1.55 var(--sans); color: var(--ink); background-color: var(--paper);
-    background-image:
-      linear-gradient(var(--grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-  a { color: var(--copper-ink); }
-  :focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
-
-  /* ---------- header ---------- */
-  .site-head { background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
-  .site-head .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
-  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 17px; }
-  .brand svg { flex: none; }
-  .brand small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); line-height: 1.1; }
-  nav.top { margin-left: auto; display: flex; gap: 4px; align-items: center; }
-  nav.top a { text-decoration: none; color: var(--ink); padding: 6px 10px; border-radius: var(--r); font-size: 14.5px; }
-  nav.top a:hover { background: var(--paper); }
-  nav.top a.gh { border: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
-  @media (max-width: 680px) { nav.top a.hide-sm { display: none; } .brand small { display: none; } }
-
-  /* ---------- intro ---------- */
-  .intro { padding-top: 36px; padding-bottom: 20px; }
-  .intro h1 { margin: 0; font-size: clamp(28px, 4.2vw, 42px); line-height: 1.12; letter-spacing: -0.5px; max-width: 18ch; }
-  .intro p { margin: 12px 0 0; color: var(--muted); max-width: 62ch; font-size: 17px; }
-
-  /* ---------- tool ---------- */
-  .tool { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 20px; align-items: start; padding-bottom: 28px; }
-  @media (max-width: 900px) { .tool { grid-template-columns: 1fr; } }
-  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
-  .panel h2 { margin: 0 0 4px; font-size: 18px; }
-  .step + .step { border-top: 1px dashed var(--line); margin-top: 18px; padding-top: 18px; }
-  .step-head { display: flex; align-items: baseline; gap: 10px; }
-  .step-no { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--copper-soft); color: var(--copper-ink); font: 600 13px/24px var(--mono); text-align: center; }
-  .hint { font-size: 13.5px; color: var(--muted); margin: 4px 0 0; }
-  label.f { display: block; font-weight: 600; font-size: 14.5px; margin: 14px 0 5px; }
-  label.f .opt { font-weight: 400; color: var(--muted); }
-  select, input[type=text], input[type=number], input[type=search] {
-    width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: var(--r);
-    background: var(--paper); color: var(--ink); font: inherit; font-size: 15px;
-  }
-  input:focus, select:focus { outline: 2px solid var(--copper); outline-offset: -1px; border-color: transparent; }
-  .search-row { display: grid; grid-template-columns: 1fr; gap: 8px; }
-  .minmax { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .minmax .cell { position: relative; }
-  .minmax .cell span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted); pointer-events: none; }
-  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
-  @media (max-width: 480px) { .opt-grid { grid-template-columns: 1fr; } }
-  .checks { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
-  .checks label { display: flex; align-items: center; gap: 7px; font-size: 14.5px; cursor: pointer; }
-  .checks input { width: 17px; height: 17px; accent-color: var(--copper); }
-  #fields { min-height: 430px; }
-  .pattern { margin-top: 10px; font: 500 12.5px/1.5 var(--mono); color: var(--muted); word-break: break-all; }
-
-  /* ---------- result board ---------- */
-  .result { position: sticky; top: 76px; }
-  @media (max-width: 900px) { .result { position: static; } }
-  .board {
-    background: var(--mask); border-radius: 10px; padding: 22px 20px 18px; color: var(--silk);
-    box-shadow: inset 0 0 0 2px var(--mask-deep);
-    background-image: radial-gradient(circle at 14px 14px, var(--copper) 0 4px, transparent 5px),
-                      radial-gradient(circle at calc(100% - 14px) 14px, var(--copper) 0 4px, transparent 5px);
-  }
-  .board .cap { font-size: 13px; opacity: .8; margin: 0 0 10px; }
-  .name {
-    font: 600 clamp(22px, 3.6vw, 34px)/1.2 var(--mono); letter-spacing: .5px; word-break: break-all;
-    min-height: 1.3em; color: var(--silk);
-  }
-  .name.empty { font: 500 17px/1.4 var(--sans); opacity: .75; letter-spacing: 0; }
-  .pads { display: flex; flex-wrap: wrap; gap: 10px 6px; margin-top: 18px; }
-  .pad { display: flex; flex-direction: column; align-items: center; min-width: 40px; }
-  .pad b {
-    display: block; padding: 5px 8px; border-radius: 3px; background: var(--copper); color: #fff8f0;
-    font: 600 15px/1.2 var(--mono);
-  }
-  .pad.sep b { background: transparent; color: var(--silk); padding: 5px 2px; opacity: .9; }
-  .pad i { font-style: normal; font-size: 11.5px; line-height: 1.25; margin-top: 5px; text-align: center; max-width: 92px; opacity: .85; }
-  .board .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-  button, .btn {
-    display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: var(--r);
-    border: 1px solid var(--copper); background: var(--copper); color: #fff; font: 600 14.5px var(--sans);
-    cursor: pointer; text-decoration: none;
-  }
-  button:disabled { opacity: .45; cursor: default; }
-  .board button.line { background: transparent; border-color: rgba(242,245,239,.55); color: var(--silk); }
-  .board button.line:hover:not(:disabled) { background: rgba(242,245,239,.1); }
-  button.quiet { background: transparent; color: var(--copper-ink); }
-  button.quiet:hover { background: var(--copper-soft); }
-  .msgs .msg { margin-top: 12px; padding: 9px 12px; border-radius: var(--r); font-size: 14px; }
-  .msg.warn { background: var(--warn-soft); color: var(--warn); }
-  .msg.err { background: var(--err-soft); color: var(--err); }
-  .msg ul { margin: 0; padding-left: 18px; }
-  .below { margin-top: 14px; }
-  .history { list-style: none; margin: 8px 0 0; padding: 0; }
-  .history li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 14px; }
-  .history code { font: 500 14px var(--mono); word-break: break-all; }
-  .history button { padding: 3px 9px; font-size: 13px; }
-  .empty-note { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
-
-  /* ---------- community strip ---------- */
-  .community { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 14px 20px; }
-  .stat { display: flex; align-items: baseline; gap: 6px; font-size: 14.5px; color: var(--muted); }
-  .stat strong { font: 600 18px var(--mono); color: var(--ink); }
-  .like.on { background: var(--copper-soft); color: var(--copper-ink); }
-  .share { margin-left: auto; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-  .share span { font-size: 14px; color: var(--muted); margin-right: 2px; }
-  .share a, .share button { text-decoration: none; padding: 7px 11px; font-size: 13.5px; background: transparent; color: var(--ink); border: 1px solid var(--line); }
-  .share a:hover, .share button:hover { border-color: var(--copper); color: var(--copper-ink); }
-  @media (max-width: 680px) { .share { margin-left: 0; } }
-
-  /* ---------- info sections ---------- */
-  section.info { padding-top: 34px; padding-bottom: 6px; }
-  section.info h2 { font-size: 24px; margin: 0 0 14px; letter-spacing: -0.2px; }
-  .how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; padding: 0; margin: 0; counter-reset: how; }
-  @media (max-width: 760px) { .how { grid-template-columns: 1fr; } }
-  .how li { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
-  .how li::before { counter-increment: how; content: counter(how); display: inline-block; width: 26px; height: 26px; border-radius: 50%; background: var(--copper); color: #fff; font: 600 13px/26px var(--mono); text-align: center; margin-bottom: 8px; }
-  .how b { display: block; margin-bottom: 4px; }
-  .how p { margin: 0; color: var(--muted); font-size: 15px; }
-  table.rules { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font-size: 15px; }
-  table.rules th, table.rules td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  table.rules th { background: var(--paper); font-weight: 600; }
-  table.rules code { font: 500 14px var(--mono); color: var(--copper-ink); }
-  .table-wrap { overflow-x: auto; }
-  details.issues { margin-top: 14px; font-size: 14.5px; color: var(--muted); }
-  details.issues summary { cursor: pointer; color: var(--ink); font-weight: 600; }
-
-  /* ---------- footer ---------- */
-  .site-foot { margin-top: 40px; background: var(--mask-deep); color: var(--silk); }
-  .site-foot .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 24px; padding: 32px 16px 20px; }
-  @media (max-width: 760px) { .site-foot .wrap { grid-template-columns: 1fr; } }
-  .site-foot h3 { margin: 0 0 8px; font-size: 15px; }
-  .site-foot p, .site-foot li { font-size: 14px; opacity: .88; margin: 0 0 6px; }
-  .site-foot ul { list-style: none; padding: 0; margin: 0; }
-  .site-foot a { color: #f3c08f; }
-  .legal { border-top: 1px solid rgba(242,245,239,.18); }
-  .legal .wrap { display: block; padding: 14px 16px 20px; font-size: 13px; opacity: .75; }
-
-  /* mobile sticky name bar */
-  .mbar { display: none; }
-  @media (max-width: 900px) {
-    .mbar.show { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; gap: 10px; align-items: center;
-      background: var(--mask); color: var(--silk); padding: 10px 16px; box-shadow: 0 -2px 10px rgba(0,0,0,.18); }
-    .mbar code { font: 600 15px var(--mono); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .mbar button { padding: 7px 12px; }
-  }
-  .toast { position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--ink); color: var(--paper);
-    padding: 9px 16px; border-radius: var(--r); font-size: 14px; transition: opacity .2s, transform .2s; z-index: 40; pointer-events: none; }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
@@ -242,8 +52,9 @@
       <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
     </a>
     <nav class="top" aria-label="Main">
-      <a class="hide-sm" href="#how">How it works</a>
-      <a class="hide-sm" href="#rules">Naming rules</a>
+      <a class="hide-sm" href="guides/">Guides</a>
+      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <a class="hide-sm" href="#author">About</a>
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
         <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
         <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
@@ -361,6 +172,32 @@
       <ul id="issues"></ul>
     </details>
   </section>
+
+  <section class="info wrap" id="guides">
+    <h2>Guides</h2>
+    <ul class="guide-list">
+      <li><a href="guides/qfn.html"><b>QFN, SON and DFN</b><span>Thermal pad in the pin count, body width vs length. <code>QFN50P500X500X100-33N</code></span></a></li>
+      <li><a href="guides/soic-sop.html"><b>SOIC, SOP, SSOP, TSSOP</b><span>Lead span E vs body width E1, the most common mistake. <code>SOIC127P600X175-8N</code></span></a></li>
+      <li><a href="guides/chip.html"><b>Chip resistors, capacitors, inductors</b><span>0603 imperial is 1608 metric, and height is the maximum. <code>RESC1608X55N</code></span></a></li>
+      <li><a href="guides/sot.html"><b>SOT-23, SOT-23-5, SOT-223</b><span>Which pitch to use when pins are not evenly spaced. <code>SOT95P280X145-5N</code></span></a></li>
+    </ul>
+  </section>
+
+  <section class="info wrap" id="author">
+    <h2>About the author</h2>
+    <div class="panel author">
+      <div class="mono" aria-hidden="true">KM</div>
+      <div>
+        <h3>Karthikeyan Murugan</h3>
+        <p>PCB design engineer since 2015 and IPC CID certified. I have designed more than 60 production boards for industrial, automotive, railway, telecom, power and consumer products, and I review and maintain footprint libraries. I build small tools that remove repetitive library work and share them free.</p>
+        <div class="links">
+          <a class="btn" href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+          <a class="btn outline" href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener">GitHub profile</a>
+          <a class="btn outline" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Join the discussion</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-foot">
@@ -375,7 +212,10 @@
       <ul>
         <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
         <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer#roadmap" target="_blank" rel="noopener">Roadmap</a></li>
-        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues" target="_blank" rel="noopener">Issues and suggestions</a></li>
+        <li><a href="guides/">Naming guides</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues" target="_blank" rel="noopener">Report a wrong name</a></li>
+        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
         <li><a href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener">More tools by the author</a></li>
       </ul>
     </div>
@@ -389,7 +229,7 @@
     </div>
   </div>
   <div class="legal">
-    <div class="wrap">Not affiliated with or endorsed by IPC. IPC-7351 and IPC-7352 are IPC standards; this tool implements the published naming convention and does not reproduce the standard. Always confirm names against your own library standard. Version <span id="ver">0.2.0</span>.</div>
+    <div class="wrap">Not affiliated with or endorsed by IPC. IPC-7351 and IPC-7352 are IPC standards; this tool implements the published naming convention and does not reproduce the standard. Always confirm names against your own library standard. Version <span id="ver">0.3.0</span>.</div>
   </div>
 </footer>
 
@@ -398,6 +238,7 @@
 
 <script src="rules/ipc-7351b.js"></script>
 <script src="src/namer.js"></script>
+<script src="assets/theme.js"></script>
 <script>
 (function () {
   'use strict';
@@ -624,6 +465,12 @@
     return SITE + '#p=' + encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(s)))));
   }
   function loadFromHash() {
+    const fm = location.hash.match(/#f=([A-Z0-9_]+)/i);
+    if (fm && namer.rules.families[fm[1].toUpperCase()]) {
+      $('family').value = fm[1].toUpperCase();
+      renderFields();
+      return true;
+    }
     const m = location.hash.match(/#p=(.+)$/);
     if (!m) return false;
     try {
@@ -732,21 +579,6 @@
     if (!onSite) return;
     counter('/hit/' + NS + '/likes').then(v => { $('likes').textContent = fmt(v); }).catch(() => {});
   });
-
-  // ---------------- theme ----------------
-  function effectiveTheme() {
-    const t = document.documentElement.getAttribute('data-theme');
-    if (t) return t;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  function syncThemeLabel() { $('themeLbl').textContent = effectiveTheme() === 'dark' ? 'Light' : 'Dark'; }
-  $('themeBtn').addEventListener('click', () => {
-    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    try { localStorage.setItem('ipcNamerTheme', next); } catch (e) {}
-    syncThemeLabel();
-  });
-  syncThemeLabel();
 
   // ---------------- start ----------------
   fillFamilies('');

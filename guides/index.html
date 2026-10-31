@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Footprint naming guides – IPC-7351B land pattern names</title>
+<meta name="description" content="Practical guides to IPC-7351B footprint names for QFN, SOIC, SOP, chip and SOT packages.">
+<meta name="theme-color" content="#14532d">
+<script>try{var t=localStorage.getItem('ipcNamerTheme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Footprint naming guides – IPC-7351B land pattern names">
+<meta property="og:description" content="Practical guides to IPC-7351B footprint names for QFN, SOIC, SOP, chip and SOT packages.">
+<meta property="og:url" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/">
+<meta property="og:image" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","headline":"Footprint naming guides – IPC-7351B land pattern names","description":"Practical guides to IPC-7351B footprint names for QFN, SOIC, SOP, chip and SOT packages.","url":"https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/","author":{"@type":"Person","name":"Karthikeyan Murugan","url":"https://www.linkedin.com/in/karthikeyanmurugan1/"}}</script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
+      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+    </a>
+    <nav class="top" aria-label="Main">
+      <a href="../">Tool</a>
+      <a class="hide-sm" href="./">Guides</a>
+      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
+        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        <span class="lbl" id="themeLbl">Dark</span>
+      </button>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap crumbs"><a href="../">Tool</a> / Guides</div>
+<section class="wrap guide" style="max-width:none">
+  <article class="guide"><h1>Footprint naming guides</h1>
+  <p class="lead">Short, practical guides to IPC-7351B land pattern names – which datasheet value goes where, and the mistakes that create duplicate or wrong footprints.</p></article>
+  <ul class="guide-list">
+    <li><a href="qfn.html"><b>QFN, SON and DFN</b><span>Thermal pad in the pin count, body width vs length. <code>QFN50P500X500X100-33N</code></span></a></li>
+    <li><a href="soic-sop.html"><b>SOIC, SOP, SSOP, TSSOP</b><span>Lead span E vs body width E1. <code>SOIC127P600X175-8N</code></span></a></li>
+    <li><a href="chip.html"><b>Chip resistors, capacitors, inductors</b><span>0603 imperial is 1608 metric. <code>RESC1608X55N</code></span></a></li>
+    <li><a href="sot.html"><b>SOT-23, SOT-23-5, SOT-223</b><span>Which pitch to use when pins are missing. <code>SOT95P280X145-5N</code></span></a></li>
+  </ul>
+  <p class="hint" style="margin-top:18px">Want a guide for another package? Ask in <a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a>.</p>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <h3>IPC Land Pattern Namer</h3>
+      <p>A free tool and guides for PCB designers and library engineers, by Karthikeyan Murugan, PCB design engineer.</p>
+    </div>
+    <div>
+      <h3>Guides</h3>
+      <ul>
+        <li><a href="qfn.html">QFN, SON, DFN</a></li>
+        <li><a href="soic-sop.html">SOIC and SOP</a></li>
+        <li><a href="chip.html">Chip R, C, L</a></li>
+        <li><a href="sot.html">SOT-23 and SOT-223</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Project</h3>
+      <ul>
+        <li><a href="../">Open the tool</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
+        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal"><div class="wrap">Not affiliated with or endorsed by IPC. Names follow the public IPC-7351B naming convention summary; always confirm against your own library standard.</div></div>
+</footer>
+<script src="../assets/theme.js"></script>
+</body>
+</html>

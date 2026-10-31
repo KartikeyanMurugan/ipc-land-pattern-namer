@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to name SOT-23, SOT-23-5 and SOT-223 footprints (IPC-7351B)</title>
+<meta name="description" content="IPC-7351B naming for SOT packages: which pitch to use when pins are missing, lead span, height and pin-assignment suffixes.">
+<meta name="theme-color" content="#14532d">
+<script>try{var t=localStorage.getItem('ipcNamerTheme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/sot.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to name SOT-23, SOT-23-5 and SOT-223 footprints (IPC-7351B)">
+<meta property="og:description" content="IPC-7351B naming for SOT packages: which pitch to use when pins are missing, lead span, height and pin-assignment suffixes.">
+<meta property="og:url" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/sot.html">
+<meta property="og:image" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How to name SOT-23, SOT-23-5 and SOT-223 footprints (IPC-7351B)","description":"IPC-7351B naming for SOT packages: which pitch to use when pins are missing, lead span, height and pin-assignment suffixes.","url":"https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/sot.html","author":{"@type":"Person","name":"Karthikeyan Murugan","url":"https://www.linkedin.com/in/karthikeyanmurugan1/"}}</script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
+      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+    </a>
+    <nav class="top" aria-label="Main">
+      <a href="../">Tool</a>
+      <a class="hide-sm" href="./">Guides</a>
+      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
+        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        <span class="lbl" id="themeLbl">Dark</span>
+      </button>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap crumbs"><a href="../">Tool</a> / <a href="./">Guides</a> / SOT-23 and SOT-223</div>
+<div class="wrap"><article class="guide">
+  <h1>How to name SOT-23, SOT-23-5 and SOT-223 footprints</h1>
+  <p class="lead">SOT names use pitch, lead span and height. The catch is the pitch: when some pins are missing, use the pin-to-pin grid pitch, not the larger spacing.</p>
+  <h2>The formula</h2>
+  <div class="formula">SOT + pitch P + lead span X height - pin count + density
+    <small>SOT95P280X145-5N = 0.95 mm pitch, 2.80 mm lead span, 1.45 mm max height, 5 pins</small></div>
+  <figure class="diagram"><svg viewBox="0 0 640 260" role="img" aria-label="SOT-23-5 top view with pitch e and lead span E">
+  <rect class="dg-fill" x="200" y="70" width="200" height="110" rx="4"/>
+  <g class="dg-pad">
+    <rect x="222" y="180" width="20" height="40"/><rect x="290" y="180" width="20" height="40"/><rect x="358" y="180" width="20" height="40"/>
+    <rect x="222" y="30" width="20" height="40"/><rect x="358" y="30" width="20" height="40"/>
+  </g>
+  <path class="dg-dim" d="M232 240 H300 M232 232 V248 M300 232 V248"/><text class="dg-txt" x="258" y="258">e</text>
+  <path class="dg-dim" d="M232 14 H368 M232 6 V22 M368 6 V22"/><text class="dg-txt" x="270" y="16" dy="-2">e1 = 2 × e</text>
+  <path class="dg-dim" d="M430 30 V220 M422 30 H438 M422 220 H438"/><text class="dg-txt" x="442" y="130">E</text>
+  <text class="dg-note" x="442" y="150">lead span</text>
+</svg><figcaption>SOT-23-5: the name uses the pin-to-pin pitch e (0.95 mm), not e1 (1.90 mm).</figcaption></figure>
+  <h2>Step by step</h2>
+  <ol>
+    <li><b>Pitch</b> – e, the grid between neighbouring pin positions: 0.95 mm → <code>95P</code>. SOT-223 is 2.30 mm → <code>230P</code>.</li>
+    <li><b>Lead span</b> – E, nominal, lead tip to lead tip.</li>
+    <li><b>Height</b> – A maximum.</li>
+    <li><b>Pin count</b> – count the tab of a SOT-223 as a pin: <code>-4</code>.</li>
+    <li><b>Pin assignment (optional)</b> – transistors may add <code>_BEC</code>, <code>_SGD</code> or <code>_213</code> before the pin count, for example <code>SOT95P280X160_BEC-3N</code>.</li>
+  </ol>
+  <h2>Common mistakes</h2>
+  <div class="mistake"><b>Using e1</b>On SOT-23 the outer pins are 1.90 mm apart (e1). The name still uses 0.95 mm (e).</div><div class="mistake"><b>Same name for different pinouts</b>A BJT and a MOSFET in SOT-23 share pads but not pin functions. Add <code>_BEC</code> / <code>_SGD</code> when your library keeps them separate.</div><div class="mistake"><b>Height from the wrong column</b>Manufacturers differ (1.12, 1.30, 1.45 mm max). Use the part’s own datasheet, not a generic SOT-23 value.</div>
+  <div class="cta">
+    <a class="btn" href="../#f=SOT">Open the tool for this package</a>
+    <a class="btn outline" href="./">All guides</a>
+  </div>
+  <p class="hint">Values in mm. Lead spans differ between manufacturers – always use the datasheet of the actual part.</p>
+</article></div>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <h3>IPC Land Pattern Namer</h3>
+      <p>A free tool and guides for PCB designers and library engineers, by Karthikeyan Murugan, PCB design engineer.</p>
+    </div>
+    <div>
+      <h3>Guides</h3>
+      <ul>
+        <li><a href="qfn.html">QFN, SON, DFN</a></li>
+        <li><a href="soic-sop.html">SOIC and SOP</a></li>
+        <li><a href="chip.html">Chip R, C, L</a></li>
+        <li><a href="sot.html">SOT-23 and SOT-223</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Project</h3>
+      <ul>
+        <li><a href="../">Open the tool</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
+        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal"><div class="wrap">Not affiliated with or endorsed by IPC. Names follow the public IPC-7351B naming convention summary; always confirm against your own library standard.</div></div>
+</footer>
+<script src="../assets/theme.js"></script>
+</body>
+</html>

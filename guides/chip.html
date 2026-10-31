@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to name chip resistor, capacitor and inductor footprints (IPC-7351B)</title>
+<meta name="description" content="IPC-7351B naming for chip R, C and L footprints, imperial to metric size codes (0603 = 1608) and why height is part of the name.">
+<meta name="theme-color" content="#14532d">
+<script>try{var t=localStorage.getItem('ipcNamerTheme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/chip.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to name chip resistor, capacitor and inductor footprints (IPC-7351B)">
+<meta property="og:description" content="IPC-7351B naming for chip R, C and L footprints, imperial to metric size codes (0603 = 1608) and why height is part of the name.">
+<meta property="og:url" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/chip.html">
+<meta property="og:image" content="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How to name chip resistor, capacitor and inductor footprints (IPC-7351B)","description":"IPC-7351B naming for chip R, C and L footprints, imperial to metric size codes (0603 = 1608) and why height is part of the name.","url":"https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/chip.html","author":{"@type":"Person","name":"Karthikeyan Murugan","url":"https://www.linkedin.com/in/karthikeyanmurugan1/"}}</script>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
+      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+    </a>
+    <nav class="top" aria-label="Main">
+      <a href="../">Tool</a>
+      <a class="hide-sm" href="./">Guides</a>
+      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
+        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        <span class="lbl" id="themeLbl">Dark</span>
+      </button>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap crumbs"><a href="../">Tool</a> / <a href="./">Guides</a> / Chip R, C, L</div>
+<div class="wrap"><article class="guide">
+  <h1>How to name chip resistor, capacitor and inductor footprints</h1>
+  <p class="lead">Chip parts use a short name built from the metric body size and the maximum height. The size code is metric, not the imperial code printed in catalogues.</p>
+  <h2>The formula</h2>
+  <div class="formula">RESC / CAPC / INDC + length + width X height + density
+    <small>RESC1608X55N = chip resistor, 1.6 × 0.8 mm body (0603 imperial), 0.55 mm max height</small></div>
+  <figure class="diagram"><svg viewBox="0 0 640 230" role="img" aria-label="Chip component length L, width W and height T">
+  <rect class="dg-fill" x="80" y="60" width="240" height="110"/>
+  <rect class="dg-pad" x="80" y="60" width="44" height="110"/><rect class="dg-pad" x="276" y="60" width="44" height="110"/>
+  <path class="dg-dim" d="M80 194 H320 M80 186 V202 M320 186 V202"/><text class="dg-txt" x="180" y="220">L</text>
+  <path class="dg-dim" d="M342 60 V170 M334 60 H350 M334 170 H350"/><text class="dg-txt" x="354" y="120">W</text>
+  <rect class="dg-fill" x="430" y="110" width="160" height="40"/>
+  <rect class="dg-pad" x="430" y="110" width="28" height="40"/><rect class="dg-pad" x="562" y="110" width="28" height="40"/>
+  <path class="dg-dim" d="M608 110 V150 M600 110 H616 M600 150 H616"/><text class="dg-txt" x="618" y="136">T</text>
+  <text class="dg-note" x="440" y="180">side view – T max is the height</text>
+</svg><figcaption>Chip parts: L length, W width, T thickness (height).</figcaption></figure>
+  <h2>Step by step</h2>
+  <ol>
+    <li><b>Prefix</b> – <code>RESC</code> resistor, <code>CAPC</code> capacitor, <code>CAPCP</code> polarized capacitor, <code>INDC</code> inductor, <code>DIOC</code> diode, <code>LEDM</code> molded LED.</li>
+    <li><b>Length and width</b> – one digit each side of the decimal point: 1.6 → <code>16</code>, 0.8 → <code>08</code>, giving <code>1608</code>. Further digits are dropped: 1.25 → <code>12</code>.</li>
+    <li><b>Height</b> – T maximum × 100: 0.55 → <code>55</code>, 0.90 → <code>90</code>.</li>
+    <li><b>Density</b> – <code>N</code>, <code>M</code> or <code>L</code>.</li>
+  </ol>
+  <h2>Imperial to metric size codes</h2>
+  <div class="table-wrap"><table class="rules">
+    <thead><tr><th>Imperial</th><th>Metric body (mm)</th><th>Name size code</th></tr></thead>
+    <tbody>
+      <tr><td>0201</td><td>0.6 × 0.3</td><td><code>0603</code></td></tr>
+      <tr><td>0402</td><td>1.0 × 0.5</td><td><code>1005</code></td></tr>
+      <tr><td>0603</td><td>1.6 × 0.8</td><td><code>1608</code></td></tr>
+      <tr><td>0805</td><td>2.0 × 1.25</td><td><code>2012</code></td></tr>
+      <tr><td>1206</td><td>3.2 × 1.6</td><td><code>3216</code></td></tr>
+      <tr><td>1210</td><td>3.2 × 2.5</td><td><code>3225</code></td></tr>
+    </tbody>
+  </table></div>
+  <h2>Common mistakes</h2>
+  <div class="mistake"><b>Imperial code in the name</b>An 0603 resistor is <code>RESC1608…</code>. <code>RESC0603…</code> means a much smaller 0201 part.</div><div class="mistake"><b>One name for all capacitors</b>An 0603 MLCC can be 0.8 or 1.0 mm thick. Different heights give different names – <code>CAPC1608X90N</code> vs <code>CAPC1608X110N</code> – so the 3D model and placement height stay correct.</div><div class="mistake"><b>0805 size code</b>The width 1.25 mm becomes <code>12</code> – only one digit after the decimal point is kept – so 0805 is <code>2012</code>.</div>
+  <div class="cta">
+    <a class="btn" href="../#f=RESC">Open the tool for this package</a>
+    <a class="btn outline" href="./">All guides</a>
+  </div>
+  <p class="hint">Values in mm. Check the result against your company library standard.</p>
+</article></div>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <h3>IPC Land Pattern Namer</h3>
+      <p>A free tool and guides for PCB designers and library engineers, by Karthikeyan Murugan, PCB design engineer.</p>
+    </div>
+    <div>
+      <h3>Guides</h3>
+      <ul>
+        <li><a href="qfn.html">QFN, SON, DFN</a></li>
+        <li><a href="soic-sop.html">SOIC and SOP</a></li>
+        <li><a href="chip.html">Chip R, C, L</a></li>
+        <li><a href="sot.html">SOT-23 and SOT-223</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Project</h3>
+      <ul>
+        <li><a href="../">Open the tool</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
+        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal"><div class="wrap">Not affiliated with or endorsed by IPC. Names follow the public IPC-7351B naming convention summary; always confirm against your own library standard.</div></div>
+</footer>
+<script src="../assets/theme.js"></script>
+</body>
+</html>
