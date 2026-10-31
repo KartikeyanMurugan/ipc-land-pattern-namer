@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-"""Generates guides/*.html from the content below. Run: python3 tools/build-guides.py"""
+"""Builds the site: shared header/footer/icons into index.html, and guides/*.html.
+Run: python3 tools/build-site.py"""
 import os
+import re
 import html
+import sys
+sys.path.insert(0, os.path.dirname(__file__))
+from partials import header, footer, ICON
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
 SITE = 'https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/'
@@ -33,55 +38,12 @@ HEAD = '''<!doctype html>
 {ld}
 </head>
 <body>
-<header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="../">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
-      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
-    </a>
-    <nav class="top" aria-label="Main">
-      <a href="../">Tool</a>
-      <a class="hide-sm" href="./">Guides</a>
-      <a class="hide-sm" href="{repo}/discussions" target="_blank" rel="noopener">Community</a>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
-        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
-        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-        <span class="lbl" id="themeLbl">Dark</span>
-      </button>
-    </nav>
-  </div>
-</header>
-<main>
+{header}
+<main id="main">
 '''
 
 FOOT = '''</main>
-<footer class="site-foot">
-  <div class="wrap">
-    <div>
-      <h3>IPC Land Pattern Namer</h3>
-      <p>A free tool and guides for PCB designers and library engineers, by Karthikeyan Murugan, PCB design engineer.</p>
-    </div>
-    <div>
-      <h3>Guides</h3>
-      <ul>
-        <li><a href="qfn.html">QFN, SON, DFN</a></li>
-        <li><a href="soic-sop.html">SOIC and SOP</a></li>
-        <li><a href="chip.html">Chip R, C, L</a></li>
-        <li><a href="sot.html">SOT-23 and SOT-223</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3>Project</h3>
-      <ul>
-        <li><a href="../">Open the tool</a></li>
-        <li><a href="{repo}/discussions" target="_blank" rel="noopener">Community discussions</a></li>
-        <li><a href="{repo}" target="_blank" rel="noopener">Source code</a></li>
-        <li><a href="{linkedin}" target="_blank" rel="noopener">Author on LinkedIn</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="legal"><div class="wrap">Not affiliated with or endorsed by IPC. Names follow the public IPC-7351B naming convention summary; always confirm against your own library standard.</div></div>
-</footer>
+{footer}
 <script src="../assets/theme.js"></script>
 </body>
 </html>
@@ -94,8 +56,9 @@ def page(slug, title, desc, body, ld_type='TechArticle'):
           '"headline":"%s","description":"%s","url":"%s",'
           '"author":{"@type":"Person","name":"Karthikeyan Murugan","url":"%s"}}</script>'
           % (ld_type, title.replace('"', ''), desc.replace('"', ''), url, LINKEDIN))
-    out = HEAD.format(title=html.escape(title), desc=html.escape(desc), url=url, site=SITE, ld=ld, repo=REPO)
-    out += body + FOOT.format(repo=REPO, linkedin=LINKEDIN)
+    out = HEAD.format(title=html.escape(title), desc=html.escape(desc), url=url, site=SITE, ld=ld, repo=REPO,
+                      header=header('../', 'guides'))
+    out += body + FOOT.format(footer=footer('../'))
     with open(os.path.join(ROOT, 'guides', slug or 'index.html'), 'w') as f:
         f.write(out)
 
@@ -286,17 +249,30 @@ page('sot.html', 'How to name SOT-23, SOT-23-5 and SOT-223 footprints (IPC-7351B
      'IPC-7351B naming for SOT packages: which pitch to use when pins are missing, lead span, height and pin-assignment suffixes.', sot)
 
 index = '''<div class="wrap crumbs"><a href="../">Tool</a> / Guides</div>
-<section class="wrap guide" style="max-width:none">
-  <article class="guide"><h1>Footprint naming guides</h1>
-  <p class="lead">Short, practical guides to IPC-7351B land pattern names – which datasheet value goes where, and the mistakes that create duplicate or wrong footprints.</p></article>
-  <ul class="guide-list">
-    <li><a href="qfn.html"><b>QFN, SON and DFN</b><span>Thermal pad in the pin count, body width vs length. <code>QFN50P500X500X100-33N</code></span></a></li>
-    <li><a href="soic-sop.html"><b>SOIC, SOP, SSOP, TSSOP</b><span>Lead span E vs body width E1. <code>SOIC127P600X175-8N</code></span></a></li>
-    <li><a href="chip.html"><b>Chip resistors, capacitors, inductors</b><span>0603 imperial is 1608 metric. <code>RESC1608X55N</code></span></a></li>
-    <li><a href="sot.html"><b>SOT-23, SOT-23-5, SOT-223</b><span>Which pitch to use when pins are missing. <code>SOT95P280X145-5N</code></span></a></li>
+<div class="wrap page-head">
+  <h1>Footprint naming guides</h1>
+  <p>Short, practical guides to IPC-7351B land pattern names: which datasheet value goes where, and the mistakes that create duplicate or wrong footprints.</p>
+</div>
+<div class="wrap">
+  <ul class="cards">
+    <li><a href="qfn.html"><b>QFN, SON and DFN</b><span>Thermal pad in the pin count, and body width before length.</span><code>QFN50P500X500X100-33N</code></a></li>
+    <li><a href="soic-sop.html"><b>SOIC, SOP, SSOP, TSSOP</b><span>Lead span E vs body width E1, the most common mistake.</span><code>SOIC127P600X175-8N</code></a></li>
+    <li><a href="chip.html"><b>Chip resistors, capacitors, inductors</b><span>0603 imperial is 1608 metric, and height is the maximum.</span><code>RESC1608X55N</code></a></li>
+    <li><a href="sot.html"><b>SOT-23, SOT-23-5, SOT-223</b><span>Which pitch to use when pins are not evenly spaced.</span><code>SOT95P280X145-5N</code></a></li>
   </ul>
-  <p class="hint" style="margin-top:18px">Want a guide for another package? Ask in <a href="''' + REPO + '''/discussions" target="_blank" rel="noopener">Community discussions</a>.</p>
-</section>
+  <p class="hint" style="margin-top:24px">Need a guide for another package? <a href="''' + REPO + '''/discussions/new?category=ideas" target="_blank" rel="noopener">Request it in Discussions</a>.</p>
+</div>
 '''
 page('', 'Footprint naming guides – IPC-7351B land pattern names', 'Practical guides to IPC-7351B footprint names for QFN, SOIC, SOP, chip and SOT packages.', index, 'CollectionPage')
 print('guides written')
+
+# ------------------------------------------------------------------ index.html
+p = os.path.join(ROOT, 'index.html')
+with open(p) as f:
+    s = f.read()
+s = re.sub(r'<!-- header:start -->.*?<!-- header:end -->', lambda m: header('', 'tool'), s, flags=re.S)
+s = re.sub(r'<!-- footer:start -->.*?<!-- footer:end -->', lambda m: footer(''), s, flags=re.S)
+s = re.sub(r'@@(\w+)@@', lambda m: ICON[m.group(1)], s)
+with open(p, 'w') as f:
+    f.write(s)
+print('index.html updated')

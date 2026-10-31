@@ -1,0 +1,21 @@
+title: "[Question] "
+body:
+  - type: input
+    id: package
+    attributes:
+      label: Package
+      placeholder: e.g. QFN-24 4x4 with exposed pad
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: Which value or rule is unclear? A datasheet link or screenshot of the dimension table helps a lot.
+    validations:
+      required: true
+  - type: input
+    id: eda
+    attributes:
+      label: EDA tool (optional)
+      placeholder: Allegro, Altium, KiCad, PADS, Xpedition ...

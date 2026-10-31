@@ -1,0 +1,20 @@
+title: "[Request] "
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What would you like?
+      options:
+        - A new package family
+        - A guide for a package
+        - A feature in the tool
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Package name, datasheet link, or how the feature would save you time.
+    validations:
+      required: true

@@ -40,38 +40,37 @@
 </head>
 <body>
 
-<header class="site-head">
+<!-- header:start -->
+<a class="skip" href="#main">Skip to the tool</a>
+<header class="site-head" id="siteHead">
   <div class="wrap">
     <a class="brand" href="./">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
-        <rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/>
-        <rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/>
-        <rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/>
-        <rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/>
-      </svg>
-      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+      <svg width="36" height="36" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="7" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
+      <span><b>IPC Land Pattern Namer</b><small>Footprint names for PCB designers</small></span>
     </a>
     <nav class="top" aria-label="Main">
-      <a class="hide-sm" href="guides/">Guides</a>
-      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
-      <a class="hide-sm" href="#author">About</a>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
-        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
-        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-        <span class="lbl" id="themeLbl">Dark</span>
-      </button>
-      <a class="gh" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-        GitHub
-      </a>
+      <a class="nav hide-sm" href="./" aria-current="page">Tool</a>
+      <a class="nav hide-sm" href="guides/">Guides</a>
+      <a class="nav hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Switch to dark theme" title="Switch theme"><svg class="ic ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg><svg class="ic ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg></button>
+      <a class="icon-btn btn" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener" aria-label="Source code on GitHub" title="Source code on GitHub"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
     </nav>
   </div>
 </header>
+<!-- header:end -->
 
-<main>
+<main id="main">
   <div class="wrap intro">
     <h1>Footprint names straight from the datasheet</h1>
-    <p>Pick the package, type the min and max dimensions, and copy the land pattern name built to the IPC-7351B / IPC-7251 convention. Free, open source, works offline.</p>
+    <p>Pick the package, type the min and max values from the datasheet table, and copy the land pattern name built to the IPC-7351B / IPC-7251 convention. Free, open source and works offline.</p>
+    <div class="quick" aria-label="Quick start examples">
+      <span>Start from</span>
+      <button type="button" data-quick="qfn">QFN-32 5×5</button>
+      <button type="button" data-quick="soic">SOIC-8</button>
+      <button type="button" data-quick="r0603">0603 resistor</button>
+      <button type="button" data-quick="sot5">SOT-23-5</button>
+      <button type="button" data-quick="hdr">Header 2×10</button>
+    </div>
   </div>
 
   <div class="wrap tool">
@@ -83,7 +82,7 @@
         <label class="f" for="family">Component family</label>
         <select id="family"></select>
         <p class="hint" id="famNote"></p>
-        <p class="pattern" id="tpl"></p>
+        <p class="formula-line" id="tpl"></p>
       </div>
 
       <div class="step">
@@ -104,18 +103,18 @@
         <div id="name" class="name empty" aria-live="polite">Fill in the dimensions to build the name</div>
         <div id="pads" class="pads"></div>
         <div class="actions">
-          <button id="copy" disabled>Copy name</button>
-          <button id="link" class="line" disabled>Copy link to this part</button>
-          <button id="json" class="line" disabled>Download JSON</button>
+          <button id="copy" type="button" disabled>Copy name</button>
+          <button id="link" class="line" type="button" disabled>Copy link to this part</button>
+          <button id="json" class="line" type="button" disabled>Download JSON</button>
         </div>
       </div>
       <div class="msgs" id="msgs"></div>
       <div class="panel below">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-          <h2 style="font-size:16px;margin:0">Recent names</h2>
+        <div class="below-head">
+          <h2>Recent names</h2>
           <span>
-            <button id="example" class="quiet">Try an example</button>
-            <button id="clear" class="quiet">Clear form</button>
+            <button id="example" class="quiet" type="button">Fill an example</button>
+            <button id="clear" class="quiet" type="button">Clear form</button>
           </span>
         </div>
         <ul class="history" id="history"></ul>
@@ -127,23 +126,23 @@
   <div class="wrap">
     <div class="panel community" aria-label="Community">
       <div class="stat" title="Visits counted once per browser session"><strong id="visits">–</strong> visits</div>
-      <button id="like" class="quiet like" aria-pressed="false">
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.5 1.1 4.3 2.6h2.6C14.1 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg>
-        <span id="likeLabel">Useful?</span> <strong id="likes"></strong>
+      <button id="like" class="like" type="button" aria-pressed="false">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.5 1.1 4.3 2.6h2.6C14.1 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg><span id="likeLabel">Useful? Like it</span> <strong id="likes"></strong>
       </button>
       <div class="share">
-        <span>Share with your team</span>
-        <a id="shLinkedIn" target="_blank" rel="noopener">LinkedIn</a>
-        <a id="shWhatsApp" target="_blank" rel="noopener">WhatsApp</a>
-        <a id="shX" target="_blank" rel="noopener">X</a>
-        <button id="shNative" hidden>More…</button>
-        <button id="shCopy">Copy site link</button>
+        <span>Share</span>
+        <a id="shLinkedIn" class="btn icon-btn" target="_blank" rel="noopener" aria-label="Share on LinkedIn" title="Share on LinkedIn"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a id="shWhatsApp" class="btn icon-btn" target="_blank" rel="noopener" aria-label="Share on WhatsApp" title="Share on WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.7-1.2A9.4 9.4 0 1 0 12 2.6z"/><path fill="currentColor" d="M8.7 7.3c.3-.3.8-.3 1 .1l1 1.5c.2.3.2.7-.1 1l-.6.6c.6 1.3 1.6 2.3 2.9 2.9l.6-.6c.3-.3.7-.3 1-.1l1.5 1c.4.2.4.7.1 1l-.8.8c-.6.6-1.4.7-2.1.4a9.6 9.6 0 0 1-5.2-5.2c-.3-.7-.2-1.5.4-2.1z"/></svg></a>
+        <a id="shX" class="btn icon-btn" target="_blank" rel="noopener" aria-label="Share on X" title="Share on X"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41z"/></svg></a>
+        <button id="shNative" class="icon-btn" type="button" hidden aria-label="More sharing options" title="More sharing options"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></g></svg></button>
+        <button id="shCopy" class="icon-btn" type="button" aria-label="Copy site link" title="Copy site link"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.3-3.3a4.5 4.5 0 0 0-6.4-6.4l-1.1 1.1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.3 3.3a4.5 4.5 0 0 0 6.4 6.4l1.1-1.1"/></g></svg></button>
       </div>
     </div>
   </div>
 
   <section class="info wrap" id="how">
     <h2>How it works</h2>
+    <p class="section-lead">Three steps from the datasheet table to a name your whole team can reuse.</p>
     <ol class="how">
       <li><b>Pick the package family</b><p>Search by package type. Each family asks only for the dimensions its name needs.</p></li>
       <li><b>Type the datasheet values</b><p>Enter min and max as printed. The tool takes the nominal for spans and the maximum for height, the way IPC names are built.</p></li>
@@ -153,6 +152,7 @@
 
   <section class="info wrap" id="rules">
     <h2>Naming rules used</h2>
+    <p class="section-lead">How each number in the name is formatted. Every rule is covered by automated tests.</p>
     <div class="table-wrap">
       <table class="rules">
         <thead><tr><th>Value</th><th>Rule</th><th>Example</th></tr></thead>
@@ -175,11 +175,12 @@
 
   <section class="info wrap" id="guides">
     <h2>Guides</h2>
-    <ul class="guide-list">
-      <li><a href="guides/qfn.html"><b>QFN, SON and DFN</b><span>Thermal pad in the pin count, body width vs length. <code>QFN50P500X500X100-33N</code></span></a></li>
-      <li><a href="guides/soic-sop.html"><b>SOIC, SOP, SSOP, TSSOP</b><span>Lead span E vs body width E1, the most common mistake. <code>SOIC127P600X175-8N</code></span></a></li>
-      <li><a href="guides/chip.html"><b>Chip resistors, capacitors, inductors</b><span>0603 imperial is 1608 metric, and height is the maximum. <code>RESC1608X55N</code></span></a></li>
-      <li><a href="guides/sot.html"><b>SOT-23, SOT-23-5, SOT-223</b><span>Which pitch to use when pins are not evenly spaced. <code>SOT95P280X145-5N</code></span></a></li>
+    <p class="section-lead">Which datasheet value goes where, and the mistakes that create wrong or duplicate footprints.</p>
+    <ul class="cards">
+      <li><a href="guides/qfn.html"><b>QFN, SON and DFN</b><span>Thermal pad in the pin count, and body width before length.</span><code>QFN50P500X500X100-33N</code></a></li>
+      <li><a href="guides/soic-sop.html"><b>SOIC, SOP, SSOP, TSSOP</b><span>Lead span E vs body width E1, the most common mistake.</span><code>SOIC127P600X175-8N</code></a></li>
+      <li><a href="guides/chip.html"><b>Chip resistors, capacitors, inductors</b><span>0603 imperial is 1608 metric, and height is the maximum.</span><code>RESC1608X55N</code></a></li>
+      <li><a href="guides/sot.html"><b>SOT-23, SOT-23-5, SOT-223</b><span>Which pitch to use when pins are not evenly spaced.</span><code>SOT95P280X145-5N</code></a></li>
     </ul>
   </section>
 
@@ -189,10 +190,11 @@
       <div class="mono" aria-hidden="true">KM</div>
       <div>
         <h3>Karthikeyan Murugan</h3>
-        <p>PCB design engineer since 2015 and IPC CID certified. I have designed more than 60 production boards for industrial, automotive, railway, telecom, power and consumer products, and I review and maintain footprint libraries. I build small tools that remove repetitive library work and share them free.</p>
+        <p class="role">PCB design engineer, IPC CID certified</p>
+        <p>I have worked in PCB design since 2015 and designed more than 60 production boards for industrial, automotive, railway, telecom, power and consumer products, and I review and maintain footprint libraries. I build small tools that remove repetitive library work and share them free.</p>
         <div class="links">
-          <a class="btn" href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Connect on LinkedIn</a>
-          <a class="btn outline" href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener">GitHub profile</a>
+          <a class="btn" href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Connect on LinkedIn</a>
+          <a class="btn outline" href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>GitHub profile</a>
           <a class="btn outline" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Join the discussion</a>
         </div>
       </div>
@@ -200,40 +202,52 @@
   </section>
 </main>
 
+<!-- footer:start -->
 <footer class="site-foot">
-  <div class="wrap">
+  <div class="wrap cols">
+    <div class="foot-brand">
+      <a class="brand" href="./"><svg width="36" height="36" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="7" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg><span><b>IPC Land Pattern Namer</b><small>Free and open source</small></span></a>
+      <p>Type the datasheet dimensions, get the IPC-7351B land pattern name. Made by a PCB designer for library engineers and designers.</p>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener" aria-label="Karthikeyan Murugan on LinkedIn" title="LinkedIn"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener" aria-label="Karthikeyan Murugan on GitHub" title="GitHub"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      </div>
+    </div>
     <div>
-      <h3>IPC Land Pattern Namer</h3>
-      <p>A free tool for PCB designers and library engineers. Built and maintained by Karthikeyan Murugan, PCB design engineer.</p>
-      <p>Found a wrong name? <a id="issueLink" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues/new" target="_blank" rel="noopener">Report it on GitHub</a> with the values you typed. Every correction becomes a test.</p>
+      <h3>Tool</h3>
+      <ul>
+        <li><a href="./">Name builder</a></li>
+        <li><a href="#rules">Naming rules</a></li>
+        <li><a href="guides/">Guides</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues/new?template=wrong-name.yml" target="_blank" rel="noopener">Report a wrong name</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions/new?category=ideas" target="_blank" rel="noopener">Request a package</a></li>
+      </ul>
     </div>
     <div>
       <h3>Project</h3>
       <ul>
         <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
         <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer#roadmap" target="_blank" rel="noopener">Roadmap</a></li>
-        <li><a href="guides/">Naming guides</a></li>
-        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
-        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues" target="_blank" rel="noopener">Report a wrong name</a></li>
-        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
-        <li><a href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener">More tools by the author</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3>Use it anywhere</h3>
-      <ul>
-        <li>Works offline: download the repository and open index.html</li>
-        <li>Engine and rules usable from Node, Python or SKILL</li>
-        <li>MIT licence – free for commercial use</li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/blob/main/LICENSE" target="_blank" rel="noopener">MIT licence</a></li>
       </ul>
     </div>
   </div>
-  <div class="legal">
-    <div class="wrap">Not affiliated with or endorsed by IPC. IPC-7351 and IPC-7352 are IPC standards; this tool implements the published naming convention and does not reproduce the standard. Always confirm names against your own library standard. Version <span id="ver">0.3.0</span>.</div>
+  <div class="foot-bottom">
+    <div class="wrap">
+      <span>© 2026 Karthikeyan Murugan. Version 0.4.0.</span>
+      <span>Not affiliated with or endorsed by IPC. Always confirm names against your own library standard.</span>
+    </div>
   </div>
 </footer>
+<!-- footer:end -->
 
-<div class="mbar" id="mbar"><code id="mbarName"></code><button id="mbarCopy">Copy</button></div>
+<div class="mbar" id="mbar"><code id="mbarName"></code><button id="mbarCopy" type="button">Copy</button></div>
 <div class="toast" id="toast" role="status"></div>
 
 <script src="rules/ipc-7351b.js"></script>
@@ -320,7 +334,7 @@
     if (!$('family').value) return;
     current = namer.describe($('family').value);
     $('famNote').textContent = current.note;
-    $('tpl').textContent = 'Pattern  ' + current.template + (current.qty ? '-<pins>' : '');
+    renderFormula();
     const box = $('fields');
     box.innerHTML = '';
     current.fields.forEach(f => {
@@ -444,10 +458,12 @@
       });
       $('mbarName').textContent = r.name;
       $('mbar').classList.add('show');
+      document.body.classList.add('has-mbar');
     } else {
       name.textContent = touched ? 'Keep going – some values are still missing' : 'Fill in the dimensions to build the name';
       name.className = 'name empty';
       $('mbar').classList.remove('show');
+      document.body.classList.remove('has-mbar');
       if (touched) msg('err', r.errors);
     }
     if (r.warnings && r.warnings.length) msg('warn', r.warnings);
@@ -523,6 +539,43 @@
   });
   $('family').addEventListener('change', () => { history.replaceState(null, '', location.pathname); renderFields(); });
   $('clear').addEventListener('click', () => { history.replaceState(null, '', location.pathname); renderFields(); });
+  // human-readable formula: QFN [Pitch] P [Body width] X ... - [pins] [density]
+  function renderFormula() {
+    const box = $('tpl');
+    box.innerHTML = '';
+    box.appendChild(el('span', { class: 'lbl' }, 'Name ='));
+    const short = { pitch: 'pitch', pitchCol: 'col pitch', pitchRow: 'row pitch', leadSpan: 'lead span', leadSpan1: 'span L1', leadSpan2: 'span L2',
+      bodyL: 'length', bodyW: 'width', bodyT: 'thickness', bodyDia: 'diameter', baseSize: 'base', height: 'height', pinQty: 'pins',
+      cols: 'cols', rows: 'rows', pinsPerRow: 'per row', leadWidth: 'lead W', leadLength: 'lead L', leadSpacing: 'spacing',
+      land: 'land', hole: 'hole', antipad: 'anti-pad', vias: 'vias', padSize: 'pad', padL: 'pad L', padW: 'pad W', maskSize: 'mask',
+      ballType: 'C/N', lgaType: 'C/S/R', plating: 'P/NP', part: 'part no.', mfr: 'maker', mfrPrefix: 'category', jedecNo: 'number',
+      jedecName: 'package', pinQtyOpt: 'pins' };
+    current.template.split(/(\{[^}]+\}|\[|\])/).forEach(tok => {
+      if (!tok || tok === '[' || tok === ']') return;
+      const m = tok.match(/^\{(\w+):\w\}$/);
+      if (m) box.appendChild(el('span', { class: 'v' }, short[m[1]] || m[1]));
+      else box.appendChild(el('span', { class: 't' }, tok));
+    });
+    if (current.qty) { box.appendChild(el('span', { class: 't' }, '-')); box.appendChild(el('span', { class: 'v' }, 'pins')); }
+    if (current.suffixMode === 'density') box.appendChild(el('span', { class: 'v' }, 'M/N/L'));
+    if (current.suffixMode === 'level') box.appendChild(el('span', { class: 'v' }, 'A/B/C'));
+  }
+
+  // quick start chips in the hero
+  const QUICK = {
+    qfn: { f: 'QFN', i: { pitch: 0.5, bodyW: 5, bodyL: 5, height: { min: 0.8, max: 1.0 }, pinQty: 32 }, o: { thermalPad: true } },
+    soic: { f: 'SOIC', i: { leadSpan: { min: 5.8, max: 6.2 }, height: { min: 1.35, max: 1.75 }, pinQty: 8 }, o: {} },
+    r0603: { f: 'RESC', i: { bodyL: { min: 1.5, max: 1.7 }, bodyW: { min: 0.7, max: 0.9 }, height: { min: 0.35, max: 0.55 } }, o: {} },
+    sot5: { f: 'SOT', i: { pitch: 0.95, leadSpan: { min: 2.6, max: 3.0 }, height: { min: 0.9, max: 1.45 }, pinQty: 5 }, o: {} },
+    hdr: { f: 'HDRV', i: { pinQty: 20, leadWidth: 0.635, pitch: 2.54, rows: 2, pinsPerRow: 10, bodyL: 25.4, bodyT: 5.08, height: 8.38 }, o: {} }
+  };
+  document.querySelectorAll('[data-quick]').forEach(b => b.addEventListener('click', () => {
+    const q = QUICK[b.getAttribute('data-quick')];
+    $('search').value = ''; fillFamilies('');
+    $('family').value = q.f; renderFields(); writeForm(q.i, q.o); update();
+    document.querySelector('.tool').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+
   $('example').addEventListener('click', () => {
     let ex = rules.examples.find(e => e.family === $('family').value);
     if (!ex) { ex = rules.examples.find(e => e.family === 'QFN'); $('search').value = ''; fillFamilies(''); $('family').value = 'QFN'; }
@@ -541,14 +594,15 @@
     $('shNative').hidden = false;
     $('shNative').addEventListener('click', () => navigator.share({ title: 'IPC Land Pattern Namer', text: shareText, url: SITE }).catch(() => {}));
   }
-  $('issueLink').addEventListener('click', e => {
-    if (!last && !current) return;
-    const body = 'Family: ' + (current ? current.id : '') + '\nValues: ' + JSON.stringify(last ? last.inp : {}) +
-      '\nOptions: ' + JSON.stringify(last ? last.opt : {}) + '\nName shown: ' + (last ? last.r.name : '') +
-      '\nName expected (and source): \n';
-    e.currentTarget.href = 'https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues/new?title=' +
-      encodeURIComponent('Wrong name: ' + (last ? last.r.name : '')) + '&body=' + encodeURIComponent(body);
-  });
+  // "Report a wrong name" links open the issue form already filled with this part
+  document.querySelectorAll('a[href*="template=wrong-name"]').forEach(a => a.addEventListener('click', () => {
+    const base = 'https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues/new?template=wrong-name.yml';
+    if (!last || !current) { a.href = base; return; }
+    a.href = base + '&title=' + encodeURIComponent('Wrong name: ' + last.r.name) +
+      '&family=' + encodeURIComponent(current.id) +
+      '&values=' + encodeURIComponent(stateLink()) +
+      '&got=' + encodeURIComponent(last.r.name);
+  }));
 
   // ---------------- visits and likes (free public counter, no personal data) ----------------
   const onSite = location.protocol.indexOf('http') === 0;
@@ -569,7 +623,7 @@
   function setLiked(on) {
     $('like').classList.toggle('on', on);
     $('like').setAttribute('aria-pressed', on ? 'true' : 'false');
-    $('likeLabel').textContent = on ? 'Thanks!' : 'Useful?';
+    $('likeLabel').textContent = on ? 'Thanks for the like' : 'Useful? Like it';
   }
   setLiked(store.get('ipcNamerLiked', false));
   $('like').addEventListener('click', () => {

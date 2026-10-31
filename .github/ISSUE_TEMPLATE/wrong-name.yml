@@ -1,0 +1,40 @@
+name: Wrong name
+description: The tool built a name that does not match IPC naming or your library standard
+title: "Wrong name: "
+labels: ["wrong-name"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for checking! Every confirmed report becomes a test so the mistake cannot come back.
+  - type: input
+    id: family
+    attributes:
+      label: Package family
+      placeholder: e.g. QFN, SOIC, RESC, HDRV
+    validations:
+      required: true
+  - type: textarea
+    id: values
+    attributes:
+      label: Values you entered (mm)
+      description: Paste the "Copy link to this part" link if you can – it contains every value.
+      placeholder: "pitch 0.5, body 5 x 5, height max 1.0, 32 pins + thermal pad"
+    validations:
+      required: true
+  - type: input
+    id: got
+    attributes:
+      label: Name the tool built
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: Name you expected
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source for the expected name
+      description: Datasheet, IPC document section, library standard, or EDA tool output.

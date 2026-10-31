@@ -23,25 +23,25 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How to name chip resistor, capacitor and inductor footprints (IPC-7351B)","description":"IPC-7351B naming for chip R, C and L footprints, imperial to metric size codes (0603 = 1608) and why height is part of the name.","url":"https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/guides/chip.html","author":{"@type":"Person","name":"Karthikeyan Murugan","url":"https://www.linkedin.com/in/karthikeyanmurugan1/"}}</script>
 </head>
 <body>
-<header class="site-head">
+<!-- header:start -->
+<a class="skip" href="#main">Skip to the tool</a>
+<header class="site-head" id="siteHead">
   <div class="wrap">
     <a class="brand" href="../">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="6" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b5651d"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
-      <span>IPC Land Pattern Namer<small>Footprint names for PCB designers</small></span>
+      <svg width="36" height="36" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="7" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg>
+      <span><b>IPC Land Pattern Namer</b><small>Footprint names for PCB designers</small></span>
     </a>
     <nav class="top" aria-label="Main">
-      <a href="../">Tool</a>
-      <a class="hide-sm" href="./">Guides</a>
-      <a class="hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
-        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
-        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-        <span class="lbl" id="themeLbl">Dark</span>
-      </button>
+      <a class="nav hide-sm" href="../">Tool</a>
+      <a class="nav hide-sm" href="../guides/" aria-current="page">Guides</a>
+      <a class="nav hide-sm" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community</a>
+      <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Switch to dark theme" title="Switch theme"><svg class="ic ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg><svg class="ic ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg></button>
+      <a class="icon-btn btn" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener" aria-label="Source code on GitHub" title="Source code on GitHub"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
     </nav>
   </div>
 </header>
-<main>
+<!-- header:end -->
+<main id="main">
 <div class="wrap crumbs"><a href="../">Tool</a> / <a href="./">Guides</a> / Chip R, C, L</div>
 <div class="wrap"><article class="guide">
   <h1>How to name chip resistor, capacitor and inductor footprints</h1>
@@ -87,33 +87,50 @@
   <p class="hint">Values in mm. Check the result against your company library standard.</p>
 </article></div>
 </main>
+<!-- footer:start -->
 <footer class="site-foot">
-  <div class="wrap">
-    <div>
-      <h3>IPC Land Pattern Namer</h3>
-      <p>A free tool and guides for PCB designers and library engineers, by Karthikeyan Murugan, PCB design engineer.</p>
+  <div class="wrap cols">
+    <div class="foot-brand">
+      <a class="brand" href="../"><svg width="36" height="36" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="7" fill="#14532d"/><rect x="6" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="21" y="11" width="7" height="12" rx="1.5" fill="#b25f17"/><rect x="12" y="15" width="10" height="4" fill="#f2f5ef" opacity=".85"/></svg><span><b>IPC Land Pattern Namer</b><small>Free and open source</small></span></a>
+      <p>Type the datasheet dimensions, get the IPC-7351B land pattern name. Made by a PCB designer for library engineers and designers.</p>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener" aria-label="Karthikeyan Murugan on LinkedIn" title="LinkedIn"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="https://github.com/KartikeyanMurugan" target="_blank" rel="noopener" aria-label="Karthikeyan Murugan on GitHub" title="GitHub"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      </div>
     </div>
     <div>
-      <h3>Guides</h3>
+      <h3>Tool</h3>
       <ul>
-        <li><a href="qfn.html">QFN, SON, DFN</a></li>
-        <li><a href="soic-sop.html">SOIC and SOP</a></li>
-        <li><a href="chip.html">Chip R, C, L</a></li>
-        <li><a href="sot.html">SOT-23 and SOT-223</a></li>
+        <li><a href="../">Name builder</a></li>
+        <li><a href="../#rules">Naming rules</a></li>
+        <li><a href="../guides/">Guides</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Discussions</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/issues/new?template=wrong-name.yml" target="_blank" rel="noopener">Report a wrong name</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions/new?category=ideas" target="_blank" rel="noopener">Request a package</a></li>
       </ul>
     </div>
     <div>
       <h3>Project</h3>
       <ul>
-        <li><a href="../">Open the tool</a></li>
-        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions" target="_blank" rel="noopener">Community discussions</a></li>
         <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">Source code</a></li>
-        <li><a href="https://www.linkedin.com/in/karthikeyanmurugan1/" target="_blank" rel="noopener">Author on LinkedIn</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer#roadmap" target="_blank" rel="noopener">Roadmap</a></li>
+        <li><a href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/blob/main/LICENSE" target="_blank" rel="noopener">MIT licence</a></li>
       </ul>
     </div>
   </div>
-  <div class="legal"><div class="wrap">Not affiliated with or endorsed by IPC. Names follow the public IPC-7351B naming convention summary; always confirm against your own library standard.</div></div>
+  <div class="foot-bottom">
+    <div class="wrap">
+      <span>© 2026 Karthikeyan Murugan. Version 0.4.0.</span>
+      <span>Not affiliated with or endorsed by IPC. Always confirm names against your own library standard.</span>
+    </div>
+  </div>
 </footer>
+<!-- footer:end -->
 <script src="../assets/theme.js"></script>
 </body>
 </html>

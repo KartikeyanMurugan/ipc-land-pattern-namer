@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ask a naming question
+    url: https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions/new?category=q-a
+    about: Not sure which datasheet value to use? Ask in Discussions.
+  - name: Request a package family
+    url: https://github.com/KartikeyanMurugan/ipc-land-pattern-namer/discussions/new?category=ideas
+    about: Suggest a package or a feature.
