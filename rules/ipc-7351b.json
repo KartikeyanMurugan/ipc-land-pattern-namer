@@ -1,6 +1,20 @@
 {
   "id": "ipc-7351b",
   "title": "IPC-7351B / IPC-7251 (PCB Matrix 2009 summary)",
+  "sources": {
+    "PCBM-2009-SMD": "IPC-7351B Naming Convention for Standard SMT Land Patterns, PCB Matrix summary, 2009-09-13, page 1 and notes on page 2",
+    "PCBM-2009-NONSTD": "PCB Matrix Naming Convention for Non-Standard SMT / PTH Land Patterns, 2009-09-13, pages 3 and 5",
+    "PCBM-2009-THT": "IPC-7251 Naming Convention for Through-Hole Land Patterns, PCB Matrix summary, 2009-09-13, pages 4-5",
+    "PCBM-2009-CONN": "IPC-7x51 Naming Convention for Connector Land Patterns, PCB Matrix summary, 2009-09-13, page 6"
+  },
+  "policy": {
+    "units": "All dimensions in millimetres.",
+    "nominal": "Spans, pitch and body sizes use the nominal value = (min + max) / 2 when both are given.",
+    "maximum": "Heights and lead widths use the maximum value.",
+    "hundredths": "Format h: value x 100, rounded half up (0.635 -> 64), no leading zeros.",
+    "chip": "Format c: one digit each side of the decimal point, further digits dropped (1.25 -> 12).",
+    "validation": "Non-finite numbers, values <= 0, unknown density/level letters and invalid variants produce no name."
+  },
   "fields": {
     "pitch": {
       "label": "Pitch",
@@ -211,7 +225,8 @@
         "bodyW",
         "height"
       ],
-      "template": "RESC{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "RESC{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "RESM": {
       "group": "Chip & molded 2-terminal",
@@ -223,7 +238,8 @@
         "bodyW",
         "height"
       ],
-      "template": "RESM{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "RESM{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPC": {
       "group": "Chip & molded 2-terminal",
@@ -235,7 +251,8 @@
         "bodyW",
         "height"
       ],
-      "template": "CAPC{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "CAPC{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPCP": {
       "group": "Chip & molded 2-terminal",
@@ -247,7 +264,8 @@
         "bodyW",
         "height"
       ],
-      "template": "CAPCP{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "CAPCP{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPCWR": {
       "group": "Chip & molded 2-terminal",
@@ -259,7 +277,8 @@
         "bodyW",
         "height"
       ],
-      "template": "CAPCWR{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "CAPCWR{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPM": {
       "group": "Chip & molded 2-terminal",
@@ -271,7 +290,8 @@
         "bodyW",
         "height"
       ],
-      "template": "CAPM{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "CAPM{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPMP": {
       "group": "Chip & molded 2-terminal",
@@ -283,7 +303,8 @@
         "bodyW",
         "height"
       ],
-      "template": "CAPMP{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "CAPMP{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "INDC": {
       "group": "Chip & molded 2-terminal",
@@ -295,7 +316,8 @@
         "bodyW",
         "height"
       ],
-      "template": "INDC{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "INDC{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "INDM": {
       "group": "Chip & molded 2-terminal",
@@ -307,7 +329,8 @@
         "bodyW",
         "height"
       ],
-      "template": "INDM{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "INDM{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "INDP": {
       "group": "Chip & molded 2-terminal",
@@ -319,7 +342,8 @@
         "bodyW",
         "height"
       ],
-      "template": "INDP{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "INDP{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "DIOC": {
       "group": "Chip & molded 2-terminal",
@@ -331,7 +355,8 @@
         "bodyW",
         "height"
       ],
-      "template": "DIOC{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "DIOC{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "DIOM": {
       "group": "Chip & molded 2-terminal",
@@ -343,7 +368,8 @@
         "bodyW",
         "height"
       ],
-      "template": "DIOM{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "DIOM{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "LEDM": {
       "group": "Chip & molded 2-terminal",
@@ -355,7 +381,8 @@
         "bodyW",
         "height"
       ],
-      "template": "LEDM{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "LEDM{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "FUSM": {
       "group": "Chip & molded 2-terminal",
@@ -367,7 +394,8 @@
         "bodyW",
         "height"
       ],
-      "template": "FUSM{bodyL:c}{bodyW:c}X{height:h}"
+      "template": "FUSM{bodyL:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "RESMELF": {
       "group": "Chip & molded 2-terminal",
@@ -378,7 +406,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "RESMELF{bodyL:c}{bodyDia:c}"
+      "template": "RESMELF{bodyL:c}{bodyDia:c}",
+      "source": "PCBM-2009-SMD"
     },
     "DIOMELF": {
       "group": "Chip & molded 2-terminal",
@@ -389,7 +418,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "DIOMELF{bodyL:c}{bodyDia:c}"
+      "template": "DIOMELF{bodyL:c}{bodyDia:c}",
+      "source": "PCBM-2009-SMD"
     },
     "SOD": {
       "group": "Chip & molded 2-terminal",
@@ -401,7 +431,8 @@
         "bodyW",
         "height"
       ],
-      "template": "SOD{leadSpan:c}{bodyW:c}X{height:h}"
+      "template": "SOD{leadSpan:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "SODFL": {
       "group": "Chip & molded 2-terminal",
@@ -413,7 +444,8 @@
         "bodyW",
         "height"
       ],
-      "template": "SODFL{leadSpan:c}{bodyW:c}X{height:h}"
+      "template": "SODFL{leadSpan:c}{bodyW:c}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPAE": {
       "group": "Chip & molded 2-terminal",
@@ -424,7 +456,8 @@
         "baseSize",
         "height"
       ],
-      "template": "CAPAE{baseSize:h}X{height:h}"
+      "template": "CAPAE{baseSize:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "XTAL": {
       "group": "Chip & molded 2-terminal",
@@ -436,7 +469,8 @@
         "bodyW",
         "height"
       ],
-      "template": "XTAL{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "XTAL{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPCAV": {
       "group": "Chip arrays",
@@ -451,7 +485,8 @@
         "height",
         "pinQty"
       ],
-      "template": "CAPCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "CAPCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CAPCAF": {
       "group": "Chip arrays",
@@ -466,7 +501,8 @@
         "height",
         "pinQty"
       ],
-      "template": "CAPCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "CAPCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "INDCAV": {
       "group": "Chip arrays",
@@ -481,7 +517,8 @@
         "height",
         "pinQty"
       ],
-      "template": "INDCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "INDCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "INDCAF": {
       "group": "Chip arrays",
@@ -496,7 +533,8 @@
         "height",
         "pinQty"
       ],
-      "template": "INDCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "INDCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "RESCAV": {
       "group": "Chip arrays",
@@ -511,7 +549,8 @@
         "height",
         "pinQty"
       ],
-      "template": "RESCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "RESCAV{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "RESCAXE": {
       "group": "Chip arrays",
@@ -526,7 +565,8 @@
         "height",
         "pinQty"
       ],
-      "template": "RESCAXE{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "RESCAXE{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "RESCAXS": {
       "group": "Chip arrays",
@@ -541,7 +581,8 @@
         "height",
         "pinQty"
       ],
-      "template": "RESCAXS{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "RESCAXS{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "RESCAF": {
       "group": "Chip arrays",
@@ -556,7 +597,8 @@
         "height",
         "pinQty"
       ],
-      "template": "RESCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "RESCAF{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "OSCSC": {
       "group": "Oscillators",
@@ -571,7 +613,8 @@
         "height",
         "pinQty"
       ],
-      "template": "OSCSC{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "OSCSC{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "OSCJ": {
       "group": "Oscillators",
@@ -586,7 +629,8 @@
         "height",
         "pinQty"
       ],
-      "template": "OSCJ{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "OSCJ{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "OSCL": {
       "group": "Oscillators",
@@ -601,7 +645,8 @@
         "height",
         "pinQty"
       ],
-      "template": "OSCL{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "OSCL{pitch:h}P{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "OSCCC": {
       "group": "Oscillators",
@@ -613,7 +658,8 @@
         "bodyW",
         "height"
       ],
-      "template": "OSCCC{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "OSCCC{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "DIOSC": {
       "group": "Side concave",
@@ -627,7 +673,8 @@
         "height",
         "pinQty"
       ],
-      "template": "DIOSC{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "DIOSC{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "LEDSC": {
       "group": "Side concave",
@@ -641,7 +688,8 @@
         "height",
         "pinQty"
       ],
-      "template": "LEDSC{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "LEDSC{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "SOIC": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -654,7 +702,8 @@
         "height",
         "pinQty"
       ],
-      "template": "SOIC127P{leadSpan:h}X{height:h}"
+      "template": "SOIC127P{leadSpan:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "SOP": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -668,7 +717,8 @@
         "height",
         "pinQty"
       ],
-      "template": "SOP{pitch:h}P{leadSpan:h}X{height:h}"
+      "template": "SOP{pitch:h}P{leadSpan:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "SOJ": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -682,7 +732,8 @@
         "height",
         "pinQty"
       ],
-      "template": "SOJ{pitch:h}P{leadSpan:h}X{height:h}"
+      "template": "SOJ{pitch:h}P{leadSpan:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "SOT": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -702,7 +753,8 @@
         "_SGD",
         "_213",
         "_HS"
-      ]
+      ],
+      "source": "PCBM-2009-SMD"
     },
     "SOTFL": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -722,7 +774,8 @@
         "_SGD",
         "_213",
         "_HS"
-      ]
+      ],
+      "source": "PCBM-2009-SMD"
     },
     "TO": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -742,7 +795,8 @@
         "_SGD",
         "_213",
         "_HS"
-      ]
+      ],
+      "source": "PCBM-2009-SMD"
     },
     "CFP": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -755,7 +809,8 @@
         "height",
         "pinQty"
       ],
-      "template": "CFP127P{leadSpan:h}X{height:h}"
+      "template": "CFP127P{leadSpan:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "JEDEC_SOT": {
       "group": "Two-side leaded (SOIC / SOP / SOT / TO)",
@@ -794,7 +849,8 @@
             ]
           ]
         }
-      }
+      },
+      "source": "PCBM-2009-SMD"
     },
     "QFP": {
       "group": "Quad leaded (QFP / PLCC)",
@@ -809,7 +865,8 @@
         "height",
         "pinQty"
       ],
-      "template": "QFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+      "template": "QFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CQFP": {
       "group": "Quad leaded (QFP / PLCC)",
@@ -824,7 +881,8 @@
         "height",
         "pinQty"
       ],
-      "template": "CQFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+      "template": "CQFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "BQFP": {
       "group": "Quad leaded (QFP / PLCC)",
@@ -839,7 +897,8 @@
         "height",
         "pinQty"
       ],
-      "template": "BQFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+      "template": "BQFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}",
+      "source": "PCBM-2009-NONSTD"
     },
     "BQFPC": {
       "group": "Quad leaded (QFP / PLCC)",
@@ -854,7 +913,8 @@
         "height",
         "pinQty"
       ],
-      "template": "BQFPC{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+      "template": "BQFPC{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}",
+      "source": "PCBM-2009-NONSTD"
     },
     "PLCC": {
       "group": "Quad leaded (QFP / PLCC)",
@@ -869,7 +929,8 @@
         "height",
         "pinQty"
       ],
-      "template": "PLCC{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+      "template": "PLCC{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "PLCCS": {
       "group": "Quad leaded (QFP / PLCC)",
@@ -884,7 +945,8 @@
         "height",
         "pinQty"
       ],
-      "template": "PLCCS{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}"
+      "template": "PLCCS{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "QFN": {
       "group": "No-lead (QFN / SON / LCC)",
@@ -900,7 +962,8 @@
         "height",
         "pinQty"
       ],
-      "template": "QFN{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+      "template": "QFN{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "PQFN": {
       "group": "No-lead (QFN / SON / LCC)",
@@ -916,7 +979,8 @@
         "height",
         "pinQty"
       ],
-      "template": "PQFN{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+      "template": "PQFN{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "SON": {
       "group": "No-lead (QFN / SON / LCC)",
@@ -932,7 +996,8 @@
         "height",
         "pinQty"
       ],
-      "template": "SON{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+      "template": "SON{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "PSON": {
       "group": "No-lead (QFN / SON / LCC)",
@@ -948,7 +1013,8 @@
         "height",
         "pinQty"
       ],
-      "template": "PSON{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+      "template": "PSON{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "LCC": {
       "group": "No-lead (QFN / SON / LCC)",
@@ -964,7 +1030,8 @@
         "height",
         "pinQty"
       ],
-      "template": "LCC{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+      "template": "LCC{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "LCCS": {
       "group": "No-lead (QFN / SON / LCC)",
@@ -980,7 +1047,8 @@
         "height",
         "pinQty"
       ],
-      "template": "LCCS{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}"
+      "template": "LCCS{pitch:h}P{bodyW:h}X{bodyL:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "DFN": {
       "group": "No-lead (QFN / SON / LCC)",
@@ -994,7 +1062,8 @@
         "height",
         "pinQty"
       ],
-      "template": "DFN{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "DFN{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "BGA": {
       "group": "Area array (BGA / LGA / CGA)",
@@ -1013,7 +1082,8 @@
         "height"
       ],
       "template": "BGA{pinQty:i}{ballType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}",
-      "note": "BGA names carry no M/N/L suffix (nominal only)."
+      "note": "BGA names carry no M/N/L suffix (nominal only).",
+      "source": "PCBM-2009-SMD"
     },
     "BGA_DUAL": {
       "group": "Area array (BGA / LGA / CGA)",
@@ -1032,7 +1102,8 @@
         "bodyW",
         "height"
       ],
-      "template": "BGA{pinQty:i}{ballType:u}{pitchCol:h}X{pitchRow:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "BGA{pinQty:i}{ballType:u}{pitchCol:h}X{pitchRow:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "BGAS": {
       "group": "Area array (BGA / LGA / CGA)",
@@ -1050,7 +1121,8 @@
         "bodyW",
         "height"
       ],
-      "template": "BGAS{pinQty:i}{ballType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "BGAS{pinQty:i}{ballType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "LGA": {
       "group": "Area array (BGA / LGA / CGA)",
@@ -1067,7 +1139,8 @@
         "bodyW",
         "height"
       ],
-      "template": "LGA{pinQty:i}{lgaType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}"
+      "template": "LGA{pinQty:i}{lgaType:u}{pitch:h}P{cols:i}X{rows:i}_{bodyL:h}X{bodyW:h}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "CGA": {
       "group": "Area array (BGA / LGA / CGA)",
@@ -1082,7 +1155,8 @@
         "height",
         "pinQty"
       ],
-      "template": "CGA{pitch:h}P{cols:i}X{rows:i}X{height:h}"
+      "template": "CGA{pitch:h}P{cols:i}X{rows:i}X{height:h}",
+      "source": "PCBM-2009-SMD"
     },
     "FID": {
       "group": "Fiducials & test points",
@@ -1094,7 +1168,8 @@
         "padSize",
         "maskSize"
       ],
-      "template": "FID{padSize:h}X{maskSize:h}"
+      "template": "FID{padSize:h}X{maskSize:h}",
+      "source": "PCBM-2009-NONSTD"
     },
     "TP_SMD": {
       "group": "Fiducials & test points",
@@ -1105,7 +1180,8 @@
       "fields": [
         "padSize"
       ],
-      "template": "TP{padSize:h}"
+      "template": "TP{padSize:h}",
+      "source": "PCBM-2009-NONSTD"
     },
     "TPS_SMD": {
       "group": "Fiducials & test points",
@@ -1116,7 +1192,8 @@
       "fields": [
         "padSize"
       ],
-      "template": "TPS{padSize:h}"
+      "template": "TPS{padSize:h}",
+      "source": "PCBM-2009-NONSTD"
     },
     "TPR_SMD": {
       "group": "Fiducials & test points",
@@ -1128,7 +1205,8 @@
         "padL",
         "padW"
       ],
-      "template": "TP{padL:h}X{padW:h}"
+      "template": "TP{padL:h}X{padW:h}",
+      "source": "PCBM-2009-NONSTD"
     },
     "RESAD": {
       "group": "Through-hole axial / radial",
@@ -1142,7 +1220,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "RESAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "RESAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "RESADV": {
       "group": "Through-hole axial / radial",
@@ -1156,7 +1235,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "RESADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "RESADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "RESAR": {
       "group": "Through-hole axial / radial",
@@ -1171,7 +1251,8 @@
         "bodyT",
         "height"
       ],
-      "template": "RESAR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+      "template": "RESAR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPAD": {
       "group": "Through-hole axial / radial",
@@ -1185,7 +1266,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "CAPAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "CAPAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPADV": {
       "group": "Through-hole axial / radial",
@@ -1199,7 +1281,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "CAPADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "CAPADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPAR": {
       "group": "Through-hole axial / radial",
@@ -1214,7 +1297,8 @@
         "bodyT",
         "height"
       ],
-      "template": "CAPAR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+      "template": "CAPAR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPARV": {
       "group": "Through-hole axial / radial",
@@ -1229,7 +1313,8 @@
         "bodyT",
         "height"
       ],
-      "template": "CAPARV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+      "template": "CAPARV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPPAD": {
       "group": "Through-hole axial / radial",
@@ -1243,7 +1328,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "CAPPAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "CAPPAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPRD": {
       "group": "Through-hole axial / radial",
@@ -1257,7 +1343,8 @@
         "bodyDia",
         "height"
       ],
-      "template": "CAPRD{leadSpacing:h}W{leadWidth:h}D{bodyDia:h}H{height:h}"
+      "template": "CAPRD{leadSpacing:h}W{leadWidth:h}D{bodyDia:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPPRD": {
       "group": "Through-hole axial / radial",
@@ -1271,7 +1358,8 @@
         "bodyDia",
         "height"
       ],
-      "template": "CAPPRD{leadSpacing:h}W{leadWidth:h}D{bodyDia:h}H{height:h}"
+      "template": "CAPPRD{leadSpacing:h}W{leadWidth:h}D{bodyDia:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPRR": {
       "group": "Through-hole axial / radial",
@@ -1286,7 +1374,8 @@
         "bodyT",
         "height"
       ],
-      "template": "CAPRR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+      "template": "CAPRR{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "CAPRB": {
       "group": "Through-hole axial / radial",
@@ -1301,7 +1390,8 @@
         "bodyT",
         "height"
       ],
-      "template": "CAPRB{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+      "template": "CAPRB{leadSpacing:h}W{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "DIOAD": {
       "group": "Through-hole axial / radial",
@@ -1315,7 +1405,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "DIOAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "DIOAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "DIOADV": {
       "group": "Through-hole axial / radial",
@@ -1329,7 +1420,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "DIOADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "DIOADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "INDAD": {
       "group": "Through-hole axial / radial",
@@ -1343,7 +1435,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "INDAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "INDAD{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "INDADV": {
       "group": "Through-hole axial / radial",
@@ -1357,7 +1450,8 @@
         "bodyL",
         "bodyDia"
       ],
-      "template": "INDADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}"
+      "template": "INDADV{leadSpacing:h}W{leadWidth:h}L{bodyL:h}D{bodyDia:h}",
+      "source": "PCBM-2009-THT"
     },
     "DIP": {
       "group": "Through-hole IC & connectors",
@@ -1373,7 +1467,8 @@
         "height",
         "pinQty"
       ],
-      "template": "DIP{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+      "template": "DIP{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}",
+      "source": "PCBM-2009-THT"
     },
     "DIPS": {
       "group": "Through-hole IC & connectors",
@@ -1389,7 +1484,8 @@
         "height",
         "pinQty"
       ],
-      "template": "DIPS{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+      "template": "DIPS{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}",
+      "source": "PCBM-2009-THT"
     },
     "SIP": {
       "group": "Through-hole IC & connectors",
@@ -1405,7 +1501,8 @@
         "height",
         "pinQty"
       ],
-      "template": "SIP{bodyW:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+      "template": "SIP{bodyW:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}",
+      "source": "PCBM-2009-THT"
     },
     "OSC_THT": {
       "group": "Through-hole IC & connectors",
@@ -1421,7 +1518,8 @@
         "height",
         "pinQty"
       ],
-      "template": "OSC{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}"
+      "template": "OSC{leadSpan:h}W{leadWidth:h}P{pitch:h}L{bodyL:h}H{height:h}Q{pinQty:i}",
+      "source": "PCBM-2009-THT"
     },
     "PGA": {
       "group": "Through-hole IC & connectors",
@@ -1438,7 +1536,8 @@
         "bodyW",
         "height"
       ],
-      "template": "PGA{pinQty:i}P{pitch:h}C{cols:i}R{rows:i}L{bodyL:h}X{bodyW:h}H{height:h}"
+      "template": "PGA{pinQty:i}P{pitch:h}C{cols:i}R{rows:i}L{bodyL:h}X{bodyW:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "HDRV": {
       "group": "Through-hole IC & connectors",
@@ -1461,7 +1560,8 @@
         "pitchCol"
       ],
       "template": "HDRV{pinQty:i}W{leadWidth:h}P{pitch:h}[X{pitchCol:h}]_{rows:i}X{pinsPerRow:i}_{bodyL:h}X{bodyT:h}X{height:h}",
-      "note": "Pitch = row pitch. Fill column pitch only when it differs."
+      "note": "Pitch = row pitch. Fill column pitch only when it differs.",
+      "source": "PCBM-2009-THT"
     },
     "HDRRA": {
       "group": "Through-hole IC & connectors",
@@ -1483,7 +1583,8 @@
       "optionalFields": [
         "pitchCol"
       ],
-      "template": "HDRRA{pinQty:i}W{leadWidth:h}P{pitch:h}[X{pitchCol:h}]_{rows:i}X{pinsPerRow:i}_{bodyL:h}X{bodyT:h}X{height:h}"
+      "template": "HDRRA{pinQty:i}W{leadWidth:h}P{pitch:h}[X{pitchCol:h}]_{rows:i}X{pinsPerRow:i}_{bodyL:h}X{bodyT:h}X{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "JUMP": {
       "group": "Through-hole misc",
@@ -1495,7 +1596,8 @@
         "leadSpacing",
         "leadWidth"
       ],
-      "template": "JUMP{leadSpacing:h}W{leadWidth:h}"
+      "template": "JUMP{leadSpacing:h}W{leadWidth:h}",
+      "source": "PCBM-2009-THT"
     },
     "MTG": {
       "group": "Through-hole misc",
@@ -1511,7 +1613,8 @@
         "antipad"
       ],
       "template": "MTG{plating:u}{land:h}H{hole:h}[V{vias:i}][Z{antipad:h}]",
-      "note": "Give vias (V) or anti-pad (Z) when used; leave empty otherwise."
+      "note": "Give vias (V) or anti-pad (Z) when used; leave empty otherwise.",
+      "source": "PCBM-2009-THT"
     },
     "TPC_THT": {
       "group": "Through-hole misc",
@@ -1524,7 +1627,8 @@
         "bodyDia",
         "height"
       ],
-      "template": "TPCW{leadWidth:h}D{bodyDia:h}H{height:h}"
+      "template": "TPCW{leadWidth:h}D{bodyDia:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "TPR_THT": {
       "group": "Through-hole misc",
@@ -1537,7 +1641,8 @@
         "bodyL",
         "height"
       ],
-      "template": "TPRW{leadWidth:h}L{bodyL:h}H{height:h}"
+      "template": "TPRW{leadWidth:h}L{bodyL:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "TPRR_THT": {
       "group": "Through-hole misc",
@@ -1552,7 +1657,8 @@
         "bodyT",
         "height"
       ],
-      "template": "TPRW{leadLength:h}X{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}"
+      "template": "TPRW{leadLength:h}X{leadWidth:h}L{bodyL:h}T{bodyT:h}H{height:h}",
+      "source": "PCBM-2009-THT"
     },
     "PAD_WIRE": {
       "group": "Through-hole misc",
@@ -1563,7 +1669,8 @@
       "fields": [
         "leadWidth"
       ],
-      "template": "PAD{leadWidth:h}"
+      "template": "PAD{leadWidth:h}",
+      "source": "PCBM-2009-THT"
     },
     "TO_JEDEC": {
       "group": "Through-hole misc",
@@ -1574,7 +1681,8 @@
       "fields": [
         "jedecNo"
       ],
-      "template": "TO-{jedecNo:s}"
+      "template": "TO-{jedecNo:s}",
+      "source": "PCBM-2009-THT"
     },
     "MFR": {
       "group": "Non-standard (manufacturer part)",
@@ -1763,7 +1871,8 @@
           "type": "int",
           "optional": true
         }
-      }
+      },
+      "source": "PCBM-2009-NONSTD"
     },
     "CONN": {
       "group": "Non-standard (manufacturer part)",
@@ -1782,7 +1891,8 @@
           "type": "text",
           "help": "e.g. MOLEX, JST, SAMTEC, TYCO, HIROSE, AMPHENOL"
         }
-      }
+      },
+      "source": "PCBM-2009-CONN"
     }
   },
   "examples": [

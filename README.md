@@ -74,6 +74,13 @@ Every worked example from the naming convention summary is a test, plus a build 
 * Known issues in the 2009 summary are listed in `rules/ipc-7351b.js` (`knownSourceIssues`) and on the web page.
 * Not affiliated with or endorsed by IPC. Always confirm names against your own library standard.
 
+## Accuracy and traceability
+
+* [`docs/RULES.md`](docs/RULES.md) – every family with its formula, source document and evidence level (source example, derived example, formula only, datasheet verified)
+* [`docs/VALIDATION.md`](docs/VALIDATION.md) – how real datasheet cases are added and verified (`test/datasheet-cases.json`)
+* Invalid input (non-finite numbers, unknown density / level letters, bad variants) never produces a name
+* A standard name describes the package; it does not make the land pattern compliant. Pad geometry still comes from the IPC calculations or your library rules.
+
 ## Found a wrong name?
 
 Open an issue with: the family, the datasheet values you typed, the name you got, and the name you expected (with the source). Corrections become new tests so they never come back.

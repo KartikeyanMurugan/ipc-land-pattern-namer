@@ -140,6 +140,32 @@
     </div>
   </div>
 
+  <section class="info wrap" id="why">
+    <h2>Why standard footprint names?</h2>
+    <p class="section-lead">In most libraries the same package is drawn several times under different names. A name built from the package dimensions fixes that.</p>
+    <div class="before-after" aria-label="Example">
+      <div class="ba-side">
+        <span class="ba-label">The same QFN, four libraries</span>
+        <ul><li><code>QFN32_5X5</code></li><li><code>QFN-32-EP</code></li><li><code>qfn32_0.5mm</code></li><li><code>U_QFN32_NEW2</code></li></ul>
+      </div>
+      <div class="ba-arrow" aria-hidden="true">→</div>
+      <div class="ba-side ba-one">
+        <span class="ba-label">One name that describes it</span>
+        <code class="ba-name">QFN50P500X500X100-33N</code>
+        <span class="ba-read">0.50 mm pitch, 5 × 5 mm body, 1.00 mm max height, 32 pins + thermal pad, nominal density</span>
+      </div>
+    </div>
+    <ul class="why-grid">
+      <li><b>Find before you draw</b><p>The name is predictable, so you can search the library for it and reuse the footprint instead of building it again.</p></li>
+      <li><b>One package, one footprint</b><p>No duplicates with slightly different pads. The library stays smaller and every board uses the same proven pattern.</p></li>
+      <li><b>Reviews catch wrong parts</b><p>Pitch, body size, height and pin count are readable in the name, so a reviewer spots a 0.65 mm part placed on a 0.50 mm footprint before fabrication.</p></li>
+      <li><b>One language for every team</b><p>The convention works the same in Allegro, Altium, KiCad or PADS, and new designers, assembly houses and customers can read it.</p></li>
+      <li><b>Height and variant are visible</b><p>Maximum height supports 3D and enclosure checks, and the M / N / L letter shows which land pattern density was used.</p></li>
+      <li><b>Ready for automation</b><p>Names built from data can be checked by scripts against the footprint geometry, so library errors are found automatically.</p></li>
+    </ul>
+    <p class="hint why-note"><b>Good to know:</b> a standard name describes the package. It does not make the land pattern correct – pad sizes still come from the IPC calculations or your library rules.</p>
+  </section>
+
   <section class="info wrap" id="how">
     <h2>How it works</h2>
     <p class="section-lead">Three steps from the datasheet table to a name your whole team can reuse.</p>
@@ -157,8 +183,9 @@
       <table class="rules">
         <thead><tr><th>Value</th><th>Rule</th><th>Example</th></tr></thead>
         <tbody>
-          <tr><td>Pitch, lead span, body, height</td><td>mm × 100, rounded, no leading zeros</td><td>1.27 mm → <code>127</code>, 0.50 mm → <code>50</code></td></tr>
-          <tr><td>Chip body (RESC, CAPC, INDC …)</td><td>One digit each side of the decimal point</td><td>1.6 × 0.8 mm → <code>1608</code></td></tr>
+          <tr><td>Pitch, lead span, body, height</td><td>mm × 100, rounded half up, no leading zeros</td><td>1.27 mm → <code>127</code>, 0.50 mm → <code>50</code></td></tr>
+          <tr><td>Chip body (RESC, CAPC, INDC …)</td><td>One digit each side of the decimal point; further digits are dropped</td><td>1.6 × 0.8 mm → <code>1608</code>, 2.0 × 1.25 mm → <code>2012</code></td></tr>
+          <tr><td>Which value is used</td><td>Spans and body sizes: nominal = (min + max) / 2. Heights and lead widths: maximum</td><td>E 5.80–6.20 → <code>600</code>, A max 1.75 → <code>175</code></td></tr>
           <tr><td>Pin quantity</td><td>After a dash; a thermal pad counts as one more pin</td><td><code>-33</code> for 32 pins + pad</td></tr>
           <tr><td>Hidden / deleted / reversed pins</td><td>Used_package, package_used, R</td><td><code>-20_24</code>, <code>-24_20</code>, <code>-20R</code></td></tr>
           <tr><td>Last letter, SMD</td><td>Density level M (most), N (nominal), L (least); none for BGA</td><td><code>RESC1608X55N</code></td></tr>
@@ -240,7 +267,7 @@
   </div>
   <div class="foot-bottom">
     <div class="wrap">
-      <span>© 2026 Karthikeyan Murugan. Version 0.4.0.</span>
+      <span>© 2026 Karthikeyan Murugan. Version 0.5.0.</span>
       <span>Not affiliated with or endorsed by IPC. Always confirm names against your own library standard.</span>
     </div>
   </div>

@@ -437,9 +437,37 @@
     { family: 'CONN', in: { mfr: 'molex', part: '53047-0410' }, expect: 'MOLEX_53047-0410', source: 'derived' }
   ];
 
+  // Where every rule comes from. Each family points to one of these.
+  const sources = {
+    'PCBM-2009-SMD': 'IPC-7351B Naming Convention for Standard SMT Land Patterns, PCB Matrix summary, 2009-09-13, page 1 and notes on page 2',
+    'PCBM-2009-NONSTD': 'PCB Matrix Naming Convention for Non-Standard SMT / PTH Land Patterns, 2009-09-13, pages 3 and 5',
+    'PCBM-2009-THT': 'IPC-7251 Naming Convention for Through-Hole Land Patterns, PCB Matrix summary, 2009-09-13, pages 4-5',
+    'PCBM-2009-CONN': 'IPC-7x51 Naming Convention for Connector Land Patterns, PCB Matrix summary, 2009-09-13, page 6'
+  };
+  Object.keys(families).forEach(id => {
+    const f = families[id];
+    if (f.source) return;
+    if (id === 'CONN') f.source = 'PCBM-2009-CONN';
+    else if (id === 'MFR' || ['FID', 'TP_SMD', 'TPS_SMD', 'TPR_SMD', 'BQFP', 'BQFPC'].indexOf(id) >= 0) f.source = 'PCBM-2009-NONSTD';
+    else if (f.kind === 'THT') f.source = 'PCBM-2009-THT';
+    else f.source = 'PCBM-2009-SMD';
+  });
+
+  // Rounding and value policy (documented here, implemented in src/namer.js)
+  const policy = {
+    units: 'All dimensions in millimetres.',
+    nominal: 'Spans, pitch and body sizes use the nominal value = (min + max) / 2 when both are given.',
+    maximum: 'Heights and lead widths use the maximum value.',
+    hundredths: 'Format h: value x 100, rounded half up (0.635 -> 64), no leading zeros.',
+    chip: 'Format c: one digit each side of the decimal point, further digits dropped (1.25 -> 12).',
+    validation: 'Non-finite numbers, values <= 0, unknown density/level letters and invalid variants produce no name.'
+  };
+
   return {
     id: 'ipc-7351b',
     title: 'IPC-7351B / IPC-7251 (PCB Matrix 2009 summary)',
+    sources,
+    policy,
     fields: F,
     families,
     examples,

@@ -114,7 +114,7 @@
         const mn = isBlank(raw.min) ? undefined : Number(raw.min);
         const mx = isBlank(raw.max) ? undefined : Number(raw.max);
         if (mn === undefined && mx === undefined) return undefined;
-        if ((mn !== undefined && isNaN(mn)) || (mx !== undefined && isNaN(mx))) {
+        if ((mn !== undefined && !Number.isFinite(mn)) || (mx !== undefined && !Number.isFinite(mx))) {
           errors.push(label + ': not a number'); return undefined;
         }
         if (mn !== undefined && mx !== undefined && mn > mx) {
@@ -124,7 +124,7 @@
         else v = (mn !== undefined && mx !== undefined) ? (mn + mx) / 2 : (mn !== undefined ? mn : mx);
       } else {
         v = Number(raw);
-        if (isNaN(v)) { errors.push(label + ': not a number'); return undefined; }
+        if (!Number.isFinite(v)) { errors.push(label + ': not a valid number'); return undefined; }
       }
       if (def.type === 'int') {
         if (!Number.isInteger(v)) errors.push(label + ': must be a whole number');
@@ -166,6 +166,7 @@
       options = options || {};
       const errors = [];
       const warnings = [];
+      const fail = msg => ({ ok: false, errors: [msg], warnings, parts: [] });
       let fam;
       try { fam = family(familyId); } catch (e) { return { ok: false, errors: [e.message], warnings, parts: [] }; }
       const tokens = cache[familyId];
@@ -189,7 +190,7 @@
       // general suffix (_HS, _BEC ...)
       if (options.general) {
         if ((fam.suffixes || []).indexOf(options.general) < 0) {
-          warnings.push(options.general + ' is not defined for ' + fam.name + ' - ignored');
+          return fail(options.general + ' is not used for ' + fam.name + (fam.suffixes && fam.suffixes.length ? ' (allowed: ' + fam.suffixes.join(', ') + ')' : ''));
         } else {
           name += options.general;
           parts.push({ text: options.general, label: 'general suffix' });
@@ -216,7 +217,7 @@
       // alternate / JEDEC variant
       if (options.variant) {
         const v = String(options.variant).trim().toUpperCase();
-        if (!/^[A-Z]{1,2}$/.test(v)) warnings.push('Variant should be A, B or a JEDEC identifier like AA');
+        if (!/^[A-Z]{1,2}$/.test(v)) return fail('Variant must be one or two letters (A, B or a JEDEC identifier like AA)');
         name += v;
         parts.push({ text: v, label: 'alternate / variant' });
       }
@@ -227,11 +228,12 @@
       if (suf === undefined) suf = mode === 'density' ? 'N' : mode === 'level' ? 'B' : '';
       suf = String(suf).trim().toUpperCase();
       if (mode === 'none' && suf) {
-        warnings.push(fam.name + ' names take no density/level suffix - ignored');
+        return fail(fam.name + ' names take no density or level letter');
         suf = '';
       }
-      if (mode === 'density' && suf && 'MNL'.indexOf(suf) < 0) warnings.push('Density suffix should be M, N or L');
-      if (mode === 'level' && suf && 'ABCP'.indexOf(suf) < 0) warnings.push('Fabrication level should be A, B or C');
+      if (mode === 'density' && suf && ['M', 'N', 'L'].indexOf(suf) < 0) return fail('Density level must be M, N or L');
+      // P is accepted because the source summary's through-hole examples end in P
+      if (mode === 'level' && suf && ['A', 'B', 'C', 'P'].indexOf(suf) < 0) return fail('Fabrication level must be A, B or C');
       if (suf) {
         name += suf;
         parts.push({ text: suf, label: mode === 'level' ? 'fabrication level' : 'density level' });

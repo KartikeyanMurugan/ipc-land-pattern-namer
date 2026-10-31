@@ -1,0 +1,29 @@
+{
+  "_readme": "Real parts checked against their manufacturer datasheet. status: verified = a PCB designer compared the datasheet table and the expected name; to-verify = entered but not yet checked. Only verified cases fail the build.",
+  "cases": [
+    {
+      "part": "SN74LVC1G08DBVR",
+      "manufacturer": "Texas Instruments",
+      "package": "SOT-23-5 (DBV)",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/sn74lvc1g08.pdf",
+      "family": "SOT",
+      "values": { "pitch": 0.95, "leadSpan": { "min": 2.6, "max": 3.0 }, "height": { "max": 1.45 }, "pinQty": 5 },
+      "options": {},
+      "expected": "SOT95P280X145-5N",
+      "status": "to-verify",
+      "checkedBy": ""
+    },
+    {
+      "part": "LM358DR",
+      "manufacturer": "Texas Instruments",
+      "package": "SOIC-8 (D)",
+      "datasheet": "https://www.ti.com/lit/ds/symlink/lm358.pdf",
+      "family": "SOIC",
+      "values": { "leadSpan": { "min": 5.8, "max": 6.2 }, "height": { "max": 1.75 }, "pinQty": 8 },
+      "options": {},
+      "expected": "SOIC127P600X175-8N",
+      "status": "to-verify",
+      "checkedBy": ""
+    }
+  ]
+}
