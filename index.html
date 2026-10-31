@@ -6,6 +6,7 @@
 <title>IPC Land Pattern Namer – footprint names from datasheet dimensions</title>
 <meta name="description" content="Free tool for PCB designers: type the datasheet dimensions and get the IPC-7351B / IPC-7251 land pattern (footprint) name. Works offline, open source.">
 <meta name="theme-color" content="#14532d">
+<script>try{var t=localStorage.getItem('ipcNamerTheme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <meta name="google-site-verification" content="XcIbomMUAmFaGpufNiCraiDdkFxW8Jtlf3yJzTWas3I" />
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://kartikeyanmurugan.github.io/ipc-land-pattern-namer/">
@@ -46,13 +47,30 @@
     --r: 6px;
   }
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
       --paper: #0f1513; --grid: #18211d; --panel: #151d19; --ink: #e5ebe7; --muted: #9aa8a1; --line: #2a3530;
       --copper: #d9893f; --copper-ink: #e9a463; --copper-soft: #2c1f12;
       --mask: #17603a; --mask-deep: #0f4528; --silk: #f2f5ef;
       --warn: #e6b65a; --warn-soft: #2f2610; --err: #f28b7f; --err-soft: #3a1915;
     }
   }
+  :root[data-theme="dark"] {
+    --paper: #0f1513; --grid: #18211d; --panel: #151d19; --ink: #e5ebe7; --muted: #9aa8a1; --line: #2a3530;
+    --copper: #d9893f; --copper-ink: #e9a463; --copper-soft: #2c1f12;
+    --mask: #17603a; --mask-deep: #0f4528; --silk: #f2f5ef;
+    --warn: #e6b65a; --warn-soft: #2f2610; --err: #f28b7f; --err-soft: #3a1915;
+  }
+  .theme-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid var(--line);
+    border-radius: var(--r); background: transparent; color: var(--ink); font: 500 14.5px var(--sans); cursor: pointer; }
+  .theme-btn:hover { background: var(--paper); }
+  .theme-btn .ic-sun { display: none; }
+  :root[data-theme="dark"] .theme-btn .ic-sun { display: block; }
+  :root[data-theme="dark"] .theme-btn .ic-moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-btn .ic-sun { display: block; }
+    :root:not([data-theme="light"]) .theme-btn .ic-moon { display: none; }
+  }
+  @media (max-width: 680px) { .theme-btn .lbl { display: none; } }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
@@ -226,6 +244,11 @@
     <nav class="top" aria-label="Main">
       <a class="hide-sm" href="#how">How it works</a>
       <a class="hide-sm" href="#rules">Naming rules</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="ic-moon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.5A9 9 0 0 1 9.5 3a7.5 7.5 0 1 0 11.5 11.5z"/></svg>
+        <svg class="ic-sun" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        <span class="lbl" id="themeLbl">Dark</span>
+      </button>
       <a class="gh" href="https://github.com/KartikeyanMurugan/ipc-land-pattern-namer" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
@@ -709,6 +732,21 @@
     if (!onSite) return;
     counter('/hit/' + NS + '/likes').then(v => { $('likes').textContent = fmt(v); }).catch(() => {});
   });
+
+  // ---------------- theme ----------------
+  function effectiveTheme() {
+    const t = document.documentElement.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function syncThemeLabel() { $('themeLbl').textContent = effectiveTheme() === 'dark' ? 'Light' : 'Dark'; }
+  $('themeBtn').addEventListener('click', () => {
+    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('ipcNamerTheme', next); } catch (e) {}
+    syncThemeLabel();
+  });
+  syncThemeLabel();
 
   // ---------------- start ----------------
   fillFamilies('');
