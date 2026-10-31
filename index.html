@@ -176,6 +176,7 @@
         ? [['A', 'A - general'], ['B', 'B - moderate'], ['C', 'C - high'], ['', '(none)']]
         : [['N', 'N - nominal'], ['M', 'M - most material'], ['L', 'L - least material'], ['', '(none)']];
       opts.forEach(o => s.appendChild(el('option', { value: o[0] }, o[1])));
+      s.value = current.suffixMode === 'level' ? 'B' : 'N';
       wrap.appendChild(s);
       grid.appendChild(wrap);
     }
