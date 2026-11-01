@@ -25,7 +25,12 @@
   var head = document.getElementById('siteHead');
   if (head) {
     var onScroll = function () { head.classList.toggle('scrolled', window.scrollY > 4); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { onScroll(); ticking = false; });
+    }, { passive: true });
+    requestAnimationFrame(onScroll);
   }
 })();

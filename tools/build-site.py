@@ -34,7 +34,7 @@ HEAD = '''<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="../assets/site.css">
+<!-- css:start --><link rel="stylesheet" href="../assets/site.css"><!-- css:end -->
 {ld}
 </head>
 <body>
@@ -44,10 +44,19 @@ HEAD = '''<!doctype html>
 
 FOOT = '''</main>
 {footer}
-<script src="../assets/theme.js"></script>
+<script defer src="../assets/theme.js"></script>
 </body>
 </html>
 '''
+
+
+def inline_css(html_text):
+    with open(os.path.join(ROOT, 'assets', 'site.css')) as f:
+        css = f.read()
+    css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
+    css = re.sub(r'\s+', ' ', css)
+    css = re.sub(r'\s*([{};:,>])\s*', r'\1', css).replace(';}', '}')
+    return re.sub(r'<!-- css:start -->.*?<!-- css:end -->', lambda m: '<!-- css:start --><style>' + css + '</style><!-- css:end -->', html_text, flags=re.S)
 
 
 def page(slug, title, desc, body, ld_type='TechArticle'):
@@ -60,7 +69,7 @@ def page(slug, title, desc, body, ld_type='TechArticle'):
                       header=header('../', 'guides'))
     out += body + FOOT.format(footer=footer('../'))
     with open(os.path.join(ROOT, 'guides', slug or 'index.html'), 'w') as f:
-        f.write(out)
+        f.write(inline_css(out))
 
 
 def article(crumb, h1, lead, sections, family, example_note):
@@ -273,6 +282,7 @@ with open(p) as f:
 s = re.sub(r'<!-- header:start -->.*?<!-- header:end -->', lambda m: header('', 'tool'), s, flags=re.S)
 s = re.sub(r'<!-- footer:start -->.*?<!-- footer:end -->', lambda m: footer(''), s, flags=re.S)
 s = re.sub(r'@@(\w+)@@', lambda m: ICON[m.group(1)], s)
+s = inline_css(s)
 with open(p, 'w') as f:
     f.write(s)
 print('index.html updated')
