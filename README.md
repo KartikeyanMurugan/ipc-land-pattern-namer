@@ -17,16 +17,16 @@ Pick the component family, type the min/max values from the datasheet, and get t
 
 ## Site features
 
-* Search packages by type (QFN, SOIC, 0603, header …)
+* Pick the package in three steps – mounting (SMD / through-hole / other) → package type → family – or search across all of them (QFN, SOIC, 0603, header …)
 * Name shown as labelled segments so you can see where each number comes from
 * **Copy link to this part** – a link that reopens the same family and values (handy for reviews and chat)
 * Recent names kept in your browser; JSON download for footprint generators
-* Like button, visit count and share buttons (LinkedIn, WhatsApp, X)
+* Like button, visit count and share buttons (LinkedIn, WhatsApp, X) at the end of the page
 * Naming guides for QFN, SOIC/SOP, chip parts and SOT, light/dark theme
 
 The site is built from `tools/build-site.py` (shared header, footer and guides) – edit `tools/partials.py` for header/footer changes.
 
-Visits and likes use the free public counter at abacus.jasoncameron.dev. Only a number is stored – no cookies, no personal data. If the counter is unreachable the tool still works and the numbers are simply hidden.
+Visits and likes use the free public counter at abacus.jasoncameron.dev. Only a number is stored – no cookies, no personal data. Some browsers, ad blockers and office networks block counter sites; then the numbers are hidden (after 4 s at most) and the like and share buttons still work.
 
 ## What it covers
 

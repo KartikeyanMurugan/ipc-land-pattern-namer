@@ -45,15 +45,51 @@
     BGA: 'bga fbga', HDRV: 'header pin header 2.54 berg', HDRRA: 'header right angle', MTG: 'mounting hole screw',
     TO: 'dpak d2pak to252 to263', DIP: 'dip pdip', CAPAE: 'electrolytic smd can', SOD: 'sod123 sod323 sod523'
   };
+  // Three levels: mounting (SMD / through-hole / other) → package type (group) → family.
+  // Typing in Search lists matches from every level; picking one sets mounting and type to match.
+  const MOUNTS = [['SMD', 'SMD'], ['THT', 'Through-hole'], ['OTHER', 'Other']];
+  const byId = {}; families.forEach(x => { byId[x.id] = x; });
+  const groupsOf = k => [...new Set(families.filter(x => x.kind === k).map(x => x.group))];
+  let mount = 'SMD';
+  function shortGroup(g) { return g.replace(/^Through-hole /, '').replace(/^./, c => c.toUpperCase()); }
+  function renderMount() {
+    const box = $('mount'); box.innerHTML = '';
+    MOUNTS.forEach(([k, label]) => {
+      const n = families.filter(x => x.kind === k).length;
+      const b = el('button', { type: 'button', role: 'radio', 'aria-checked': k === mount ? 'true' : 'false', 'data-k': k });
+      b.textContent = label + ' '; b.appendChild(el('small', {}, String(n)));
+      b.addEventListener('click', () => {
+        if ($('search').value) $('search').value = '';
+        mount = k; renderMount(); fillGroups(); fillFamilies(''); renderFields();
+      });
+      box.appendChild(b);
+    });
+  }
+  function fillGroups(keep) {
+    const sel = $('group'); sel.innerHTML = '';
+    groupsOf(mount).forEach(g => {
+      const n = families.filter(x => x.group === g).length;
+      sel.appendChild(el('option', { value: g }, shortGroup(g) + '  (' + n + ')'));
+    });
+    if (keep) sel.value = keep;
+  }
   function fillFamilies(filter) {
     const sel = $('family');
     const keep = sel.value;
     sel.innerHTML = '';
     const f = (filter || '').trim().toLowerCase();
+    $('browse').classList.toggle('searching', !!f);
+    $('group').disabled = !!f;
+    if (!f) {
+      families.filter(x => x.group === $('group').value)
+        .forEach(x => sel.appendChild(el('option', { value: x.id }, x.name + (x.prefix ? '  (' + x.prefix + ')' : ''))));
+      if ([...sel.options].some(o => o.value === keep)) sel.value = keep;
+      return true;
+    }
     const groups = {};
     families.forEach(x => {
       const hay = (x.name + ' ' + x.prefix + ' ' + x.id + ' ' + x.group + ' ' + (keywords[x.id] || '')).toLowerCase();
-      if (f && !f.split(/\s+/).every(w => hay.indexOf(w) >= 0)) return;
+      if (!f.split(/\s+/).every(w => hay.indexOf(w) >= 0)) return;
       (groups[x.group] = groups[x.group] || []).push(x);
     });
     Object.keys(groups).forEach(g => {
@@ -66,11 +102,28 @@
       return false;
     }
     if ([...sel.options].some(o => o.value === keep)) sel.value = keep;
+    syncLevels(sel.value);
     return true;
   }
+  // Show the mounting and package type of a family without changing the list
+  function syncLevels(id) {
+    const x = byId[id]; if (!x) return;
+    if (x.kind !== mount) { mount = x.kind; renderMount(); }
+    if ($('group').value !== x.group) fillGroups(x.group);
+  }
+  // Select one family from anywhere (quick start, history, links): clears search and sets all three levels
+  function pick(id) {
+    $('search').value = '';
+    const x = byId[id]; if (!x) return;
+    mount = x.kind; renderMount(); fillGroups(x.group); fillFamilies('');
+    $('family').value = id;
+  }
+  $('group').addEventListener('change', () => { fillFamilies(''); renderFields(); });
   $('search').addEventListener('input', () => {
     const before = $('family').value;
-    if (fillFamilies($('search').value) && $('family').value !== before) renderFields();
+    const q = $('search').value.trim();
+    if (!q) { syncLevels(before); fillFamilies(''); if (!$('family').value) $('family').selectedIndex = 0; if ($('family').value !== before) renderFields(); return; }
+    if (fillFamilies(q) && $('family').value !== before) renderFields();
   });
   (rules.knownSourceIssues || []).forEach(t => $('issues').appendChild(el('li', {}, t)));
 
@@ -228,7 +281,7 @@
   function loadFromHash() {
     const fm = location.hash.match(/#f=([A-Z0-9_]+)/i);
     if (fm && namer.rules.families[fm[1].toUpperCase()]) {
-      $('family').value = fm[1].toUpperCase();
+      pick(fm[1].toUpperCase());
       renderFields();
       return true;
     }
@@ -237,7 +290,7 @@
     try {
       const s = JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(m[1])))));
       if (!namer.rules.families[s.f]) return false;
-      $('family').value = s.f;
+      pick(s.f);
       renderFields();
       writeForm(s.i, s.o);
       update();
@@ -255,8 +308,7 @@
       li.appendChild(el('code', {}, item.name));
       const b = el('button', { class: 'quiet' }, 'Open');
       b.addEventListener('click', () => {
-        $('search').value = ''; fillFamilies('');
-        $('family').value = item.f; renderFields(); writeForm(item.i, item.o); update();
+        pick(item.f); renderFields(); writeForm(item.i, item.o); update();
         window.scrollTo({ top: 0 });
       });
       li.appendChild(b); ul.appendChild(li);
@@ -282,7 +334,7 @@
     document.body.appendChild(a); a.click(); a.remove();
     remember();
   });
-  $('family').addEventListener('change', () => { history.replaceState(null, '', location.pathname); renderFields(); });
+  $('family').addEventListener('change', () => { history.replaceState(null, '', location.pathname); syncLevels($('family').value); renderFields(); });
   $('clear').addEventListener('click', () => { history.replaceState(null, '', location.pathname); renderFields(); });
   // human-readable formula: QFN [Pitch] P [Body width] X ... - [pins] [density]
   function renderFormula() {
@@ -316,14 +368,13 @@
   };
   document.querySelectorAll('[data-quick]').forEach(b => b.addEventListener('click', () => {
     const q = QUICK[b.getAttribute('data-quick')];
-    $('search').value = ''; fillFamilies('');
-    $('family').value = q.f; renderFields(); writeForm(q.i, q.o); update();
+    pick(q.f); renderFields(); writeForm(q.i, q.o); update();
     document.querySelector('.tool').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }));
 
   $('example').addEventListener('click', () => {
     let ex = rules.examples.find(e => e.family === $('family').value);
-    if (!ex) { ex = rules.examples.find(e => e.family === 'QFN'); $('search').value = ''; fillFamilies(''); $('family').value = 'QFN'; }
+    if (!ex) { ex = rules.examples.find(e => e.family === 'QFN'); pick('QFN'); }
     renderFields();
     writeForm(ex.in, ex.opt);
     update();
@@ -350,21 +401,27 @@
   }));
 
   // ---------------- visits and likes (free public counter, no personal data) ----------------
+  // Some browsers, ad blockers and office networks block counter sites. Each call gives up after
+  // 4 s, and the numbers are simply not shown – the like button and sharing still work.
   const onSite = location.protocol.indexOf('http') === 0;
   function counter(path) {
-    return fetch(COUNTER + path, { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(j => j.value);
+    const ctl = ('AbortController' in window) ? new AbortController() : null;
+    const t = setTimeout(() => ctl && ctl.abort(), 4000);
+    return fetch(COUNTER + path, { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(j => { clearTimeout(t); if (typeof j.value !== 'number') throw new Error('bad'); return j.value; },
+            e => { clearTimeout(t); throw e; });
   }
-  function fmt(n) { return typeof n === 'number' ? n.toLocaleString('en-IN') : '–'; }
+  function fmt(n) { return n.toLocaleString('en-IN'); }
   const later = fn => ('requestIdleCallback' in window) ? requestIdleCallback(fn, { timeout: 2500 }) : setTimeout(fn, 1200);
   if (onSite) later(() => {
     let counted = false;
     try { counted = sessionStorage.getItem('ipcNamerVisit') === '1'; } catch (e) {}
     counter((counted ? '/get/' : '/hit/') + NS + '/visits')
-      .then(v => { $('visits').textContent = fmt(v); try { sessionStorage.setItem('ipcNamerVisit', '1'); } catch (e) {} })
-      .catch(() => { $('visits').parentNode.hidden = true; });
+      .then(v => { $('visits').textContent = fmt(v); $('visitStat').hidden = false; try { sessionStorage.setItem('ipcNamerVisit', '1'); } catch (e) {} })
+      .catch(() => { $('visitStat').hidden = true; });
     counter('/get/' + NS + '/likes').then(v => { $('likes').textContent = fmt(v); }).catch(() => { $('likes').textContent = ''; });
   });
-  else $('visits').parentNode.hidden = true;
   function setLiked(on) {
     $('like').classList.toggle('on', on);
     $('like').setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -380,8 +437,7 @@
   });
 
   // ---------------- start ----------------
-  fillFamilies('');
   renderHistory();
-  if (!loadFromHash()) { $('family').value = 'QFN'; renderFields(); }
-  window.addEventListener('hashchange', () => { $('search').value = ''; fillFamilies(''); loadFromHash(); });
+  if (!loadFromHash()) { pick('QFN'); renderFields(); }
+  window.addEventListener('hashchange', () => { loadFromHash(); });
 })();
