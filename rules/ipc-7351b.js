@@ -18,7 +18,8 @@
  *   kind      SMD | THT | OTHER
  *   template  core of the name
  *   qty       true  -> "-<pin qty>" is appended (SMD rule)
- *   thermal   true  -> optional thermal pad adds 1 to the pin quantity
+ *   thermal   true  -> optional thermal pad adds 1 to the pin quantity, and an optional
+ *             pad size suffix T<size> (T300) or T<W>X<L> (T300X200) can follow the density letter
  *   suffixes  allowed general suffixes (_HS, _BEC ...)
  *   suffix    "density" (M/N/L), "level" (A/B/C fab level) or "none"
  */
@@ -178,9 +179,9 @@
     // ---- Two-side leaded
     SOIC: {
       group: 'Two-side leaded (SOIC / SOP / SOT / TO)', name: 'SOIC, 1.27 mm pitch', kind: 'SMD', prefix: 'SOIC',
-      qty: true, fields: ['leadSpan', 'height', 'pinQty'], template: 'SOIC127P{leadSpan:h}X{height:h}'
+      qty: true, thermal: true, fields: ['leadSpan', 'height', 'pinQty'], template: 'SOIC127P{leadSpan:h}X{height:h}'
     },
-    SOP: gull2('SOP', 'Small outline package (SOP / SSOP / TSSOP)'),
+    SOP: gull2('SOP', 'Small outline package (SOP / SSOP / TSSOP)', { thermal: true }),
     SOJ: gull2('SOJ', 'Small outline, J-lead'),
     SOT: gull2('SOT', 'SOT-23 / SOT-223 family', { suffixes: TRANSISTOR_SUFFIXES }),
     SOTFL: gull2('SOTFL', 'SOT, flat lead', { suffixes: TRANSISTOR_SUFFIXES }),
@@ -197,7 +198,7 @@
     },
 
     // ---- Quad
-    QFP: quad('QFP', 'Quad flat package'),
+    QFP: Object.assign(quad('QFP', 'Quad flat package'), { thermal: true }),
     CQFP: quad('CQFP', 'Ceramic quad flat package'),
     BQFP: quad('BQFP', 'QFP with bumper corners, pin 1 side'),
     BQFPC: quad('BQFPC', 'QFP with bumper corners, pin 1 centre'),
@@ -211,7 +212,7 @@
     PSON: noLead('PSON', 'Pull-back SON', true),
     LCC: noLead('LCC', 'Leadless ceramic chip carrier'),
     LCCS: noLead('LCCS', 'LCC, pin 1 on side'),
-    DFN: bodyQty('DFN', 'Dual flat no-lead', 'No-lead (QFN / SON / LCC)'),
+    DFN: Object.assign(bodyQty('DFN', 'Dual flat no-lead', 'No-lead (QFN / SON / LCC)'), { thermal: true }),
 
     // ---- Area arrays
     BGA: {
@@ -396,6 +397,8 @@
     { family: 'CAPC', in: { bodyL: 1.0, bodyW: 0.5, height: 0.55 }, opt: { suffix: 'M' }, expect: 'CAPC1005X55M', source: 'derived' },
     { family: 'SOIC', in: { leadSpan: 6.00, height: 1.75, pinQty: 8 }, expect: 'SOIC127P600X175-8N', source: 'derived' },
     { family: 'QFN', in: { pitch: 0.50, bodyW: 5.00, bodyL: 5.00, height: 1.00, pinQty: 32 }, opt: { thermalPad: true }, expect: 'QFN50P500X500X100-33N', source: 'derived' },
+    { family: 'QFN', in: { pitch: 0.50, bodyW: 5.00, bodyL: 5.00, height: 1.00, pinQty: 32 }, opt: { thermalPad: true, padW: 3.0 }, expect: 'QFN50P500X500X100-33NT300', source: 'derived' },
+    { family: 'QFN', in: { pitch: 0.50, bodyW: 5.00, bodyL: 5.00, height: 1.00, pinQty: 32 }, opt: { thermalPad: true, padW: 3.0, padL: 2.0 }, expect: 'QFN50P500X500X100-33NT300X200', source: 'derived' },
     { family: 'QFP', in: { pitch: 0.50, leadSpan1: 9.00, leadSpan2: 9.00, height: 1.20, pinQty: 48 }, opt: { suffix: 'L' }, expect: 'QFP50P900X900X120-48L', source: 'derived' },
     { family: 'BGA', in: { pinQty: 100, ballType: 'C', pitch: 0.80, cols: 10, rows: 10, bodyL: 10.00, bodyW: 10.00, height: 1.40 }, expect: 'BGA100C80P10X10_1000X1000X140', source: 'derived' },
     { family: 'CAPAD', in: { leadSpacing: 8.00, leadWidth: 0.52, bodyL: 6.00, bodyDia: 1.50 }, expect: 'CAPAD800W52L600D150B', source: 'pdf' },
@@ -442,7 +445,8 @@
     'PCBM-2009-SMD': 'IPC-7351B Naming Convention for Standard SMT Land Patterns, PCB Matrix summary, 2009-09-13, page 1 and notes on page 2',
     'PCBM-2009-NONSTD': 'PCB Matrix Naming Convention for Non-Standard SMT / PTH Land Patterns, 2009-09-13, pages 3 and 5',
     'PCBM-2009-THT': 'IPC-7251 Naming Convention for Through-Hole Land Patterns, PCB Matrix summary, 2009-09-13, pages 4-5',
-    'PCBM-2009-CONN': 'IPC-7x51 Naming Convention for Connector Land Patterns, PCB Matrix summary, 2009-09-13, page 6'
+    'PCBM-2009-CONN': 'IPC-7x51 Naming Convention for Connector Land Patterns, PCB Matrix summary, 2009-09-13, page 6',
+    'PCBLIB-T': 'Thermal pad size suffix T<size> / T<W>X<L> after the density letter, as used by PCB Libraries (forum topic 494, example SOP50P710X120-14NT300). Not in the 2009 summary.'
   };
   Object.keys(families).forEach(id => {
     const f = families[id];
@@ -460,6 +464,7 @@
     maximum: 'Heights and lead widths use the maximum value.',
     hundredths: 'Format h: value x 100, rounded half up (0.635 -> 64), no leading zeros.',
     chip: 'Format c: one digit each side of the decimal point, further digits dropped (1.25 -> 12).',
+    thermalSize: 'Thermal pad size: T + width x 100, plus X + length x 100 when not square, after the density letter (T300, T300X200). Source PCBLIB-T.',
     validation: 'Non-finite numbers, values <= 0, unknown density/level letters and invalid variants produce no name.'
   };
 

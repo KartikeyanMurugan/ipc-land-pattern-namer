@@ -163,11 +163,13 @@ qfn = article(
     <li><b>Height</b> – the <em>maximum</em> A value × 100: 1.00 → <code>100</code>, 0.80 → <code>80</code>.</li>
     <li><b>Pin count</b> – signal pins, plus one if there is an exposed thermal pad: 32 + pad → <code>-33</code>.</li>
     <li><b>Density</b> – <code>N</code> nominal for most boards, <code>M</code> most material, <code>L</code> least material.</li>
+    <li><b>Thermal pad size (optional)</b> – when the library has two parts with the same body and pin count but a different exposed pad, add <code>T</code> + pad size × 100 after the density letter: 3.00 mm square → <code>T300</code>, 3.00 × 2.00 mm → <code>T300X200</code>.</li>
   </ol>
   <p>SON (two-sided) uses the same pattern with the prefix <code>SON</code>. DFN uses body size and height without a pitch: <code>DFN300X300X80-8N</code>.</p>
   <h2>Common mistakes</h2>
   ''' + mistake('Forgetting the thermal pad', 'A 32-pin QFN with an exposed pad is <code>-33</code>, not <code>-32</code>. Two parts with and without a pad would otherwise get the same name.') + \
-    mistake('Using typical height', 'Datasheets list A as min / nom / max. The name uses the maximum, because it is what limits clearance.') + \
+    mistake('Same name, different pad', 'Two 5 × 5 mm QFN-32 parts, one with a 3.00 mm pad and one with a 4.00 mm pad, both give <code>QFN50P500X500X100-33N</code>. Add the pad size to keep them apart: <code>-33NT300</code> and <code>-33NT400</code>.') + \
+        mistake('Using typical height', 'Datasheets list A as min / nom / max. The name uses the maximum, because it is what limits clearance.') + \
     mistake('Leading zeros', 'Write <code>350</code>, not <code>0350</code>, and <code>80</code>, not <code>080</code>.'),
     'QFN', 'Values in mm. Check the result against your company library standard.')
 page('qfn.html', 'How to name a QFN footprint (IPC-7351B) – QFN, SON, DFN',

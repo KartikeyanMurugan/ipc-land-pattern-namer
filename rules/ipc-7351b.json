@@ -5,7 +5,8 @@
     "PCBM-2009-SMD": "IPC-7351B Naming Convention for Standard SMT Land Patterns, PCB Matrix summary, 2009-09-13, page 1 and notes on page 2",
     "PCBM-2009-NONSTD": "PCB Matrix Naming Convention for Non-Standard SMT / PTH Land Patterns, 2009-09-13, pages 3 and 5",
     "PCBM-2009-THT": "IPC-7251 Naming Convention for Through-Hole Land Patterns, PCB Matrix summary, 2009-09-13, pages 4-5",
-    "PCBM-2009-CONN": "IPC-7x51 Naming Convention for Connector Land Patterns, PCB Matrix summary, 2009-09-13, page 6"
+    "PCBM-2009-CONN": "IPC-7x51 Naming Convention for Connector Land Patterns, PCB Matrix summary, 2009-09-13, page 6",
+    "PCBLIB-T": "Thermal pad size suffix T<size> / T<W>X<L> after the density letter, as used by PCB Libraries (forum topic 494, example SOP50P710X120-14NT300). Not in the 2009 summary."
   },
   "policy": {
     "units": "All dimensions in millimetres.",
@@ -13,6 +14,7 @@
     "maximum": "Heights and lead widths use the maximum value.",
     "hundredths": "Format h: value x 100, rounded half up (0.635 -> 64), no leading zeros.",
     "chip": "Format c: one digit each side of the decimal point, further digits dropped (1.25 -> 12).",
+    "thermalSize": "Thermal pad size: T + width x 100, plus X + length x 100 when not square, after the density letter (T300, T300X200). Source PCBLIB-T.",
     "validation": "Non-finite numbers, values <= 0, unknown density/level letters and invalid variants produce no name."
   },
   "fields": {
@@ -697,6 +699,7 @@
       "kind": "SMD",
       "prefix": "SOIC",
       "qty": true,
+      "thermal": true,
       "fields": [
         "leadSpan",
         "height",
@@ -718,6 +721,7 @@
         "pinQty"
       ],
       "template": "SOP{pitch:h}P{leadSpan:h}X{height:h}",
+      "thermal": true,
       "source": "PCBM-2009-SMD"
     },
     "SOJ": {
@@ -866,6 +870,7 @@
         "pinQty"
       ],
       "template": "QFP{pitch:h}P{leadSpan1:h}X{leadSpan2:h}X{height:h}",
+      "thermal": true,
       "source": "PCBM-2009-SMD"
     },
     "CQFP": {
@@ -1063,6 +1068,7 @@
         "pinQty"
       ],
       "template": "DFN{bodyL:h}X{bodyW:h}X{height:h}",
+      "thermal": true,
       "source": "PCBM-2009-SMD"
     },
     "BGA": {
@@ -2083,6 +2089,39 @@
         "thermalPad": true
       },
       "expect": "QFN50P500X500X100-33N",
+      "source": "derived"
+    },
+    {
+      "family": "QFN",
+      "in": {
+        "pitch": 0.5,
+        "bodyW": 5,
+        "bodyL": 5,
+        "height": 1,
+        "pinQty": 32
+      },
+      "opt": {
+        "thermalPad": true,
+        "padW": 3
+      },
+      "expect": "QFN50P500X500X100-33NT300",
+      "source": "derived"
+    },
+    {
+      "family": "QFN",
+      "in": {
+        "pitch": 0.5,
+        "bodyW": 5,
+        "bodyL": 5,
+        "height": 1,
+        "pinQty": 32
+      },
+      "opt": {
+        "thermalPad": true,
+        "padW": 3,
+        "padL": 2
+      },
+      "expect": "QFN50P500X500X100-33NT300X200",
       "source": "derived"
     },
     {

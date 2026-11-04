@@ -157,6 +157,8 @@
      *               '' to leave out
      *   general     '_HS' | '_BEC' | '_SGD' | '_213' (only where the family allows it)
      *   thermalPad  true -> pin quantity + 1 (QFN / SON families)
+     *   padW, padL  thermal pad size in mm (number or {min,max} -> nominal); adds T300 or T300X200
+     *               after the density letter. Needs thermalPad.
      *   pinMode     'normal' | 'hidden' | 'deleted'   packagePins: number
      *   reverse     true -> 'R' after the pin quantity
      *   variant     'A' | 'B' | 'AA' ... alternate component / JEDEC identifier
@@ -239,6 +241,20 @@
         parts.push({ text: suf, label: mode === 'level' ? 'fabrication level' : 'density level' });
       }
 
+      // thermal pad size (T300 square, T300X200 rectangular)
+      if (!isBlank(options.padW) || !isBlank(options.padL)) {
+        if (!fam.thermal) return fail(fam.name + ' has no thermal pad option');
+        if (!options.thermalPad) return fail('Thermal pad size needs the thermal pad option');
+        const pw = padValue(options.padW), pl = isBlank(options.padL) ? pw : padValue(options.padL);
+        if (pw === undefined) return fail('Thermal pad width: enter a number above 0 (mm)');
+        if (pl === undefined) return fail('Thermal pad length: enter a number above 0 (mm)');
+        const bw = values.bodyW, bl = values.bodyL;
+        if ((bw !== undefined && pw >= bw) || (bl !== undefined && pl >= bl)) warnings.push('Thermal pad is not smaller than the body - check the pad size (D2 / E2)');
+        const t = 'T' + hundredths(pw) + (hundredths(pl) !== hundredths(pw) ? 'X' + hundredths(pl) : '');
+        name += t;
+        parts.push({ text: t, label: 'thermal pad size' });
+      }
+
       return {
         ok: true,
         name,
@@ -247,6 +263,17 @@
         errors: [],
         record: { convention: rules.id, family: familyId, values, options, name }
       };
+    }
+
+    function padValue(v) {
+      if (v && typeof v === 'object') {
+        const a = Number(v.min), b = Number(v.max);
+        const ok = x => !isBlank(x) && Number.isFinite(Number(x));
+        if (ok(v.min) && ok(v.max)) v = (a + b) / 2; else if (ok(v.min)) v = a; else if (ok(v.max)) v = b; else return undefined;
+      }
+      if (isBlank(v)) return undefined;
+      const n = Number(v);
+      return Number.isFinite(n) && n > 0 ? n : undefined;
     }
 
     // checks select fields against their option list

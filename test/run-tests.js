@@ -32,6 +32,23 @@ check('chip 0.6', IPCNamer.formatValue(0.6, 'c'), '06');
 const mm = namer.build('SOIC', { leadSpan: { min: 5.8, max: 6.2 }, height: { min: 1.35, max: 1.75 }, pinQty: 8 });
 check('SOIC from min/max', mm.name, 'SOIC127P600X175-8N');
 
+// 3b. thermal pad size suffix
+const qfn = { pitch: 0.5, bodyW: 5, bodyL: 5, height: 1, pinQty: 32 };
+check('pad square', namer.build('QFN', qfn, { thermalPad: true, padW: 3.1 }).name, 'QFN50P500X500X100-33NT310');
+check('pad rect', namer.build('QFN', qfn, { thermalPad: true, padW: 3.1, padL: 2.45 }).name, 'QFN50P500X500X100-33NT310X245');
+check('pad L equal to W stays square', namer.build('QFN', qfn, { thermalPad: true, padW: 3, padL: '3.00' }).name, 'QFN50P500X500X100-33NT300');
+check('pad min/max nominal', namer.build('QFN', qfn, { thermalPad: true, padW: { min: 2.9, max: 3.1 } }).name, 'QFN50P500X500X100-33NT300');
+check('pad without density letter', namer.build('QFN', qfn, { thermalPad: true, padW: 3, suffix: '' }).name, 'QFN50P500X500X100-33T300');
+check('pad needs thermalPad', namer.build('QFN', qfn, { padW: 3 }).ok, false);
+check('pad bad number', namer.build('QFN', qfn, { thermalPad: true, padW: 'abc' }).ok, false);
+check('pad zero', namer.build('QFN', qfn, { thermalPad: true, padW: 0 }).ok, false);
+check('pad infinite', namer.build('QFN', qfn, { thermalPad: true, padW: Infinity }).ok, false);
+check('pad not on LCC', namer.build('LCC', qfn, { thermalPad: true, padW: 3 }).ok, false);
+check('pad larger than body warns', namer.build('QFN', qfn, { thermalPad: true, padW: 5.2 }).warnings.some(w => /Thermal pad/.test(w)), true);
+check('no pad size = old name', namer.build('QFN', qfn, { thermalPad: true }).name, 'QFN50P500X500X100-33N');
+check('SOIC-8 EP', namer.build('SOIC', { leadSpan: 6, height: 1.7, pinQty: 8 }, { thermalPad: true, padW: 2.41, padL: 3.1 }).name, 'SOIC127P600X170-9NT241X310');
+check('SOP forum example', namer.build('SOP', { pitch: 0.5, leadSpan: 7.1, height: 1.2, pinQty: 13 }, { thermalPad: true, padW: 3 }).name, 'SOP50P710X120-14NT300');
+
 // 4. every family template parses and builds from dummy values
 for (const f of namer.listFamilies()) {
   const d = namer.describe(f.id);

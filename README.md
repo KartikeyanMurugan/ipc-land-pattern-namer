@@ -33,7 +33,7 @@ Visits and likes use the free public counter at abacus.jasoncameron.dev. Only a 
 * **SMD** – chip & molded parts, MELF, SOD, chip arrays, oscillators, SOIC / SOP / SOJ / SOT / TO, QFP / PLCC, QFN / SON / DFN / LCC, BGA / LGA / CGA, fiducials and test points
 * **Through-hole** – axial / radial R, C, L, D, DIP, SIP, PGA, headers, mounting holes, test points, jumpers
 * **Non-standard** – `PREFIX_ManufacturerPart` names and connectors
-* Density level (M / N / L), fabrication level (A / B / C), thermal pad, hidden / deleted / reversed pins, `_HS` `_BEC` `_SGD` `_213`
+* Density level (M / N / L), fabrication level (A / B / C), thermal pad (in the pin count, plus optional pad size `T300` / `T300X200`), hidden / deleted / reversed pins, `_HS` `_BEC` `_SGD` `_213`
 * Min/max entry: spans and body sizes use the **nominal**, heights and lead widths use the **maximum**
 * Input checks (for example: body width entered as lead span)
 * Download a **JSON record** of the part for footprint generators and library checks

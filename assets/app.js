@@ -206,6 +206,16 @@
     if (current.thermal) check('opt_thermal', 'Has a thermal pad (adds one pin)');
     if (current.qty) check('opt_reverse', 'Reverse pin order (R)');
     if (checks.children.length) box.appendChild(checks);
+    if (current.thermal) {
+      const pad = el('div', { class: 'opt-grid pad-size', id: 'padBox', hidden: '' });
+      const pf = (id, label, ph) => { const w = el('div'); w.appendChild(el('label', { class: 'f', for: id }, label));
+        w.appendChild(el('input', { id, type: 'number', step: 'any', min: '0', inputmode: 'decimal', placeholder: ph })); pad.appendChild(w); };
+      pf('opt_padW', 'Thermal pad width (E2), optional', 'mm, e.g. 3.10');
+      pf('opt_padL', 'Thermal pad length (D2), if not square', 'mm, e.g. 2.45');
+      pad.appendChild(el('p', { class: 'hint pad-hint' }, 'Adds T310 (square) or T310X245 after the density letter, so two parts with the same body but a different pad get different names.'));
+      box.appendChild(pad);
+      $('opt_thermal').addEventListener('change', () => { $('padBox').hidden = !$('opt_thermal').checked; });
+    }
     if (!grid.children.length && !checks.children.length) box.appendChild(el('p', { class: 'hint' }, 'This family has no options.'));
     box.querySelectorAll('input,select').forEach(i => i.addEventListener('input', update));
   }
@@ -224,7 +234,11 @@
     const opt = {};
     if ($('opt_suffix')) opt.suffix = $('opt_suffix').value;
     if ($('opt_general') && $('opt_general').value) opt.general = $('opt_general').value;
-    if ($('opt_thermal') && $('opt_thermal').checked) opt.thermalPad = true;
+    if ($('opt_thermal') && $('opt_thermal').checked) {
+      opt.thermalPad = true;
+      if ($('opt_padW').value !== '') opt.padW = $('opt_padW').value;
+      if ($('opt_padL').value !== '') opt.padL = $('opt_padL').value;
+    }
     if ($('opt_reverse') && $('opt_reverse').checked) opt.reverse = true;
     if ($('opt_pinmode') && $('opt_pinmode').value !== 'normal') { opt.pinMode = $('opt_pinmode').value; opt.packagePins = $('opt_pkg').value; }
     if ($('opt_variant') && $('opt_variant').value.trim()) opt.variant = $('opt_variant').value.trim();
@@ -242,7 +256,10 @@
     opt = opt || {};
     if ($('opt_suffix') && opt.suffix !== undefined && [...$('opt_suffix').options].some(o => o.value === opt.suffix)) $('opt_suffix').value = opt.suffix;
     if ($('opt_general') && opt.general) $('opt_general').value = opt.general;
-    if ($('opt_thermal')) $('opt_thermal').checked = !!opt.thermalPad;
+    if ($('opt_thermal')) {
+      $('opt_thermal').checked = !!opt.thermalPad; $('padBox').hidden = !opt.thermalPad;
+      $('opt_padW').value = opt.padW !== undefined ? opt.padW : ''; $('opt_padL').value = opt.padL !== undefined ? opt.padL : '';
+    }
     if ($('opt_reverse')) $('opt_reverse').checked = !!opt.reverse;
     if ($('opt_pinmode') && opt.pinMode) { $('opt_pinmode').value = opt.pinMode; $('opt_pkg').value = opt.packagePins || ''; }
     if ($('opt_variant') && opt.variant) $('opt_variant').value = opt.variant;
@@ -368,6 +385,7 @@
     if (current.qty) { box.appendChild(el('span', { class: 't' }, '-')); box.appendChild(el('span', { class: 'v' }, 'pins')); }
     if (current.suffixMode === 'density') box.appendChild(el('span', { class: 'v' }, 'M/N/L'));
     if (current.suffixMode === 'level') box.appendChild(el('span', { class: 'v' }, 'A/B/C'));
+    if (current.thermal) box.appendChild(el('span', { class: 'v', title: 'Optional thermal pad size' }, '[T pad]'));
   }
 
   // quick start chips in the hero
