@@ -119,6 +119,18 @@
     $('family').value = id;
   }
   $('group').addEventListener('change', () => { fillFamilies(''); renderFields(); });
+  // Browsers open a dropdown list upwards when there is not enough room below it. On a mouse click,
+  // scroll the page just enough first so the list opens downwards (phones show their own picker).
+  ['group', 'family'].forEach(id => $(id).addEventListener('mousedown', () => {
+    const sel = $(id);
+    const need = Math.min(sel.options.length * 24 + 24, 420);
+    const box = sel.getBoundingClientRect();
+    const below = innerHeight - box.bottom;
+    if (below >= need) return;
+    const head = ($('siteHead') ? $('siteHead').offsetHeight : 64) + 16;
+    const shift = Math.min(need - below, box.top - head);
+    if (shift > 0) window.scrollTo({ top: scrollY + shift, behavior: 'instant' });
+  }));
   $('search').addEventListener('input', () => {
     const before = $('family').value;
     const q = $('search').value.trim();
